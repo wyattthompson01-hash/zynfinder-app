@@ -2434,3 +2434,225 @@ input[type="checkbox"]:checked::after {
   .store-item { padding: 16px 32px; }
   .store-name { font-size: 15px; }
 }
+/* ── v5 logo + brand tweaks ──────────────────────────────────────── */
+
+/* Bigger logo container to show the globe properly */
+.brand-logo {
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.brand-logo svg {
+  width: 44px;
+  height: 44px;
+  fill: none; /* SVG uses strokes/fills internally */
+}
+
+.brand-name {
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: #fff;
+}
+.brand-sub {
+  font-size: 11px;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 0.1px;
+}
+
+/* Header slight tweak — a bit taller to breathe */
+.header-top {
+  padding: 12px 24px;
+}
+/* ════════════════════════════════════════════════════════════════════
+   SnusWorld v5 — Desktop layout fix (append after v4 additions)
+   Goal: every non-map tab fills the full screen width on desktop
+   ════════════════════════════════════════════════════════════════════ */
+
+/* ── Base: every page fills available space ────────────────────── */
+.form-page,
+.verify-page,
+.detail-page,
+.prices-page,
+.mkt-page {
+  width: 100%;
+}
+
+/* ── Tablet (768px) ─────────────────────────────────────────────── */
+@media (min-width: 768px) {
+  .form-container,
+  .verify-container {
+    max-width: 900px;
+    padding: 32px 48px 80px;
+  }
+  .detail-container {
+    max-width: 900px;
+    padding: 32px 48px 80px;
+  }
+  .leaderboard-page { max-width: 860px; }
+}
+
+/* ── Desktop (1100px) — full-screen treatment ───────────────────── */
+@media (min-width: 1100px) {
+
+  /* Remove the narrow column — fill the screen */
+  .form-container,
+  .verify-container {
+    max-width: 100%;
+    width: 100%;
+    padding: 36px 80px 80px;
+    box-sizing: border-box;
+  }
+
+  /* Form cards: 2-column grid */
+  .form-container .form-card ~ .form-card {
+    /* allow cards to flow 2-up */
+  }
+  /* Wrap form cards in a 2-col grid automatically */
+  .form-container > .form-card:not(:first-child),
+  .form-container > .form-header ~ .form-card {
+    /* handled by form-cards-grid below */
+  }
+
+  /* The section between header and submit btn: 2 columns */
+  .form-page .form-container {
+    display: flex;
+    flex-direction: column;
+  }
+  /* Form inner cards: grid 2-col */
+  .form-cards-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  /* Detail page */
+  .detail-container {
+    max-width: 100%;
+    padding: 36px 80px 80px;
+  }
+  .detail-stats { grid-template-columns: repeat(4, 1fr); }
+
+  /* Leaderboard full width */
+  .leaderboard-page {
+    max-width: 100%;
+    padding: 0 80px;
+  }
+  .lb-row { padding: 16px 24px; }
+
+  /* Store list: 3 columns */
+  .list-panel { width: 100%; }
+  .list-toolbar { padding: 14px 32px; }
+  .filter-chips { padding: 10px 32px; }
+  .sort-row { padding: 8px 32px; }
+  .store-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: start;
+  }
+  .store-item {
+    padding: 16px 24px;
+    border-right: 1px solid var(--gray-100);
+    border-bottom: 1px solid var(--gray-100);
+  }
+  .store-item:nth-child(3n) { border-right: none; }
+
+  /* Prices market: full width */
+  .prices-header { padding: 24px 80px 20px; }
+  .market-movers { padding: 14px 80px; }
+  .movers-list { gap: 16px; max-width: 800px; }
+  .prices-toolbar { padding: 12px 80px; }
+  .prices-list {
+    padding: 16px 80px 40px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  /* Marketplace: full width */
+  .mkt-header { padding: 24px 80px 20px; }
+  .mkt-brand-bar { padding: 10px 80px; }
+  .mkt-toolbar { padding: 10px 80px; }
+  .mkt-grid-wrap { padding: 16px 80px 40px; }
+  .mkt-grid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+  .mkt-stats { max-width: 500px; }
+}
+
+/* ── Large desktop (1400px) — even wider ────────────────────────── */
+@media (min-width: 1400px) {
+  .form-container,
+  .verify-container,
+  .detail-container {
+    padding: 40px 120px 80px;
+  }
+  .leaderboard-page { padding: 0 120px; }
+  .prices-header,
+  .market-movers,
+  .prices-toolbar { padding-left: 120px; padding-right: 120px; }
+  .prices-list { padding-left: 120px; padding-right: 120px; grid-template-columns: repeat(4, 1fr); }
+  .mkt-header,
+  .mkt-brand-bar,
+  .mkt-toolbar { padding-left: 120px; padding-right: 120px; }
+  .mkt-grid-wrap { padding: 20px 120px 60px; }
+  .store-list { grid-template-columns: repeat(4, 1fr); }
+  .list-toolbar,
+  .filter-chips { padding-left: 40px; padding-right: 40px; }
+}
+
+/* ── Verify queue: wider card layout ────────────────────────────── */
+@media (min-width: 1100px) {
+  .verify-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    align-items: start;
+  }
+  .verify-card { margin: 0; }
+}
+
+/* ── Header: wider content area ─────────────────────────────────── */
+@media (min-width: 1100px) {
+  .header-top { padding: 14px 80px; max-width: 100%; }
+  .tab-bar { padding: 0 80px; max-width: 100%; }
+  .tab-btn { min-width: 88px; font-size: 13px; padding: 10px 18px; }
+}
+@media (min-width: 1400px) {
+  .header-top { padding: 14px 120px; }
+  .tab-bar { padding: 0 120px; }
+}
+
+/* ── Leaderboard table look on desktop ──────────────────────────── */
+@media (min-width: 1100px) {
+  .lb-list { width: 100%; }
+  .lb-row {
+    display: grid;
+    grid-template-columns: 48px 1fr auto auto;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 24px;
+  }
+}
+
+/* ── Profile page ────────────────────────────────────────────────── */
+@media (min-width: 1100px) {
+  .profile-page .form-container,
+  .profile-page .verify-container {
+    max-width: 800px;
+    padding: 40px 60px;
+  }
+}
+
+/* ── Fix detail page 2-panel on large desktop ───────────────────── */
+@media (min-width: 1400px) {
+  .detail-hero {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: start;
+  }
+}

@@ -13,15 +13,15 @@ const headers = {
 const SEED_STORES = [
   { id: "1", name: "Petro-Canada", address: "320 Bloor St W, Toronto, ON", lat: 43.6649, lng: -79.4102, type: "gas", status: "verified", confirmations: 12, reports: 14, flavors: ["Cool Mint", "Citrus"], strength: "Both", last_seen: "2024-11-20T10:00:00Z", reported_at: "2024-10-01T10:00:00Z", latest_price: null },
   { id: "2", name: "Mac's Convenience", address: "88 College St, Toronto, ON", lat: 43.6588, lng: -79.4008, type: "convenience", status: "verified", confirmations: 8, reports: 9, flavors: ["Cool Mint", "Spearmint"], strength: "3mg", last_seen: "2024-11-18T14:00:00Z", reported_at: "2024-10-05T10:00:00Z", latest_price: null },
-  { id: "3", name: "Shell", address: "1120 Yonge St, Toronto, ON", lat: 43.6779, lng: -79.3866, type: "gas", status: "pending", confirmations: 0, reports: 2, flavors: ["Unknown"], strength: "Unsure", last_seen: null, reported_at: "2024-11-15T10:00:00Z", latest_price: null },
 ];
 
+// Worldwide geocoding — no country restriction
 async function geocodeAddress(address) {
   try {
-    const query = encodeURIComponent(address + ", Canada");
+    const query = encodeURIComponent(address);
     const res = await fetch(
-      `https://nominatim.openstreetmap.org/search?q=${query}&format=json&limit=1&countrycodes=ca`,
-      { headers: { "Accept-Language": "en", "User-Agent": "ZynFinder/1.0" } }
+      `https://nominatim.openstreetmap.org/search?q=${query}&format=json&limit=1`,
+      { headers: { "Accept-Language": "en", "User-Agent": "SnusWorld/1.0" } }
     );
     const data = await res.json();
     if (!data.length) return null;
@@ -64,7 +64,7 @@ export function useStores(coords) {
       id: `temp-${Date.now()}`,
       ...storeData, lat, lng,
       status: "unverified", confirmations: 0, reports: 1,
-      latest_price: storeData.price || null,
+      latest_price: storeData.price ? parseFloat(storeData.price) : null,
       latest_can_size: storeData.canSize || 15,
     };
     setStores((prev) => [optimistic, ...prev]);
@@ -85,7 +85,7 @@ export function useStores(coords) {
           status: "unverified",
           confirmations: 0,
           reports: 1,
-          latest_price: storeData.price || null,
+          latest_price: storeData.price ? parseFloat(storeData.price) : null,
           latest_can_size: storeData.canSize || 15,
         }),
       });
@@ -93,7 +93,7 @@ export function useStores(coords) {
         const [created] = await res.json();
         setStores((prev) => prev.map((s) => s.id === optimistic.id ? created : s));
 
-        // If a price was included, also insert into prices table
+        // Also insert into prices table if a price was provided
         if (storeData.price && created?.id) {
           await fetch(`${SUPABASE_URL}/rest/v1/prices`, {
             method: "POST",
@@ -128,7 +128,7 @@ export function useStores(coords) {
       const res = await fetch(`${SUPABASE_URL}/rest/v1/verifications?store_id=eq.${storeId}&select=confirmed`, { headers });
       const verifs = await res.json();
       const yesCount = verifs.filter((v) => v.confirmed).length;
-      const noCount = verifs.filter((v) => !v.confirmed).length;
+      const noCount  = verifs.filter((v) => !v.confirmed).length;
       const newStatus = yesCount >= 3 ? "verified" : noCount >= 3 && noCount > yesCount ? "gone" : "pending";
       await fetch(`${SUPABASE_URL}/rest/v1/stores?id=eq.${storeId}`, {
         method: "PATCH", headers,
@@ -142,5 +142,15 @@ export function useStores(coords) {
     } catch (err) { console.warn("Verify saved locally:", err.message); }
   }, []);
 
-  return { stores, loading, addStore, verifyStore, fetchStores };
+  // Call this after submitting a price so the store list reflects the new price immediately
+  const updateStorePrice = useCallback((storeId, price, canSize) => {
+    setStores((prev) =>
+      prev.map((s) => s.id === storeId || String(s.id) === String(storeId)
+        ? { ...s, latest_price: price, latest_can_size: canSize }
+        : s
+      )
+    );
+  }, []);
+
+  return { stores, loading, addStore, verifyStore, fetchStores, updateStorePrice };
 }
