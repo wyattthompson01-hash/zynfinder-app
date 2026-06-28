@@ -1,9 +1,10 @@
-export default function Header({ tab, setTab, userPoints }) {
+export default function Header({ tab, setTab, userPoints, user, onProfileClick }) {
   const tabs = [
     { id: "map", label: "Map", icon: "map-2" },
     { id: "list", label: "Nearby", icon: "list" },
     { id: "report", label: "Report", icon: "plus" },
     { id: "verify", label: "Verify", icon: "shield-check" },
+    { id: "leaderboard", label: "Ranks", icon: "trophy" },
   ];
 
   return (
@@ -26,6 +27,18 @@ export default function Header({ tab, setTab, userPoints }) {
             <span className="points-num">{userPoints}</span>
             <span className="points-label">pts</span>
           </div>
+          <button
+            className={`profile-btn ${user ? "logged-in" : ""}`}
+            onClick={onProfileClick}
+            aria-label={user ? "View profile" : "Sign in"}
+            title={user ? "Profile" : "Sign in"}
+          >
+            {user ? (
+              <i className="ti ti-user-circle" style={{ fontSize: 22 }} />
+            ) : (
+              <i className="ti ti-user" style={{ fontSize: 20 }} />
+            )}
+          </button>
         </div>
       </div>
       <nav className="tab-bar" role="tablist">
