@@ -18,9 +18,7 @@ export default function LocationDetail({ store, onBack, onVerify, userCoords, us
 
   const { prices, loading: pricesLoading, fetchPrices, submitPrice } = usePrices(store.id);
 
-  useEffect(() => {
-    fetchPrices();
-  }, [fetchPrices]);
+  useEffect(() => { fetchPrices(); }, [fetchPrices]);
 
   const handleVerify = async (confirmed) => {
     setVerifying(true);
@@ -31,17 +29,17 @@ export default function LocationDetail({ store, onBack, onVerify, userCoords, us
 
   const handlePriceSubmit = async () => {
     const val = parseFloat(priceInput);
-    if (isNaN(val) || val <= 0) { setPriceError("Enter a valid price"); return; }
-    setPriceSubmitting(true);
-    setPriceError(null);
+    if (isNaN(val) || val <= 0 || val > 500) { setPriceError("Enter a valid price"); return; }
+    setPriceSubmitting(true); setPriceError(null);
     const result = await submitPrice({ storeId: store.id, price: val, canSize, userId: user?.id });
     setPriceSubmitting(false);
     if (result?.success === false) {
-      setPriceError("Failed to save price. Try again.");
+      setPriceError("Failed to save. Please try again.");
     } else {
       setPriceDone(true);
       setShowPriceForm(false);
       setPriceInput("");
+      fetchPrices(); // refresh chart
     }
   };
 
@@ -65,12 +63,16 @@ export default function LocationDetail({ store, onBack, onVerify, userCoords, us
 
   const lastSeen = store.last_seen || store.lastSeen;
   const reportedAt = store.reported_at || store.reportedAt;
-  const latestPrice = prices.length > 0 ? prices[prices.length - 1] : null;
-  const displayPrice = latestPrice
-    ? `$${parseFloat(latestPrice.price).toFixed(2)} / ${latestPrice.can_size || 15} pouches`
+
+  // Compute per-unit price from history
+  const latestPriceEntry = prices.length > 0 ? prices[prices.length - 1] : null;
+  const latestPrice = latestPriceEntry
+    ? parseFloat(latestPriceEntry.price)
     : store.latest_price
-    ? `$${parseFloat(store.latest_price).toFixed(2)} / ${store.latest_can_size || 15} pouches`
+    ? parseFloat(store.latest_price)
     : null;
+  const latestCanSize = latestPriceEntry?.can_size || store.latest_can_size || 15;
+  const perUnit = latestPrice ? (latestPrice / latestCanSize).toFixed(2) : null;
 
   return (
     <div className="detail-page">
@@ -79,6 +81,7 @@ export default function LocationDetail({ store, onBack, onVerify, userCoords, us
           <i className="ti ti-arrow-left" /> Back
         </button>
 
+        {/* Hero */}
         <div className="detail-hero">
           <div className="detail-type-icon" style={{ background: typeColor.bg }}>
             <i className={`ti ${typeIcon}`} style={{ fontSize: 26, color: typeColor.color }} />
@@ -115,10 +118,13 @@ export default function LocationDetail({ store, onBack, onVerify, userCoords, us
           </div>
         </div>
 
-        {/* Price section */}
+        {/* ── Price tracker (stock-market style) ─────────────────────────────── */}
         <div className="detail-section">
-          <div className="detail-section-title" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-            <span>Price</span>
+          <div className="detail-section-title" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 0 }}>
+            <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
+              <i className="ti ti-chart-line" style={{ color: "#6b7280" }} />
+              Price tracker
+            </span>
             {!priceDone && !showPriceForm && (
               <button className="report-price-btn" onClick={() => setShowPriceForm(true)}>
                 <i className="ti ti-plus" /> Report price
@@ -126,27 +132,58 @@ export default function LocationDetail({ store, onBack, onVerify, userCoords, us
             )}
           </div>
 
-          {displayPrice ? (
-            <div className="price-current">
-              <i className="ti ti-tag" style={{ color: "#059669" }} />
-              <span className="price-current-val">{displayPrice}</span>
-              <span className="price-current-note">community reported</span>
+          {/* No price yet */}
+          {!pricesLoading && prices.length === 0 && !latestPrice && (
+            <div className="price-empty">
+              <i className="ti ti-chart-line" />
+              <p>No price reported yet.</p>
+              <p style={{ fontSize: 12 }}>Be the first to add one!</p>
             </div>
-          ) : (
-            <div style={{ fontSize: 13, color: "#9ca3af" }}>No price reported yet</div>
           )}
 
+          {/* Single fallback from store row */}
+          {!pricesLoading && prices.length === 0 && latestPrice && (
+            <div className="price-ticker" style={{ marginTop: 12 }}>
+              <div className="price-ticker-current">${latestPrice.toFixed(2)}</div>
+              <div className="price-ticker-right">
+                <div className="price-ticker-meta">per {latestCanSize} pouches</div>
+                {perUnit && <div className="price-ticker-meta">${perUnit}/pouch</div>}
+              </div>
+            </div>
+          )}
+
+          {/* Full chart (2+ data points) */}
+          {!pricesLoading && prices.length > 0 && (
+            <>
+              <PriceChart prices={prices} />
+              {perUnit && (
+                <div style={{ marginTop: 6, fontSize: 12, color: "#9ca3af" }}>
+                  ≈ ${perUnit} per pouch
+                </div>
+              )}
+            </>
+          )}
+
+          {/* Loading */}
+          {pricesLoading && (
+            <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "16px 0", color: "#9ca3af", fontSize: 13 }}>
+              <div className="spinner" style={{ width: 16, height: 16, borderWidth: 2 }} />
+              Loading prices…
+            </div>
+          )}
+
+          {/* Report price form */}
           {showPriceForm && (
-            <div className="price-report-form">
+            <div className="price-report-form" style={{ marginTop: 12 }}>
+              <div style={{ fontSize: 12, fontWeight: 600, color: "#6b7280", marginBottom: 8 }}>
+                What did you pay?
+              </div>
               <div className="price-input-row">
                 <div className="price-input-wrap" style={{ flex: 1 }}>
                   <span className="price-input-prefix">$</span>
                   <input
                     className={`field-input price-input ${priceError ? "error" : ""}`}
-                    type="number"
-                    min="0"
-                    max="200"
-                    step="0.01"
+                    type="number" min="0" max="500" step="0.01"
                     placeholder="22.99"
                     value={priceInput}
                     onChange={(e) => { setPriceInput(e.target.value); setPriceError(null); }}
@@ -154,8 +191,7 @@ export default function LocationDetail({ store, onBack, onVerify, userCoords, us
                 </div>
                 <div className="radio-group" style={{ flexShrink: 0 }}>
                   {CAN_SIZES.map((s) => (
-                    <button
-                      key={s}
+                    <button key={s}
                       className={`radio-btn ${canSize === s ? "selected" : ""}`}
                       onClick={() => setCanSize(s)}
                       style={{ padding: "6px 10px", fontSize: 12 }}
@@ -170,10 +206,8 @@ export default function LocationDetail({ store, onBack, onVerify, userCoords, us
                 <button className="submit-btn" style={{ flex: 1, padding: "9px" }} onClick={handlePriceSubmit} disabled={priceSubmitting}>
                   {priceSubmitting ? "Saving…" : "Save price"}
                 </button>
-                <button
-                  onClick={() => { setShowPriceForm(false); setPriceError(null); }}
-                  style={{ padding: "9px 14px", border: "1.5px solid #e5e7eb", borderRadius: 10, background: "transparent", cursor: "pointer", fontSize: 13, color: "#6b7280" }}
-                >
+                <button onClick={() => { setShowPriceForm(false); setPriceError(null); }}
+                  style={{ padding: "9px 14px", border: "1.5px solid #e5e7eb", borderRadius: 10, background: "transparent", cursor: "pointer", fontSize: 13, color: "#6b7280", fontFamily: "inherit" }}>
                   Cancel
                 </button>
               </div>
@@ -182,21 +216,12 @@ export default function LocationDetail({ store, onBack, onVerify, userCoords, us
 
           {priceDone && (
             <div style={{ fontSize: 13, color: "#059669", marginTop: 8, display: "flex", alignItems: "center", gap: 6 }}>
-              <i className="ti ti-circle-check" /> Price saved — thank you!
-            </div>
-          )}
-
-          {/* Price history chart */}
-          {!pricesLoading && prices.length > 0 && (
-            <div style={{ marginTop: 16 }}>
-              <div style={{ fontSize: 12, fontWeight: 600, color: "#6b7280", marginBottom: 8, textTransform: "uppercase", letterSpacing: "0.5px" }}>
-                Price history ({prices.length} reports)
-              </div>
-              <PriceChart prices={prices} />
+              <i className="ti ti-circle-check" /> Price saved — thanks for contributing!
             </div>
           )}
         </div>
 
+        {/* Product details */}
         {(store.flavors?.length > 0 || store.strength) && (
           <div className="detail-section">
             <div className="detail-section-title">Product details</div>
@@ -224,6 +249,7 @@ export default function LocationDetail({ store, onBack, onVerify, userCoords, us
           </div>
         )}
 
+        {/* Verify */}
         <div className="detail-section">
           <div className="detail-section-title">Have you been here recently?</div>
           {done ? (
