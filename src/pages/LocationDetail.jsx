@@ -1,8 +1,10 @@
 import { useState } from "react";
+import DirectionsPage from "./DirectionsPage";
 
-export default function LocationDetail({ store, onBack, onVerify }) {
+export default function LocationDetail({ store, onBack, onVerify, userCoords }) {
   const [verifying, setVerifying] = useState(false);
   const [done, setDone] = useState(false);
+  const [showDirections, setShowDirections] = useState(false);
 
   const handle = async (confirmed) => {
     setVerifying(true);
@@ -11,8 +13,22 @@ export default function LocationDetail({ store, onBack, onVerify }) {
     setDone(true);
   };
 
+  if (showDirections) {
+    return (
+      <DirectionsPage
+        store={store}
+        userCoords={userCoords}
+        onBack={() => setShowDirections(false)}
+      />
+    );
+  }
+
   const typeIcon = store.type === "gas" ? "ti-gas-station" : store.type === "pharmacy" ? "ti-pill" : "ti-building-store";
-  const typeColor = store.type === "gas" ? { bg: "#dbeafe", color: "#1d4ed8" } : store.type === "pharmacy" ? { bg: "#fce7f3", color: "#be185d" } : { bg: "#d1fae5", color: "#065f46" };
+  const typeColor = store.type === "gas"
+    ? { bg: "#dbeafe", color: "#1d4ed8" }
+    : store.type === "pharmacy"
+    ? { bg: "#fce7f3", color: "#be185d" }
+    : { bg: "#d1fae5", color: "#065f46" };
 
   const statusLabel = (s) => {
     if (s === "verified") return "✓ Verified";
@@ -40,9 +56,14 @@ export default function LocationDetail({ store, onBack, onVerify }) {
             <i className="ti ti-map-pin" style={{ color: "#9ca3af" }} />
             {store.address}
           </div>
-          <span className={`status-badge ${store.status}`} style={{ fontSize: 13, padding: "4px 12px" }}>
-            {statusLabel(store.status)}
-          </span>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+            <span className={`status-badge ${store.status}`} style={{ fontSize: 13, padding: "4px 12px" }}>
+              {statusLabel(store.status)}
+            </span>
+            <button className="directions-btn" onClick={() => setShowDirections(true)}>
+              <i className="ti ti-navigation" /> Get Directions
+            </button>
+          </div>
 
           <div className="detail-stats">
             <div className="stat-box">
