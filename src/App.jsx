@@ -7,6 +7,7 @@ import LocationDetail from "./pages/LocationDetail";
 import ProfilePage from "./pages/ProfilePage";
 import Leaderboard from "./pages/Leaderboard";
 import PricesPage from "./pages/PricesPage";
+import MarketplacePage from "./pages/MarketplacePage";
 import Header from "./components/Header";
 import Toast from "./components/Toast";
 import AuthModal from "./components/AuthModal";
@@ -14,7 +15,7 @@ import { useStores } from "./hooks/useStores";
 import { useLocation } from "./hooks/useLocation";
 import { useAuth } from "./hooks/useAuth";
 
-const AUTH_SHOWN_KEY = "zynfinder_auth_shown";
+const AUTH_SHOWN_KEY = "snusworld_auth_shown";
 
 export default function App() {
   const [tab, setTab] = useState("map");
@@ -63,7 +64,7 @@ export default function App() {
       : await signUp(email, password, username);
     if (result.success) {
       setShowAuth(false);
-      showToast(mode === "login" ? "Welcome back!" : "Account created! Welcome to ZynFinder.");
+      showToast(mode === "login" ? "Welcome back!" : "Welcome to SnusWorld!");
     }
     return result;
   }, [signIn, signUp, showToast]);
@@ -158,7 +159,13 @@ export default function App() {
             onStoreClick={handleStoreClick} />
         )}
         {tab === "leaderboard" && <Leaderboard currentUserId={user?.id} />}
-        {tab === "prices" && <PricesPage stores={stores} userCoords={coords} user={user} onStoreClick={handleStoreClick} />}
+        {tab === "prices" && (
+          <PricesPage stores={stores} userCoords={coords} user={user} onStoreClick={handleStoreClick} />
+        )}
+        {tab === "marketplace" && (
+          <MarketplacePage userCoords={coords} user={user} isLoggedIn={isLoggedIn}
+            onAuthRequired={() => { setAuthMode("signup"); setShowAuth(true); }} />
+        )}
       </div>
       {toast && <Toast message={toast} />}
       {authModal}

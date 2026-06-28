@@ -1,27 +1,16 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 
+// Each mode uses a separate OSRM backend so walk/cycle actually differ from drive
 const MODES = [
-  { id: "driving", label: "Drive", icon: "car",  osrm: "driving" },
-  { id: "walking", label: "Walk",  icon: "walk", osrm: "foot" },
-  { id: "cycling", label: "Cycle", icon: "bike", osrm: "bike" },
+  { id: "driving", label: "Drive",  icon: "car",  base: "https://router.project-osrm.org/route/v1/driving/" },
+  { id: "walking", label: "Walk",   icon: "walk", base: "https://routing.openstreetmap.de/routed-foot/route/v1/walking/" },
+  { id: "cycling", label: "Cycle",  icon: "bike", base: "https://routing.openstreetmap.de/routed-bike/route/v1/cycling/" },
 ];
 
 const TILE_LAYERS = {
-  standard: {
-    label: "Map",
-    url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-    attr: "© OpenStreetMap",
-  },
-  satellite: {
-    label: "Satellite",
-    url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-    attr: "© Esri",
-  },
-  terrain: {
-    label: "Terrain",
-    url: "https://tile.opentopomap.org/{z}/{x}/{y}.png",
-    attr: "© OpenTopoMap",
-  },
+  standard:  { label: "Map",       url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", attr: "© OpenStreetMap" },
+  satellite: { label: "Satellite", url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", attr: "© Esri" },
+  terrain:   { label: "Terrain",   url: "https://tile.opentopomap.org/{z}/{x}/{y}.png", attr: "© OpenTopoMap" },
 };
 
 function fmtDist(m) { return m < 1000 ? `${Math.round(m)} m` : `${(m / 1000).toFixed(1)} km`; }
@@ -67,6 +56,27 @@ function haversine(lat1, lng1, lat2, lng2) {
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 }
 
+// Calculate bearing between two GPS points (degrees 0–360)
+function calcBearing(lat1, lon1, lat2, lon2) {
+  const dLon = (lon2 - lon1) * Math.PI / 180;
+  const y = Math.sin(dLon) * Math.cos(lat2 * Math.PI / 180);
+  const x = Math.cos(lat1 * Math.PI / 180) * Math.sin(lat2 * Math.PI / 180) -
+    Math.sin(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.cos(dLon);
+  return (Math.atan2(y, x) * 180 / Math.PI + 360) % 360;
+}
+
+// Offset a lat/lng point N meters in a given bearing direction
+function offsetPoint(lat, lng, bearingDeg, distMeters) {
+  const R = 6371000;
+  const δ = distMeters / R;
+  const θ = bearingDeg * Math.PI / 180;
+  const φ1 = lat * Math.PI / 180;
+  const λ1 = lng * Math.PI / 180;
+  const φ2 = Math.asin(Math.sin(φ1) * Math.cos(δ) + Math.cos(φ1) * Math.sin(δ) * Math.cos(θ));
+  const λ2 = λ1 + Math.atan2(Math.sin(θ) * Math.sin(δ) * Math.cos(φ1), Math.cos(δ) - Math.sin(φ1) * Math.sin(φ2));
+  return { lat: φ2 * 180 / Math.PI, lng: λ2 * 180 / Math.PI };
+}
+
 export default function DirectionsPage({ store, userCoords, onBack }) {
   const mapContainer = useRef(null);
   const mapRef = useRef(null);
@@ -75,6 +85,8 @@ export default function DirectionsPage({ store, userCoords, onBack }) {
   const tileLayerRef = useRef(null);
   const watchIdRef = useRef(null);
   const stepListRef = useRef(null);
+  const prevCoordsRef = useRef(null);
+  const bearingRef = useRef(0);
 
   const [mode, setMode] = useState("driving");
   const [tileKey, setTileKey] = useState("standard");
@@ -82,12 +94,13 @@ export default function DirectionsPage({ store, userCoords, onBack }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [liveCoords, setLiveCoords] = useState(userCoords);
+  const [bearing, setBearing] = useState(0);
   const [isFollowing, setIsFollowing] = useState(true);
   const [stepIdx, setStepIdx] = useState(0);
   const [arrived, setArrived] = useState(false);
   const [showStepList, setShowStepList] = useState(false);
 
-  // ── Init map (fullscreen) ────────────────────────────────────────────────
+  // ── Init map ────────────────────────────────────────────────────────────────
   useEffect(() => {
     if (mapRef.current) return;
     const L = window.L;
@@ -102,22 +115,24 @@ export default function DirectionsPage({ store, userCoords, onBack }) {
     L.marker([store.lat, store.lng], {
       icon: L.divIcon({
         className: "",
-        html: `<div style="width:36px;height:36px;background:#059669;border:3px solid #fff;border-radius:50% 50% 50% 0;transform:rotate(-45deg);display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(0,0,0,0.3);">
+        html: `<div style="width:36px;height:36px;background:#10b981;border:3px solid #fff;border-radius:50% 50% 50% 0;transform:rotate(-45deg);display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(0,0,0,0.3);">
           <i class="ti ti-map-pin" style="transform:rotate(45deg);font-size:15px;color:#fff;"></i></div>`,
         iconSize: [36,36], iconAnchor: [18,36],
       }),
     }).addTo(map).bindTooltip(store.name, { permanent: false });
 
-    // User marker
+    // User marker (direction arrow + pulse)
     if (userCoords) {
       userMarkerRef.current = L.marker([userCoords.lat, userCoords.lng], {
         icon: L.divIcon({
           className: "",
-          html: `<div style="position:relative;width:44px;height:44px;display:flex;align-items:center;justify-content:center;">
-            <div style="position:absolute;width:44px;height:44px;background:rgba(59,130,246,0.2);border-radius:50%;animation:pulse-ring 1.5s ease infinite;"></div>
-            <div style="width:20px;height:20px;background:#3b82f6;border:3px solid #fff;border-radius:50%;box-shadow:0 2px 8px rgba(59,130,246,0.7);position:relative;z-index:1;"></div>
+          html: `<div id="user-nav-dot" style="position:relative;width:48px;height:48px;display:flex;align-items:center;justify-content:center;">
+            <div style="position:absolute;width:48px;height:48px;background:rgba(59,130,246,0.2);border-radius:50%;animation:pulse-ring 1.5s ease infinite;"></div>
+            <div style="width:22px;height:22px;background:#3b82f6;border:3px solid #fff;border-radius:50%;box-shadow:0 2px 8px rgba(59,130,246,0.7);position:relative;z-index:1;display:flex;align-items:center;justify-content:center;">
+              <div style="width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;border-bottom:7px solid #fff;position:absolute;top:2px;"></div>
+            </div>
           </div>`,
-          iconSize: [44,44], iconAnchor: [22,22],
+          iconSize: [48,48], iconAnchor: [24,24],
         }),
         zIndexOffset: 1000,
       }).addTo(map);
@@ -127,7 +142,7 @@ export default function DirectionsPage({ store, userCoords, onBack }) {
     mapRef.current = map;
   }, [store, userCoords]);
 
-  // ── Swap tile layer on change ─────────────────────────────────────────────
+  // ── Swap tile layer ───────────────────────────────────────────────────────
   useEffect(() => {
     if (!mapRef.current || !tileLayerRef.current) return;
     const L = window.L;
@@ -136,16 +151,39 @@ export default function DirectionsPage({ store, userCoords, onBack }) {
     tileLayerRef.current = L.tileLayer(t.url, { attribution: t.attr, maxZoom: 19 }).addTo(mapRef.current);
   }, [tileKey]);
 
-  // ── watchPosition ─────────────────────────────────────────────────────────
+  // ── watchPosition with bearing calculation ────────────────────────────────
   useEffect(() => {
     if (!navigator.geolocation) return;
     watchIdRef.current = navigator.geolocation.watchPosition(
       (pos) => {
         const c = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+
+        // Calculate bearing from previous point
+        if (prevCoordsRef.current) {
+          const b = calcBearing(
+            prevCoordsRef.current.lat, prevCoordsRef.current.lng,
+            c.lat, c.lng
+          );
+          bearingRef.current = b;
+          setBearing(b);
+
+          // Update user marker arrow rotation
+          const dot = document.getElementById("user-nav-dot");
+          if (dot) {
+            const arrow = dot.querySelector("div[style*='border-bottom']");
+            if (arrow) arrow.style.transform = `rotate(${b}deg)`;
+          }
+        }
+        prevCoordsRef.current = c;
         setLiveCoords(c);
         userMarkerRef.current?.setLatLng([c.lat, c.lng]);
-        if (isFollowing && mapRef.current)
-          mapRef.current.setView([c.lat, c.lng], mapRef.current.getZoom(), { animate: true });
+
+        // "From behind" following: center slightly behind user so road ahead is visible
+        if (isFollowing && mapRef.current) {
+          // Offset center 80m behind user (opposite of travel direction)
+          const behind = offsetPoint(c.lat, c.lng, (bearingRef.current + 180) % 360, 80);
+          mapRef.current.setView([behind.lat, behind.lng], 17, { animate: true });
+        }
       },
       () => {},
       { enableHighAccuracy: true, maximumAge: 2000, timeout: 10000 }
@@ -173,21 +211,23 @@ export default function DirectionsPage({ store, userCoords, onBack }) {
   }, [liveCoords, route, arrived]);
 
   // ── Fetch route ───────────────────────────────────────────────────────────
-  const fetchRoute = useCallback(async () => {
-    const origin = liveCoords;
+  const fetchRoute = useCallback(async (currentMode, currentCoords) => {
+    const origin = currentCoords || liveCoords;
     if (!origin) { setError("Location unavailable"); return; }
     setLoading(true); setError(null); setStepIdx(0); setArrived(false);
     try {
-      const osrm = { driving: "driving", walking: "foot", cycling: "bike" }[mode];
-      const url = `https://router.project-osrm.org/route/v1/${osrm}/${origin.lng},${origin.lat};${store.lng},${store.lat}?overview=full&geometries=geojson&steps=true`;
+      const modeObj = MODES.find(m => m.id === currentMode) || MODES[0];
+      const url = `${modeObj.base}${origin.lng},${origin.lat};${store.lng},${store.lat}?overview=full&geometries=geojson&steps=true`;
       const r = await fetch(url).then(r => r.json());
       if (r.code !== "Ok" || !r.routes.length) { setError("No route found."); return; }
       const rt = r.routes[0];
       setRoute({ distance: rt.distance, duration: rt.duration, geometry: rt.geometry, steps: rt.legs[0].steps });
       const L = window.L;
       if (routeLayerRef.current) mapRef.current.removeLayer(routeLayerRef.current);
+      // Different route colors per mode
+      const colors = { driving: "#3b82f6", walking: "#f59e0b", cycling: "#10b981" };
       const layer = L.geoJSON(rt.geometry, {
-        style: { color: "#3b82f6", weight: 7, opacity: 0.9, lineCap: "round", lineJoin: "round" },
+        style: { color: colors[currentMode] || "#3b82f6", weight: 7, opacity: 0.9, lineCap: "round", lineJoin: "round" },
       }).addTo(mapRef.current);
       routeLayerRef.current = layer;
       mapRef.current.fitBounds(
@@ -196,14 +236,24 @@ export default function DirectionsPage({ store, userCoords, onBack }) {
       );
     } catch { setError("Failed to load route."); }
     finally { setLoading(false); }
-  }, [mode, liveCoords, store]);
+  }, [liveCoords, store]);
 
-  useEffect(() => { if (liveCoords) fetchRoute(); }, [mode]);
+  // Fetch on mode change with the new mode value
+  useEffect(() => {
+    if (liveCoords) fetchRoute(mode, liveCoords);
+  }, [mode]);
+
+  // Initial fetch on mount
+  useEffect(() => {
+    if (liveCoords) fetchRoute("driving", liveCoords);
+  }, []);
 
   const recenter = () => {
     setIsFollowing(true);
-    if (liveCoords && mapRef.current)
-      mapRef.current.setView([liveCoords.lat, liveCoords.lng], 16, { animate: true });
+    if (liveCoords && mapRef.current) {
+      const behind = offsetPoint(liveCoords.lat, liveCoords.lng, (bearingRef.current + 180) % 360, 80);
+      mapRef.current.setView([behind.lat, behind.lng], 17, { animate: true });
+    }
   };
 
   const remaining = route?.steps.slice(stepIdx) ?? [];
@@ -211,6 +261,9 @@ export default function DirectionsPage({ store, userCoords, onBack }) {
   const remTime = remaining.reduce((a, s) => a + s.duration, 0);
   const curStep = route?.steps[stepIdx];
   const nxtStep = route?.steps[stepIdx + 1];
+
+  const modeColors = { driving: "#3b82f6", walking: "#f59e0b", cycling: "#10b981" };
+  const activeColor = modeColors[mode] || "#3b82f6";
 
   return (
     <div className="dir-fullscreen">
@@ -228,15 +281,26 @@ export default function DirectionsPage({ store, userCoords, onBack }) {
         </div>
       </div>
 
-      {/* Mode tabs — floating below top bar */}
+      {/* Mode tabs */}
       <div className="dir-mode-bar">
         {MODES.map((m) => (
-          <button key={m.id} className={`dir-mode-btn ${mode === m.id ? "active" : ""}`}
+          <button key={m.id}
+            className={`dir-mode-btn ${mode === m.id ? "active" : ""}`}
+            style={mode === m.id ? { background: modeColors[m.id] } : {}}
             onClick={() => setMode(m.id)}>
             <i className={`ti ti-${m.icon}`} />{m.label}
           </button>
         ))}
       </div>
+
+      {/* Compass / bearing indicator */}
+      {bearing !== 0 && (
+        <div className="dir-compass">
+          <div className="dir-compass-needle" style={{ transform: `rotate(${bearing}deg)` }}>
+            <i className="ti ti-navigation" />
+          </div>
+        </div>
+      )}
 
       {/* Tile layer switcher */}
       <div className="dir-tile-bar">
@@ -259,7 +323,7 @@ export default function DirectionsPage({ store, userCoords, onBack }) {
 
       {/* Current step banner */}
       {!arrived && curStep && !loading && (
-        <div className="dir-step-banner">
+        <div className="dir-step-banner" style={{ background: activeColor }}>
           <div className="dir-step-icon"><i className={`ti ${stepIcon(curStep)}`} /></div>
           <div className="dir-step-text">
             <div className="dir-step-main">{stepText(curStep)}</div>
@@ -269,10 +333,9 @@ export default function DirectionsPage({ store, userCoords, onBack }) {
         </div>
       )}
 
-      {/* Loading */}
       {loading && (
-        <div className="dir-step-banner" style={{ justifyContent: "center", gap: 10 }}>
-          <div className="spinner" style={{ width: 18, height: 18, borderWidth: 2 }} />
+        <div className="dir-step-banner" style={{ justifyContent: "center", gap: 10, background: activeColor }}>
+          <div className="spinner" style={{ width: 18, height: 18, borderWidth: 2, borderColor: "rgba(255,255,255,0.3)", borderTopColor: "#fff" }} />
           <span style={{ fontSize: 13 }}>Finding route…</span>
         </div>
       )}
@@ -281,18 +344,22 @@ export default function DirectionsPage({ store, userCoords, onBack }) {
       {/* Bottom ETA bar */}
       {route && !loading && !arrived && (
         <div className="dir-eta-bar">
-          <div className="dir-eta-item">
+          <div className="dir-eta-item" style={{ color: activeColor }}>
             <i className="ti ti-clock" />
             <strong>{fmtTime(remTime)}</strong>
           </div>
           <div className="dir-eta-divider" />
-          <div className="dir-eta-item">
+          <div className="dir-eta-item" style={{ color: activeColor }}>
             <i className="ti ti-ruler" />
             <strong>{fmtDist(remDist)}</strong>
           </div>
+          <div className="dir-eta-mode">
+            <i className={`ti ti-${MODES.find(m => m.id === mode)?.icon}`} style={{ color: activeColor }} />
+          </div>
           <div style={{ marginLeft: "auto", display: "flex", gap: 8, alignItems: "center" }}>
             {!isFollowing && (
-              <button className="dir-recenter-btn" onClick={recenter}>
+              <button className="dir-recenter-btn" onClick={recenter}
+                style={{ borderColor: activeColor, color: activeColor }}>
                 <i className="ti ti-crosshair" /> Recenter
               </button>
             )}
@@ -312,7 +379,8 @@ export default function DirectionsPage({ store, userCoords, onBack }) {
           <ol className="steps-list">
             {route.steps.map((step, i) => (
               <li key={i} data-step={i}
-                className={`step-item ${i === stepIdx ? "active-step" : ""} ${i < stepIdx ? "passed-step" : ""}`}>
+                className={`step-item ${i === stepIdx ? "active-step" : ""} ${i < stepIdx ? "passed-step" : ""}`}
+                style={i === stepIdx ? { borderLeftColor: activeColor } : {}}>
                 <div className="step-icon"><i className={`ti ${stepIcon(step)}`} /></div>
                 <div className="step-info">
                   <div className="step-instruction">{stepText(step)}</div>

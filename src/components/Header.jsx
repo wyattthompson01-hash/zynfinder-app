@@ -1,11 +1,12 @@
 export default function Header({ tab, setTab, userPoints, user, onProfileClick }) {
   const tabs = [
-    { id: "map",         label: "Map",     icon: "map-2" },
-    { id: "list",        label: "Nearby",  icon: "list" },
-    { id: "prices",      label: "Prices",  icon: "chart-line" },
-    { id: "report",      label: "Report",  icon: "plus" },
-    { id: "verify",      label: "Verify",  icon: "shield-check" },
-    { id: "leaderboard", label: "Ranks",   icon: "trophy" },
+    { id: "map",         label: "Map",       icon: "map-2" },
+    { id: "list",        label: "Nearby",    icon: "list" },
+    { id: "prices",      label: "Market",    icon: "chart-candle" },
+    { id: "marketplace", label: "Shop",      icon: "shopping-bag" },
+    { id: "report",      label: "Report",    icon: "plus" },
+    { id: "verify",      label: "Verify",    icon: "shield-check" },
+    { id: "leaderboard", label: "Ranks",     icon: "trophy" },
   ];
 
   return (
@@ -18,8 +19,8 @@ export default function Header({ tab, setTab, userPoints, user, onProfileClick }
             </svg>
           </div>
           <div>
-            <div className="brand-name">ZynFinder</div>
-            <div className="brand-sub">Canada's Zyn map</div>
+            <div className="brand-name">SnusWorld</div>
+            <div className="brand-sub">Find nicotine pouches worldwide</div>
           </div>
         </div>
         <div className="header-right">
