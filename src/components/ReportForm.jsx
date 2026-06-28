@@ -2,6 +2,7 @@ import { useState } from "react";
 
 const FLAVORS = ["Cool Mint", "Spearmint", "Citrus", "Wintergreen", "Coffee", "Smooth", "Cinnamon", "Unknown"];
 const STRENGTHS = ["3mg", "6mg", "Both", "Unsure"];
+const CAN_SIZES = [15, 20];
 const TYPES = [
   { id: "gas", label: "Gas station", icon: "gas-station" },
   { id: "convenience", label: "Convenience store", icon: "building-store" },
@@ -10,7 +11,11 @@ const TYPES = [
 ];
 
 export default function ReportForm({ userCoords, onSubmit }) {
-  const [form, setForm] = useState({ name: "", address: "", type: "gas", flavors: [], strength: "Unsure", notes: "" });
+  const [form, setForm] = useState({
+    name: "", address: "", type: "gas",
+    flavors: [], strength: "Unsure", notes: "",
+    price: "", canSize: 15,
+  });
   const [submitting, setSubmitting] = useState(false);
   const [ageConfirmed, setAgeConfirmed] = useState(false);
   const [errors, setErrors] = useState({});
@@ -26,6 +31,10 @@ export default function ReportForm({ userCoords, onSubmit }) {
     if (!form.name.trim()) e.name = "Store name is required";
     if (!form.address.trim()) e.address = "Address is required";
     if (!ageConfirmed) e.age = "You must confirm your age";
+    if (form.price) {
+      const p = parseFloat(form.price);
+      if (isNaN(p) || p <= 0 || p > 200) e.price = "Enter a valid price (e.g. 22.99)";
+    }
     return e;
   };
 
@@ -34,7 +43,13 @@ export default function ReportForm({ userCoords, onSubmit }) {
     if (Object.keys(e).length) { setErrors(e); return; }
     setSubmitting(true);
     try {
-      await onSubmit({ ...form, lat: userCoords?.lat ?? null, lng: userCoords?.lng ?? null, reportedAt: new Date().toISOString() });
+      await onSubmit({
+        ...form,
+        price: form.price ? parseFloat(form.price) : null,
+        lat: userCoords?.lat ?? null,
+        lng: userCoords?.lng ?? null,
+        reportedAt: new Date().toISOString(),
+      });
     } finally {
       setSubmitting(false);
     }
@@ -52,20 +67,36 @@ export default function ReportForm({ userCoords, onSubmit }) {
           <div className="form-card-title">Store information</div>
           <div className="field">
             <label className="field-label">Store name *</label>
-            <input className={`field-input ${errors.name ? "error" : ""}`} placeholder="e.g. Petro-Canada, Mac's, Circle K…" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
+            <input
+              className={`field-input ${errors.name ? "error" : ""}`}
+              placeholder="e.g. Petro-Canada, Mac's, Circle K…"
+              value={form.name}
+              onChange={(e) => setForm({ ...form, name: e.target.value })}
+            />
             {errors.name && <span className="field-error">{errors.name}</span>}
           </div>
           <div className="field">
             <label className="field-label">Full address *</label>
-            <input className={`field-input ${errors.address ? "error" : ""}`} placeholder="e.g. 123 Yonge St, Toronto, ON" value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} />
+            <input
+              className={`field-input ${errors.address ? "error" : ""}`}
+              placeholder="e.g. 123 Yonge St, Toronto, ON"
+              value={form.address}
+              onChange={(e) => setForm({ ...form, address: e.target.value })}
+            />
             {errors.address && <span className="field-error">{errors.address}</span>}
-            <span style={{ fontSize: 12, color: "#9ca3af", marginTop: 4, display: "block" }}>Include street, city, and province for best results</span>
+            <span style={{ fontSize: 12, color: "#9ca3af", marginTop: 4, display: "block" }}>
+              Include street, city, and province for best results
+            </span>
           </div>
           <div className="field">
             <label className="field-label">Store type</label>
             <div className="radio-group">
               {TYPES.map((t) => (
-                <button key={t.id} className={`radio-btn ${form.type === t.id ? "selected" : ""}`} onClick={() => setForm({ ...form, type: t.id })}>
+                <button
+                  key={t.id}
+                  className={`radio-btn ${form.type === t.id ? "selected" : ""}`}
+                  onClick={() => setForm({ ...form, type: t.id })}
+                >
                   <i className={`ti ti-${t.icon}`} /> {t.label}
                 </button>
               ))}
@@ -79,7 +110,13 @@ export default function ReportForm({ userCoords, onSubmit }) {
             <label className="field-label">Flavors you saw available</label>
             <div className="flavor-grid">
               {FLAVORS.map((f) => (
-                <button key={f} className={`flavor-chip ${form.flavors.includes(f) ? "selected" : ""}`} onClick={() => toggleFlavor(f)}>{f}</button>
+                <button
+                  key={f}
+                  className={`flavor-chip ${form.flavors.includes(f) ? "selected" : ""}`}
+                  onClick={() => toggleFlavor(f)}
+                >
+                  {f}
+                </button>
               ))}
             </div>
           </div>
@@ -87,18 +124,73 @@ export default function ReportForm({ userCoords, onSubmit }) {
             <label className="field-label">Strength available</label>
             <div className="radio-group">
               {STRENGTHS.map((s) => (
-                <button key={s} className={`radio-btn ${form.strength === s ? "selected" : ""}`} onClick={() => setForm({ ...form, strength: s })}>{s}</button>
+                <button
+                  key={s}
+                  className={`radio-btn ${form.strength === s ? "selected" : ""}`}
+                  onClick={() => setForm({ ...form, strength: s })}
+                >
+                  {s}
+                </button>
               ))}
             </div>
           </div>
           <div className="field">
             <label className="field-label">Notes for other users</label>
-            <textarea className="field-input" rows={3} placeholder="e.g. Ask at the counter, behind the register, limited stock on weekends…" value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} />
+            <textarea
+              className="field-input"
+              rows={3}
+              placeholder="e.g. Ask at the counter, behind the register, limited stock on weekends…"
+              value={form.notes}
+              onChange={(e) => setForm({ ...form, notes: e.target.value })}
+            />
+          </div>
+        </div>
+
+        {/* Price section */}
+        <div className="form-card">
+          <div className="form-card-title">
+            Price <span style={{ fontSize: 12, fontWeight: 400, color: "#9ca3af" }}>optional</span>
+          </div>
+          <div className="field">
+            <label className="field-label">Price per can</label>
+            <div className="price-input-wrap">
+              <span className="price-input-prefix">$</span>
+              <input
+                className={`field-input price-input ${errors.price ? "error" : ""}`}
+                type="number"
+                min="0"
+                max="200"
+                step="0.01"
+                placeholder="22.99"
+                value={form.price}
+                onChange={(e) => setForm({ ...form, price: e.target.value })}
+              />
+            </div>
+            {errors.price && <span className="field-error">{errors.price}</span>}
+          </div>
+          <div className="field">
+            <label className="field-label">Can size</label>
+            <div className="radio-group">
+              {CAN_SIZES.map((s) => (
+                <button
+                  key={s}
+                  className={`radio-btn ${form.canSize === s ? "selected" : ""}`}
+                  onClick={() => setForm({ ...form, canSize: s })}
+                >
+                  {s} pouches
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
         <div className={`age-check ${errors.age ? "error" : ""}`}>
-          <input type="checkbox" id="age-confirm" checked={ageConfirmed} onChange={(e) => setAgeConfirmed(e.target.checked)} />
+          <input
+            type="checkbox"
+            id="age-confirm"
+            checked={ageConfirmed}
+            onChange={(e) => setAgeConfirmed(e.target.checked)}
+          />
           <label htmlFor="age-confirm" style={{ cursor: "pointer" }}>
             I confirm I am 19 years of age or older (18+ in Alberta, Manitoba, and Quebec)
           </label>
@@ -106,7 +198,9 @@ export default function ReportForm({ userCoords, onSubmit }) {
         {errors.age && <span className="field-error" style={{ marginBottom: 12, display: "block" }}>{errors.age}</span>}
 
         <button className="submit-btn" onClick={handleSubmit} disabled={submitting}>
-          {submitting ? <><div className="btn-spinner" /> Submitting…</> : <><i className="ti ti-send" /> Submit location (+10 pts)</>}
+          {submitting
+            ? <><div className="btn-spinner" /> Submitting…</>
+            : <><i className="ti ti-send" /> Submit location (+10 pts)</>}
         </button>
       </div>
     </div>
