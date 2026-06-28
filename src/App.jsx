@@ -6,6 +6,7 @@ import VerifyQueue from "./components/VerifyQueue";
 import LocationDetail from "./pages/LocationDetail";
 import ProfilePage from "./pages/ProfilePage";
 import Leaderboard from "./pages/Leaderboard";
+import PricesPage from "./pages/PricesPage";
 import Header from "./components/Header";
 import Toast from "./components/Toast";
 import AuthModal from "./components/AuthModal";
@@ -26,16 +27,9 @@ export default function App() {
   const { coords } = useLocation();
   const { stores, loading, addStore, verifyStore } = useStores(coords);
   const {
-    user,
-    profile,
-    loading: authLoading,
-    signIn,
-    signUp,
-    signOut,
-    awardPoints,
-    incrementStat,
-    isLoggedIn,
-    displayPoints,
+    user, profile, loading: authLoading,
+    signIn, signUp, signOut,
+    awardPoints, incrementStat, isLoggedIn, displayPoints,
   } = useAuth();
 
   const showToast = useCallback((msg) => {
@@ -43,8 +37,10 @@ export default function App() {
     setTimeout(() => setToast(null), 3500);
   }, []);
 
-  // Show auth modal on first use of Report or Verify if not logged in (once per device)
+  // Changing tabs always exits the store detail view
   const handleTabChange = useCallback((newTab) => {
+    setSelectedStore(null);
+    setShowProfile(false);
     if ((newTab === "report" || newTab === "verify") && !isLoggedIn) {
       const seen = localStorage.getItem(AUTH_SHOWN_KEY);
       if (!seen) {
@@ -57,12 +53,8 @@ export default function App() {
   }, [isLoggedIn]);
 
   const openProfileOrAuth = useCallback(() => {
-    if (isLoggedIn) {
-      setShowProfile(true);
-    } else {
-      setAuthMode("login");
-      setShowAuth(true);
-    }
+    if (isLoggedIn) { setShowProfile(true); }
+    else { setAuthMode("login"); setShowAuth(true); }
   }, [isLoggedIn]);
 
   const handleAuthSuccess = useCallback(async (mode, email, password, username) => {
@@ -82,73 +74,49 @@ export default function App() {
     showToast("Signed out");
   }, [signOut, showToast]);
 
-  // When clicking an Overpass (unknown) pin, pre-fill the report form
   const handleStoreClick = useCallback((store) => {
-    if (store._isOverpass) {
-      // For unverified OSM stores, open the report form pre-filled
-      // We could set some state to pre-fill, but for now just open the report tab
-      handleTabChange("report");
-    } else {
-      setSelectedStore(store);
-    }
+    if (store._isOverpass) { handleTabChange("report"); }
+    else { setSelectedStore(store); }
   }, [handleTabChange]);
 
   const sharedHeader = (
-    <Header
-      tab={tab}
-      setTab={handleTabChange}
-      userPoints={displayPoints}
-      user={user}
-      onProfileClick={openProfileOrAuth}
-    />
+    <Header tab={tab} setTab={handleTabChange}
+      userPoints={displayPoints} user={user} onProfileClick={openProfileOrAuth} />
   );
 
   const authModal = showAuth && (
-    <AuthModal
-      initialMode={authMode}
-      onClose={() => setShowAuth(false)}
+    <AuthModal initialMode={authMode} onClose={() => setShowAuth(false)}
       onSignIn={(email, pw) => handleAuthSuccess("login", email, pw)}
       onSignUp={(email, pw, un) => handleAuthSuccess("signup", email, pw, un)}
-      authLoading={authLoading}
-    />
+      authLoading={authLoading} />
   );
 
-  // Profile page takes over
   if (showProfile && isLoggedIn) {
     return (
       <div className="app-shell">
         {sharedHeader}
         <div className="main-content">
-          <ProfilePage
-            user={user}
-            profile={profile}
-            onBack={() => setShowProfile(false)}
-            onSignOut={handleSignOut}
-          />
+          <ProfilePage user={user} profile={profile}
+            onBack={() => setShowProfile(false)} onSignOut={handleSignOut} />
         </div>
         {toast && <Toast message={toast} />}
       </div>
     );
   }
 
-  // Location detail takes over
   if (selectedStore) {
     return (
       <div className="app-shell">
         {sharedHeader}
         <div className="main-content">
-          <LocationDetail
-            store={selectedStore}
-            onBack={() => setSelectedStore(null)}
-            userCoords={coords}
-            user={user}
+          <LocationDetail store={selectedStore} onBack={() => setSelectedStore(null)}
+            userCoords={coords} user={user}
             onVerify={async (storeId, confirmed) => {
               await verifyStore(storeId, confirmed);
               await awardPoints(5);
               await incrementStat("verifications_count");
               showToast(confirmed ? "Confirmed! +5 points" : "Flagged · +5 points");
-            }}
-          />
+            }} />
         </div>
         {toast && <Toast message={toast} />}
         {authModal}
@@ -161,32 +129,22 @@ export default function App() {
       {sharedHeader}
       <div className="main-content">
         {tab === "map" && (
-          <Map
-            stores={stores}
-            userCoords={coords}
-            onAddClick={() => handleTabChange("report")}
-            onStoreClick={handleStoreClick}
-          />
+          <Map stores={stores} userCoords={coords}
+            onAddClick={() => handleTabChange("report")} onStoreClick={handleStoreClick} />
         )}
         {tab === "list" && (
-          <StoreList
-            stores={stores}
-            loading={loading}
-            userCoords={coords}
-            onStoreClick={handleStoreClick}
-          />
+          <StoreList stores={stores} loading={loading}
+            userCoords={coords} onStoreClick={handleStoreClick} />
         )}
         {tab === "report" && (
-          <ReportForm
-            userCoords={coords}
+          <ReportForm userCoords={coords}
             onSubmit={async (data) => {
               await addStore(data);
               await awardPoints(10);
               await incrementStat("reports_count");
               showToast("Location submitted! +10 points");
               setTab("map");
-            }}
-          />
+            }} />
         )}
         {tab === "verify" && (
           <VerifyQueue
@@ -197,12 +155,10 @@ export default function App() {
               await incrementStat("verifications_count");
               showToast(confirmed ? "Confirmed! +5 points" : "Flagged · +5 points");
             }}
-            onStoreClick={handleStoreClick}
-          />
+            onStoreClick={handleStoreClick} />
         )}
-        {tab === "leaderboard" && (
-          <Leaderboard currentUserId={user?.id} />
-        )}
+        {tab === "leaderboard" && <Leaderboard currentUserId={user?.id} />}
+        {tab === "prices" && <PricesPage stores={stores} userCoords={coords} user={user} onStoreClick={handleStoreClick} />}
       </div>
       {toast && <Toast message={toast} />}
       {authModal}

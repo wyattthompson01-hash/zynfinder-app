@@ -1,10 +1,11 @@
 export default function Header({ tab, setTab, userPoints, user, onProfileClick }) {
   const tabs = [
-    { id: "map", label: "Map", icon: "map-2" },
-    { id: "list", label: "Nearby", icon: "list" },
-    { id: "report", label: "Report", icon: "plus" },
-    { id: "verify", label: "Verify", icon: "shield-check" },
-    { id: "leaderboard", label: "Ranks", icon: "trophy" },
+    { id: "map",         label: "Map",     icon: "map-2" },
+    { id: "list",        label: "Nearby",  icon: "list" },
+    { id: "prices",      label: "Prices",  icon: "chart-line" },
+    { id: "report",      label: "Report",  icon: "plus" },
+    { id: "verify",      label: "Verify",  icon: "shield-check" },
+    { id: "leaderboard", label: "Ranks",   icon: "trophy" },
   ];
 
   return (
@@ -27,29 +28,19 @@ export default function Header({ tab, setTab, userPoints, user, onProfileClick }
             <span className="points-num">{userPoints}</span>
             <span className="points-label">pts</span>
           </div>
-          <button
-            className={`profile-btn ${user ? "logged-in" : ""}`}
-            onClick={onProfileClick}
-            aria-label={user ? "View profile" : "Sign in"}
-            title={user ? "Profile" : "Sign in"}
-          >
-            {user ? (
-              <i className="ti ti-user-circle" style={{ fontSize: 22 }} />
-            ) : (
-              <i className="ti ti-user" style={{ fontSize: 20 }} />
-            )}
+          <button className={`profile-btn ${user ? "logged-in" : ""}`}
+            onClick={onProfileClick} aria-label={user ? "View profile" : "Sign in"}>
+            {user
+              ? <i className="ti ti-user-circle" style={{ fontSize: 22 }} />
+              : <i className="ti ti-user" style={{ fontSize: 20 }} />}
           </button>
         </div>
       </div>
       <nav className="tab-bar" role="tablist">
         {tabs.map((t) => (
-          <button
-            key={t.id}
-            role="tab"
-            aria-selected={tab === t.id}
+          <button key={t.id} role="tab" aria-selected={tab === t.id}
             className={`tab-btn ${tab === t.id ? "active" : ""}`}
-            onClick={() => setTab(t.id)}
-          >
+            onClick={() => setTab(t.id)}>
             <i className={`ti ti-${t.icon}`} aria-hidden="true" />
             <span>{t.label}</span>
           </button>

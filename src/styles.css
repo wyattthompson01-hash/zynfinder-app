@@ -1278,3 +1278,403 @@ input[type="checkbox"]:focus-visible {
     overflow-y: auto;
   }
 }
+/* ════════════════════════════════════════════════════════════════════
+   ZynFinder v3 additions — append to end of styles.css
+   Covers: fullscreen directions, prices page, desktop layout
+   ════════════════════════════════════════════════════════════════════ */
+
+/* ── Full-screen Directions ─────────────────────────────────────── */
+.dir-fullscreen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.dir-map {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* Floating top bar */
+.dir-top-bar {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 1000;
+  background: rgba(255,255,255,0.97);
+  backdrop-filter: blur(8px);
+  border-radius: 14px;
+  padding: 10px 14px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.18);
+}
+.dir-back-btn {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  border: none;
+  background: #f3f4f6;
+  color: #374151;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+.dir-back-btn:hover { background: #e5e7eb; }
+.dir-store-label { flex: 1; min-width: 0; }
+.dir-store-name { font-size: 14px; font-weight: 700; color: #111827; }
+.dir-store-addr { font-size: 11px; color: #6b7280; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* Mode bar */
+.dir-mode-bar {
+  position: absolute;
+  top: 78px;
+  left: 12px;
+  display: flex;
+  gap: 6px;
+  z-index: 1000;
+}
+.dir-mode-btn {
+  display: flex; align-items: center; gap: 5px;
+  padding: 7px 12px;
+  border: none;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(6px);
+  color: #6b7280;
+  font-size: 12px; font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  transition: all 0.15s;
+  font-family: inherit;
+}
+.dir-mode-btn i { font-size: 14px; }
+.dir-mode-btn.active { background: #1d4ed8; color: #fff; }
+
+/* Tile switcher */
+.dir-tile-bar {
+  position: absolute;
+  top: 78px;
+  right: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 1000;
+}
+.dir-tile-btn {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(6px);
+  color: #374151;
+  font-size: 11px; font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  transition: all 0.15s;
+  font-family: inherit;
+  white-space: nowrap;
+}
+.dir-tile-btn.active { background: #1d4ed8; color: #fff; }
+
+/* Current step banner */
+.dir-step-banner {
+  position: absolute;
+  left: 12px; right: 12px;
+  bottom: 90px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 1000;
+  background: #1d4ed8;
+  color: #fff;
+  border-radius: 16px;
+  padding: 14px 16px;
+  box-shadow: 0 4px 20px rgba(29,78,216,0.4);
+  min-height: 70px;
+}
+.dir-step-icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.18);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+.dir-step-text { flex: 1; min-width: 0; }
+.dir-step-main { font-size: 15px; font-weight: 700; line-height: 1.3; }
+.dir-step-then { font-size: 12px; opacity: 0.75; margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dir-step-dist { font-size: 20px; font-weight: 800; flex-shrink: 0; }
+
+/* Arrived */
+.dir-arrived {
+  position: absolute;
+  left: 12px; right: 12px;
+  bottom: 90px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 1000;
+  background: linear-gradient(135deg, #059669, #34d399);
+  color: #fff;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 4px 20px rgba(5,150,105,0.4);
+}
+
+/* Error */
+.dir-error {
+  position: absolute;
+  left: 12px; right: 12px;
+  bottom: 90px;
+  z-index: 1000;
+  background: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 13px;
+}
+
+/* ETA bottom bar */
+.dir-eta-bar {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 1000;
+  background: rgba(255,255,255,0.97);
+  backdrop-filter: blur(8px);
+  padding: 12px 16px;
+  padding-bottom: max(12px, env(safe-area-inset-bottom));
+  box-shadow: 0 -2px 16px rgba(0,0,0,0.1);
+}
+.dir-eta-item { display: flex; align-items: center; gap: 6px; color: #1d4ed8; font-size: 14px; font-weight: 700; }
+.dir-eta-item i { font-size: 14px; opacity: 0.7; }
+.dir-eta-divider { width: 1px; height: 18px; background: #e5e7eb; }
+.dir-recenter-btn {
+  display: flex; align-items: center; gap: 5px;
+  padding: 6px 12px;
+  border: 1.5px solid #1d4ed8;
+  border-radius: 20px;
+  background: #fff;
+  color: #1d4ed8;
+  font-size: 12px; font-weight: 600;
+  cursor: pointer; font-family: inherit;
+  transition: all 0.15s;
+}
+.dir-recenter-btn:hover { background: #1d4ed8; color: #fff; }
+.dir-steps-toggle {
+  display: flex; align-items: center; gap: 5px;
+  padding: 6px 12px;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 20px;
+  background: #fff;
+  color: #374151;
+  font-size: 12px; font-weight: 600;
+  cursor: pointer; font-family: inherit;
+  transition: all 0.15s;
+}
+.dir-steps-toggle:hover { border-color: #d1d5db; }
+
+/* Bottom sheet for turn list */
+.dir-steps-sheet {
+  position: absolute;
+  left: 0; right: 0; bottom: 58px;
+  z-index: 999;
+  background: #fff;
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
+  max-height: 50vh;
+  overflow-y: auto;
+  padding-bottom: 16px;
+}
+.dir-steps-handle {
+  width: 36px; height: 4px;
+  background: #e5e7eb;
+  border-radius: 2px;
+  margin: 10px auto 0;
+}
+.dir-steps-title {
+  padding: 10px 16px 6px;
+  font-size: 12px; font-weight: 700;
+  color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px;
+}
+
+/* ── Prices / Market Page ─────────────────────────────────────────── */
+.prices-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  background: #f9fafb;
+}
+.prices-header {
+  background: linear-gradient(135deg, #064e3b, #059669);
+  color: #fff;
+  padding: 20px 16px 16px;
+  flex-shrink: 0;
+}
+.prices-title {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 18px; font-weight: 700;
+}
+.prices-title i { font-size: 20px; }
+.prices-sub { font-size: 12px; opacity: 0.7; margin-top: 2px; }
+.prices-stats {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+.price-stat-box {
+  flex: 1;
+  background: rgba(255,255,255,0.15);
+  border-radius: 10px;
+  padding: 10px 12px;
+  backdrop-filter: blur(4px);
+}
+.price-stat-val { font-size: 20px; font-weight: 800; }
+.price-stat-label { font-size: 10px; opacity: 0.75; margin-top: 1px; font-weight: 500; }
+
+.prices-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  background: #fff;
+  border-bottom: 1px solid #f3f4f6;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+.prices-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px 12px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.price-row-card {
+  background: #fff;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 14px;
+  overflow: hidden;
+  transition: border-color 0.15s;
+}
+.price-row-card.expanded { border-color: #059669; }
+
+.price-row-main {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+.price-row-main:hover { background: #f9fafb; }
+
+.price-row-icon {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  background: #f3f4f6;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; color: #6b7280;
+  flex-shrink: 0;
+}
+.price-row-info { flex: 1; min-width: 0; }
+.price-row-name { font-size: 14px; font-weight: 600; color: #111827; }
+.price-row-addr { font-size: 12px; color: #9ca3af; margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.price-row-dist { font-size: 11px; color: #d1d5db; margin-top: 2px; }
+
+.price-row-right {
+  display: flex; flex-direction: column; align-items: flex-end;
+  flex-shrink: 0;
+  gap: 2px;
+}
+.price-row-price { font-size: 20px; font-weight: 800; color: #111827; }
+.price-row-size { font-size: 11px; color: #9ca3af; }
+.price-row-none { font-size: 12px; color: #d1d5db; font-style: italic; }
+.price-row-chevron { font-size: 14px; color: #9ca3af; margin-top: 4px; }
+
+.price-row-detail {
+  padding: 0 14px 14px;
+  border-top: 1px solid #f3f4f6;
+}
+
+.price-history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 10px;
+  padding-top: 10px;
+}
+.price-history-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #4b5563;
+}
+
+.price-report-inline { margin-top: 4px; }
+
+/* ── Desktop layout fixes ─────────────────────────────────────────── */
+
+/* Tab bar: icons only on very small screens, icon+label on normal */
+@media (max-width: 380px) {
+  .tab-btn span { display: none; }
+  .tab-btn { padding: 10px 4px; }
+}
+
+@media (min-width: 768px) {
+  .form-container,
+  .verify-container { max-width: 760px; padding: 28px 40px 80px; }
+  .detail-container { max-width: 860px; padding: 28px 40px 80px; }
+  .leaderboard-page { max-width: 760px; margin: 0 auto; }
+  .list-toolbar { padding: 14px 24px; }
+  .filter-chips, .sort-row { padding: 10px 24px; }
+  .store-item { padding: 16px 24px; }
+  .prices-header { padding: 24px 24px 20px; }
+  .prices-toolbar { padding: 12px 24px; }
+  .prices-list { padding: 12px 24px 40px; }
+  .dir-step-banner { bottom: 110px; }
+  .dir-arrived { bottom: 110px; }
+}
+
+@media (min-width: 1100px) {
+  .form-container,
+  .verify-container { max-width: 900px; padding: 36px 60px 80px; }
+  .detail-container { max-width: 1000px; padding: 36px 60px 80px; }
+
+  .form-title { font-size: 28px; }
+  .form-card { padding: 28px; }
+  .detail-stats { grid-template-columns: repeat(4, 1fr); }
+
+  /* Prices page: 2 columns */
+  .prices-list { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .prices-stats { gap: 16px; }
+
+  /* Leaderboard wider */
+  .leaderboard-page { max-width: 900px; }
+  .lb-row { padding: 16px 24px; }
+
+  /* Directions: step banner sits higher on desktop */
+  .dir-step-banner { left: 20px; right: 20px; bottom: 120px; }
+  .dir-arrived { left: 20px; right: 20px; bottom: 120px; }
+  .dir-steps-sheet { max-height: 40vh; }
+
+  /* Header: show tab labels always */
+  .tab-btn { padding: 10px 16px; }
+  .tab-btn span { display: inline; }
+
+  /* Price chart bigger */
+  .price-ticker-current { font-size: 32px; }
+}
