@@ -11,9 +11,9 @@ const headers = {
 };
 
 const SEED_STORES = [
-  { id: "1", name: "Petro-Canada", address: "320 Bloor St W, Toronto, ON", lat: 43.6649, lng: -79.4102, type: "gas", status: "verified", confirmations: 12, reports: 14, flavors: ["Cool Mint", "Citrus"], strength: "Both", last_seen: "2024-11-20T10:00:00Z", reported_at: "2024-10-01T10:00:00Z" },
-  { id: "2", name: "Mac's Convenience", address: "88 College St, Toronto, ON", lat: 43.6588, lng: -79.4008, type: "convenience", status: "verified", confirmations: 8, reports: 9, flavors: ["Cool Mint", "Spearmint"], strength: "3mg", last_seen: "2024-11-18T14:00:00Z", reported_at: "2024-10-05T10:00:00Z" },
-  { id: "3", name: "Shell", address: "1120 Yonge St, Toronto, ON", lat: 43.6779, lng: -79.3866, type: "gas", status: "pending", confirmations: 0, reports: 2, flavors: ["Unknown"], strength: "Unsure", last_seen: null, reported_at: "2024-11-15T10:00:00Z" },
+  { id: "1", name: "Petro-Canada", address: "320 Bloor St W, Toronto, ON", lat: 43.6649, lng: -79.4102, type: "gas", status: "verified", confirmations: 12, reports: 14, flavors: ["Cool Mint", "Citrus"], strength: "Both", last_seen: "2024-11-20T10:00:00Z", reported_at: "2024-10-01T10:00:00Z", latest_price: null },
+  { id: "2", name: "Mac's Convenience", address: "88 College St, Toronto, ON", lat: 43.6588, lng: -79.4008, type: "convenience", status: "verified", confirmations: 8, reports: 9, flavors: ["Cool Mint", "Spearmint"], strength: "3mg", last_seen: "2024-11-18T14:00:00Z", reported_at: "2024-10-05T10:00:00Z", latest_price: null },
+  { id: "3", name: "Shell", address: "1120 Yonge St, Toronto, ON", lat: 43.6779, lng: -79.3866, type: "gas", status: "pending", confirmations: 0, reports: 2, flavors: ["Unknown"], strength: "Unsure", last_seen: null, reported_at: "2024-11-15T10:00:00Z", latest_price: null },
 ];
 
 async function geocodeAddress(address) {
@@ -64,6 +64,8 @@ export function useStores(coords) {
       id: `temp-${Date.now()}`,
       ...storeData, lat, lng,
       status: "unverified", confirmations: 0, reports: 1,
+      latest_price: storeData.price || null,
+      latest_can_size: storeData.canSize || 15,
     };
     setStores((prev) => [optimistic, ...prev]);
 
@@ -73,16 +75,36 @@ export function useStores(coords) {
         method: "POST",
         headers,
         body: JSON.stringify({
-          name: storeData.name, address: storeData.address,
-          lat, lng, type: storeData.type,
-          flavors: storeData.flavors, strength: storeData.strength,
-          notes: storeData.notes, status: "unverified",
-          confirmations: 0, reports: 1,
+          name: storeData.name,
+          address: storeData.address,
+          lat, lng,
+          type: storeData.type,
+          flavors: storeData.flavors,
+          strength: storeData.strength,
+          notes: storeData.notes,
+          status: "unverified",
+          confirmations: 0,
+          reports: 1,
+          latest_price: storeData.price || null,
+          latest_can_size: storeData.canSize || 15,
         }),
       });
       if (res.ok) {
         const [created] = await res.json();
         setStores((prev) => prev.map((s) => s.id === optimistic.id ? created : s));
+
+        // If a price was included, also insert into prices table
+        if (storeData.price && created?.id) {
+          await fetch(`${SUPABASE_URL}/rest/v1/prices`, {
+            method: "POST",
+            headers,
+            body: JSON.stringify({
+              store_id: created.id,
+              price: parseFloat(storeData.price),
+              can_size: storeData.canSize || 15,
+            }),
+          });
+        }
       }
     } catch (err) { console.warn("Saved locally:", err.message); }
   }, []);
@@ -110,7 +132,12 @@ export function useStores(coords) {
       const newStatus = yesCount >= 3 ? "verified" : noCount >= 3 && noCount > yesCount ? "gone" : "pending";
       await fetch(`${SUPABASE_URL}/rest/v1/stores?id=eq.${storeId}`, {
         method: "PATCH", headers,
-        body: JSON.stringify({ confirmations: yesCount, reports: verifs.length, status: newStatus, ...(confirmed ? { last_seen: new Date().toISOString() } : {}) }),
+        body: JSON.stringify({
+          confirmations: yesCount,
+          reports: verifs.length,
+          status: newStatus,
+          ...(confirmed ? { last_seen: new Date().toISOString() } : {}),
+        }),
       });
     } catch (err) { console.warn("Verify saved locally:", err.message); }
   }, []);
