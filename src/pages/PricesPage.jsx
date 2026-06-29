@@ -109,7 +109,7 @@ function MarketChart({ data, period, currency }) {
   const startPrice = filtered[0].price;
   const endPrice = filtered[filtered.length - 1].price;
   const isUp = endPrice > startPrice;
-  const lineColor = isUp ? "#ef4444" : "#10b981"; // up = red (expensive), down = green (cheaper)
+  const lineColor = isUp ? "#ef4444" : "#00ffff"; // up = red (expensive), down = cyan (cheaper)
   const gradId = `grad-${period}`;
 
   // Y gridlines
@@ -253,7 +253,7 @@ function Sparkline({ values }) {
     return `${x.toFixed(1)},${y.toFixed(1)}`;
   });
   const isDown = values[values.length - 1] <= values[0];
-  const color = isDown ? "#10b981" : "#ef4444";
+  const color = isDown ? "#00ffff" : "#ef4444";
   return (
     <svg viewBox={`0 0 ${W} ${H}`} width={W} height={H} style={{ display: "block" }}>
       <polyline points={pts.join(" ")} fill="none" stroke={color} strokeWidth="1.8"
