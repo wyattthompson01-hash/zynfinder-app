@@ -273,7 +273,7 @@ function TickerBar({ stores, onSelect }) {
           <span key={i} className="ticker-item" onClick={() => onSelect?.(s)} style={{cursor:'pointer'}}>
             <span className="ticker-name">{s.name}</span>
             <span className="ticker-price">${parseFloat(s.latest_price).toFixed(2)}</span>
-            <span className="ticker-sep">Â·</span>
+            <span className="ticker-sep">·</span>
           </span>
         ))}
       </div>
@@ -396,7 +396,7 @@ function StoreDetailChart({ store, allPrices, currency, onBack, onReportPrice, o
               {onViewStore && <button onClick={() => onViewStore(store)} style={{background:"rgba(255,255,255,0.06)",border:"1px solid rgba(255,255,255,0.15)",color:"#e2e8f0",borderRadius:8,padding:"6px 10px",fontSize:12,cursor:"pointer",whiteSpace:"nowrap",marginLeft:6}}><i className="ti ti-map-pin" style={{marginRight:4,fontSize:11}}/>View Store</button>}
       </div>
       <div style={{padding:"20px 16px 8px"}}>
-        <div style={{fontSize:36,fontWeight:800,color:"#eef2ff",fontVariantNumeric:"tabular-nums"}}>{displayPrice!=null?currency+parseFloat(displayPrice).toFixed(2):"â"}</div>
+        <div style={{fontSize:36,fontWeight:800,color:"#eef2ff",fontVariantNumeric:"tabular-nums"}}>{displayPrice!=null?currency+parseFloat(displayPrice).toFixed(2):"—"}</div>
         <div style={{fontSize:12,color:"rgba(255,255,255,0.4)",marginTop:2}}>{displayDate}</div>
         {changePct!=null&&!crosshair&&(
           <div style={{marginTop:6,display:"inline-flex",alignItems:"center",gap:4,background:isUp?"rgba(34,197,94,0.12)":"rgba(239,68,68,0.12)",color:isUp?"#4ade80":"#f87171",borderRadius:6,padding:"3px 8px",fontSize:12,fontWeight:600}}>
@@ -420,7 +420,7 @@ function StoreDetailChart({ store, allPrices, currency, onBack, onReportPrice, o
       </div>
       {filtered.length>=1&&(
         <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:1,background:"rgba(255,255,255,0.06)",margin:"0 16px 20px",borderRadius:10,overflow:"hidden"}}>
-          {[{label:"Reports",value:storeData.length},{label:"Low",value:filtered.length?currency+Math.min(...filtered.map(d=>d.price)).toFixed(2):"â"},{label:"High",value:filtered.length?currency+Math.max(...filtered.map(d=>d.price)).toFixed(2):"â"}].map(({label,value})=>(
+          {[{label:"Reports",value:storeData.length},{label:"Low",value:filtered.length?currency+Math.min(...filtered.map(d=>d.price)).toFixed(2):"—"},{label:"High",value:filtered.length?currency+Math.max(...filtered.map(d=>d.price)).toFixed(2):"—"}].map(({label,value})=>(
             <div key={label} style={{background:"#141520",padding:"12px 8px",textAlign:"center"}}>
               <div style={{fontSize:11,color:"rgba(255,255,255,0.4)",marginBottom:4}}>{label}</div>
               <div style={{fontSize:15,fontWeight:700,color:"#eef2ff"}}>{value}</div>
@@ -560,7 +560,7 @@ export default function PricesPage({ stores, onReportPrice, onViewStore }) {
             <h2 className="ph-title">
               <i className="ti ti-chart-candle" /> Snus Market Index
             </h2>
-            <div className="ph-sub">{locLabel} Â· {filteredStores.length} locations tracked</div>
+            <div className="ph-sub">{locLabel} · {filteredStores.length} locations tracked</div>
           </div>
           {chartChangePct !== null && (
             <div className={`ph-change ${chartChangePct > 0 ? "up" : "down"}`}>
@@ -633,7 +633,7 @@ export default function PricesPage({ stores, onReportPrice, onViewStore }) {
       {/* Ã¢ÂÂÃ¢ÂÂ Main chart Ã¢ÂÂÃ¢ÂÂ */}
       <div className="market-chart-panel">
         {loadingPrices ? (
-          <div className="chart-loading"><div className="spinner" /><span>Loading market dataâ¦</span></div>
+          <div className="chart-loading"><div className="spinner" /><span>Loading market data…</span></div>
         ) : (
           <MarketChart data={dailyData} period={period} currency={currency} />
         )}
@@ -662,7 +662,7 @@ export default function PricesPage({ stores, onReportPrice, onViewStore }) {
       <div className="prices-toolbar">
         <div className="search-wrap" style={{ maxWidth: 360 }}>
           <i className="ti ti-search search-icon" />
-          <input className="search-input" placeholder="Search storesâ¦"
+          <input className="search-input" placeholder="Search stores…"
             value={storeSearch} onChange={e => setStoreSearch(e.target.value)} />
         </div>
         <div className="prices-count">{storeRows.length} stores with price data</div>
@@ -689,7 +689,7 @@ export default function PricesPage({ stores, onReportPrice, onViewStore }) {
                 style={{display:'flex',alignItems:'center',padding:'14px 16px',cursor:'pointer',borderBottom:'1px solid rgba(255,255,255,0.07)',WebkitTapHighlightColor:'transparent',userSelect:'none'}}>
                 <div style={{flex:1,minWidth:0,marginRight:8}}>
                   <div style={{fontWeight:700,fontSize:15,color:'#e2e8f0',marginBottom:3,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{s.name}</div>
-                  <div style={{fontSize:12,color:'#94a3b8',overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{s.city ? s.city+' Â· '+s.region : s.address}</div>
+                  <div style={{fontSize:12,color:'#94a3b8',overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{s.city ? s.city+' · '+s.region : s.address}</div>
                 </div>
                 <div style={{margin:'0 14px',flexShrink:0}}>
                   <Sparkline values={s.priceHistory.slice(-12)} color={up ? '#22c55e' : '#ef4444'} />
