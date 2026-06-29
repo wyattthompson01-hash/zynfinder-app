@@ -18,7 +18,7 @@ import { useAuth } from "./hooks/useAuth";
 
 const AUTH_SHOWN_KEY = "snusworld_auth_shown";
 
-const GATE_PASSWORD = "snusworld2024";
+const GATE_PASSWORD = "8472916350284719";
 
 function PasswordGate({ onUnlock }) {
   const [val, setVal] = useState("");
@@ -37,9 +37,9 @@ function PasswordGate({ onUnlock }) {
     <div style={{minHeight:"100vh",background:"#0d0e1a",display:"flex",alignItems:"center",justifyContent:"center",padding:"24px"}}>
       <div style={{width:"100%",maxWidth:360,background:"#13142a",borderRadius:20,padding:"40px 32px",boxShadow:"0 8px 40px rgba(0,0,0,0.5)",border:"1px solid rgba(255,255,255,0.08)"}}>
         <div style={{textAlign:"center",marginBottom:32}}>
-          <div style={{fontSize:48,marginBottom:12}}>🥫</div>
+          <div style={{fontSize:48,marginBottom:12}}>ð¥«</div>
           <div style={{fontSize:22,fontWeight:800,color:"#eef2ff",marginBottom:6}}>SnusWorld</div>
-          <div style={{fontSize:13,color:"rgba(255,255,255,0.4)"}}>Private beta — enter password to continue</div>
+          <div style={{fontSize:13,color:"rgba(255,255,255,0.4)"}}>Private beta â enter password to continue</div>
         </div>
         <form onSubmit={handleSubmit}>
           <input
@@ -164,7 +164,7 @@ export default function App() {
               await verifyStore(storeId, confirmed);
               await awardPoints(5);
               await incrementStat("verifications_count");
-              showToast(confirmed ? "Confirmed! +5 points" : "Flagged ÃÂ· +5 points");
+              showToast(confirmed ? "Confirmed! +5 points" : "Flagged ÃÂÃÂ· +5 points");
             }} />
         </div>
         {toast && <Toast message={toast} />}
@@ -203,7 +203,7 @@ export default function App() {
               await verifyStore(storeId, confirmed);
               await awardPoints(5);
               await incrementStat("verifications_count");
-              showToast(confirmed ? "Confirmed! +5 points" : "Flagged ÃÂ· +5 points");
+              showToast(confirmed ? "Confirmed! +5 points" : "Flagged ÃÂÃÂ· +5 points");
             }}
             onStoreClick={handleStoreClick} />
         )}
