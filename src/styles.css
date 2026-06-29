@@ -3873,3 +3873,78 @@ input[type="checkbox"]:checked::after {
   .store-card-grid { padding: 20px 60px 60px; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
 }
 
+/* ── Mobile: Prices page (≤768px) ─────────────────────────────────── */
+@media (max-width: 768px) {
+  /* Header */
+  .prices-header { padding: 12px 14px 0; }
+
+  .ph-top {
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .ph-title { font-size: 16px; }
+  .ph-change {
+    font-size: 14px;
+    padding: 6px 10px;
+    align-self: flex-start;
+  }
+
+  /* Location filter */
+  .loc-filter-group { gap: 6px; flex-wrap: wrap; }
+  .loc-label { font-size: 10px; }
+  .loc-chips { gap: 4px; }
+  .loc-chip { padding: 7px 10px; font-size: 11px; min-height: 36px; }
+
+  .loc-selects { flex-direction: column; gap: 6px; }
+  .loc-select { width: 100%; }
+
+  /* Period buttons */
+  .period-row { flex-wrap: wrap; gap: 4px; }
+  .period-btn {
+    flex: 1;
+    min-width: 44px;
+    padding: 8px 6px;
+    min-height: 38px;
+    font-size: 12px;
+  }
+
+  /* Chart */
+  .market-chart-panel { padding: 0 2px 8px; }
+  .chart-tooltip {
+    padding: 5px 8px;
+    min-width: 68px;
+  }
+  .ct-price { font-size: 13px; }
+  .ct-date { font-size: 10px; }
+
+  /* Movers: stack vertically */
+  .market-movers { padding: 10px 14px; }
+  .movers-list { flex-direction: column; }
+  .mover-card { min-width: 0; flex: none; width: 100%; }
+
+  /* Toolbar */
+  .prices-toolbar {
+    padding: 10px 14px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+  .prices-toolbar .search-wrap { max-width: none !important; width: 100%; }
+
+  /* Price card list */
+  .prices-list { padding: 6px 10px 40px; }
+  .pc-main { padding: 10px 12px; gap: 8px; }
+
+  /* Hide sparkline to keep row clean on narrow screens */
+  .pc-middle { display: none; }
+
+  .pc-name { font-size: 13px; }
+  .pc-addr { font-size: 11px; }
+  .pc-price { font-size: 16px; }
+
+  /* Expanded card */
+  .pc-expanded { padding: 0 12px 14px; }
+  .pc-report-btn { width: 100%; justify-content: center; }
+}
+
