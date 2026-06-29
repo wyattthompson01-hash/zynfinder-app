@@ -154,7 +154,7 @@ export default function StoreList({ stores, loading, userCoords, onStoreClick })
           <i className="ti ti-search search-icon" />
           <input
             className="search-input"
-            placeholder="Search stores or addressesâ¦"
+            placeholder="Search stores or addresses…"
             value={search}
             onChange={(e) => { setSearch(e.target.value); setShowSuggestions(true); }}
             onFocus={() => setShowSuggestions(true)}
@@ -253,7 +253,7 @@ export default function StoreList({ stores, loading, userCoords, onStoreClick })
 
       {/* Ã¢ÂÂÃ¢ÂÂ Content Ã¢ÂÂÃ¢ÂÂ */}
       {loading ? (
-        <div className="list-loading"><div className="spinner" /><span>Finding locationsâ¦</span></div>
+        <div className="list-loading"><div className="spinner" /><span>Finding locations…</span></div>
       ) : enriched.length === 0 ? (
         <div className="list-empty">
           <i className="ti ti-map-pin-off" style={{ fontSize: 36 }} />
