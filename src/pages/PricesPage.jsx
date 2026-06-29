@@ -22,7 +22,7 @@ const US_STATES = new Set([
   "California","New York","Texas","Florida","Washington","Illinois",
 ]);
 
-function parseAddress(address) {
+export function parseAddress(address) {
   if (!address) return { city: "Unknown", region: "Unknown", country: "Other" };
   const parts = address.split(",").map(s => s.trim()).filter(Boolean);
   if (parts.length === 1) return { city: parts[0], region: "", country: "Other" };
@@ -48,7 +48,7 @@ const PERIODS = [
   { id: "ALL", label: "ALL", days: null },
 ];
 
-function filterByPeriod(data, periodId) {
+export function filterByPeriod(data, periodId) {
   const p = PERIODS.find(p => p.id === periodId);
   if (!p || !p.days) return data;
   const cutoff = new Date(Date.now() - p.days * 86400000).toISOString();

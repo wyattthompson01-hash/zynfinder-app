@@ -1,6 +1,6 @@
 import { useState, useMemo, useRef, useEffect } from "react";
 
-function getDistance(lat1, lng1, lat2, lng2) {
+export function getDistance(lat1, lng1, lat2, lng2) {
   const R = 6371;
   const dLat = ((lat2 - lat1) * Math.PI) / 180;
   const dLng = ((lng2 - lng1) * Math.PI) / 180;
@@ -12,7 +12,7 @@ function getDistance(lat1, lng1, lat2, lng2) {
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }
 
-function currencySymbol(currency) {
+export function currencySymbol(currency) {
   const map = {
     CAD: "CA$", USD: "$", GBP: "\u00a3", EUR: "\u20ac",
     SEK: "kr", NOK: "kr", DKK: "kr", CHF: "Fr",
