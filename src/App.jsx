@@ -121,7 +121,7 @@ export default function App() {
               await verifyStore(storeId, confirmed);
               await awardPoints(5);
               await incrementStat("verifications_count");
-              showToast(confirmed ? "Confirmed! +5 points" : "Flagged · +5 points");
+              showToast(confirmed ? "Confirmed! +5 points" : "Flagged Â· +5 points");
             }} />
         </div>
         {toast && <Toast message={toast} />}
@@ -159,7 +159,7 @@ export default function App() {
               await verifyStore(storeId, confirmed);
               await awardPoints(5);
               await incrementStat("verifications_count");
-              showToast(confirmed ? "Confirmed! +5 points" : "Flagged · +5 points");
+              showToast(confirmed ? "Confirmed! +5 points" : "Flagged Â· +5 points");
             }}
             onStoreClick={handleStoreClick} />
         )}
@@ -167,6 +167,7 @@ export default function App() {
         {tab === "prices" && (
           <PricesPage stores={stores} userCoords={coords} user={user}
             onReportPrice={(store) => { setSelectedStore(store); }}
+            onViewStore={(store) => { setSelectedStore(store); }}
           />
         )}
         {tab === "marketplace" && (
