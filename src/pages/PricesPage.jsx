@@ -127,13 +127,12 @@ function MarketChart({ data, period, currency }) {
     return d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
   };
 
-  const handleMouseMove = useCallback((e) => {
+  const findNearest = useCallback((clientX) => {
     const svg = svgRef.current;
     if (!svg) return;
     const rect = svg.getBoundingClientRect();
     const scaleX = W / rect.width;
-    const mx = (e.clientX - rect.left) * scaleX;
-    // Find nearest point
+    const mx = (clientX - rect.left) * scaleX;
     let nearest = pts[0], minDist = Infinity;
     pts.forEach(p => {
       const dist = Math.abs(p.x - mx);
@@ -142,7 +141,14 @@ function MarketChart({ data, period, currency }) {
     setCrosshair(nearest);
   }, [pts]);
 
+  const handleMouseMove = useCallback((e) => findNearest(e.clientX), [findNearest]);
   const handleMouseLeave = useCallback(() => setCrosshair(null), []);
+
+  const handleTouchMove = useCallback((e) => {
+    e.preventDefault();
+    if (e.touches[0]) findNearest(e.touches[0].clientX);
+  }, [findNearest]);
+  const handleTouchEnd = useCallback(() => setCrosshair(null), []);
 
   return (
     <div className="market-chart-wrap">
@@ -152,6 +158,9 @@ function MarketChart({ data, period, currency }) {
         className="market-chart-svg"
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        style={{ touchAction: "none" }}
       >
         <defs>
           <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="1">
@@ -208,7 +217,7 @@ function MarketChart({ data, period, currency }) {
 
       {crosshair && (
         <div className="chart-tooltip" style={{
-          left: `${((crosshair.x / W) * 100).toFixed(1)}%`,
+          left: `${Math.min(Math.max(((crosshair.x / W) * 100), 7), 93).toFixed(1)}%`,
         }}>
           <div className="ct-date">{fmtDate(crosshair.date)}</div>
           <div className="ct-price">{currency}{parseFloat(crosshair.price).toFixed(2)}</div>
