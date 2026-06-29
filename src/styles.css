@@ -1513,7 +1513,8 @@ input[type="checkbox"]:focus-visible {
   display: flex;
   flex-direction: column;
   height: 100%;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
   background: #f9fafb;
 }
 .prices-header {
