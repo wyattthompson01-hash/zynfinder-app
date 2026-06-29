@@ -10,7 +10,7 @@ export default function Header({ tab, setTab, userPoints }) {
       <div className="header-top">
         <div className="header-brand">
           <div className="brand-logo">
-            <img src="/snusworld_logo.png" alt="SnusWorld"
+            <img src="/snusworld_logo.svg" alt="SnusWorld"
               style={{ width: "36px", height: "36px", objectFit: "contain", borderRadius: "50%" }} />
           </div>
           <div>
