@@ -5,17 +5,13 @@ export default function Header({ tab, setTab, userPoints }) {
     { id: "report", label: "Report", icon: "plus" },
     { id: "verify", label: "Verify", icon: "shield-check" },
   ];
-
   return (
     <header className="header">
       <div className="header-top">
         <div className="header-brand">
           <div className="brand-logo">
-            <img
-              src="/snusworld_logo.png"
-              alt="SnusWorld"
-              style={{ width: "36px", height: "36px", objectFit: "contain", borderRadius: "50%" }}
-            />
+            <img src="/snusworld_logo.png" alt="SnusWorld"
+              style={{ width: "36px", height: "36px", objectFit: "contain", borderRadius: "50%" }} />
           </div>
           <div>
             <div className="brand-name">SnusWorld</div>
@@ -32,14 +28,10 @@ export default function Header({ tab, setTab, userPoints }) {
       </div>
       <nav className="tab-bar" role="tablist">
         {tabs.map((t) => (
-          <button
-            key={t.id}
-            role="tab"
-            aria-selected={tab === t.id}
-            className={`tab-btn ${tab === t.id ? "active" : ""}`}
-            onClick={() => setTab(t.id)}
-          >
-            <i className={`ti ti-${t.icon}`} aria-hidden="true" />
+          <button key={t.id} role="tab" aria-selected={tab === t.id}
+            className={tab === t.id ? "tab-btn active" : "tab-btn"}
+            onClick={() => setTab(t.id)}>
+            <i className={"ti ti-" + t.icon} aria-hidden="true" />
             <span>{t.label}</span>
           </button>
         ))}
