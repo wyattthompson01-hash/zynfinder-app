@@ -152,7 +152,7 @@ export default function LocationDetail({ store, onBack, onVerify, userCoords, us
             </div>
             <div className="stat-box">
               <div className="stat-val" style={{ fontSize: 14 }}>
-                {lastSeen ? new Date(lastSeen).toLocaleDateString("en-CA", { month: "short", day: "numeric" }) : "â"}
+                {lastSeen ? new Date(lastSeen).toLocaleDateString("en-CA", { month: "short", day: "numeric" }) : "—"}
               </div>
               <div className="stat-label">Last confirmed</div>
             </div>
@@ -212,7 +212,7 @@ export default function LocationDetail({ store, onBack, onVerify, userCoords, us
               {priceError && <span className="field-error">{priceError}</span>}
               <div style={{ display: "flex", gap: 8, marginTop: 8 }}>
                 <button className="submit-btn" style={{ flex: 1, padding: "9px" }} onClick={handlePriceSubmit} disabled={priceSubmitting}>
-                  {priceSubmitting ? "Savingâ¦" : "Save price"}
+                  {priceSubmitting ? "Saving…" : "Save price"}
                 </button>
                 <button
                   onClick={() => { setShowPriceForm(false); setPriceError(null); }}
@@ -226,7 +226,7 @@ export default function LocationDetail({ store, onBack, onVerify, userCoords, us
 
           {priceDone && (
             <div style={{ fontSize: 13, color: "#059669", marginTop: 8, display: "flex", alignItems: "center", gap: 6 }}>
-              <i className="ti ti-circle-check" /> Price saved â thank you!
+              <i className="ti ti-circle-check" /> Price saved — thank you!
             </div>
           )}
 
