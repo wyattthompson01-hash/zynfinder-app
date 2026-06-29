@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <circle cx="100" cy="100" r="98" fill="#16171e" stroke="#1e1f28" stroke-width="1"/>
+  <circle cx="100" cy="100" r="92" fill="#141520" stroke="#1c1e2c" stroke-width="1"/>
+  <circle cx="100" cy="100" r="84" fill="#0e0f1a" stroke="#1a1c2a" stroke-width="1"/>
+  <circle cx="100" cy="100" r="76" fill="none" stroke="#0078ff" stroke-width="2.5"/>
+  <circle cx="100" cy="100" r="73" fill="none" stroke="#0050b8" stroke-width="1"/>
+  <circle cx="100" cy="100" r="70" fill="#0d0e16"/>
+  <g stroke="#223660" stroke-width="1">
+    <line x1="100" y1="30" x2="100" y2="36"/>
+    <line x1="130" y1="34" x2="127" y2="39"/>
+    <line x1="153" y1="50" x2="149" y2="54"/>
+    <line x1="170" y1="100" x2="164" y2="100"/>
+    <line x1="166" y1="130" x2="161" y2="127"/>
+    <line x1="100" y1="170" x2="100" y2="164"/>
+    <line x1="70" y1="166" x2="73" y2="161"/>
+    <line x1="30" y1="100" x2="36" y2="100"/>
+    <line x1="34" y1="70" x2="39" y2="73"/>
+  </g>
+  <g stroke="#0078ff" stroke-width="2">
+    <line x1="100" y1="28" x2="100" y2="36"/>
+    <line x1="170" y1="100" x2="162" y2="100"/>
+    <line x1="100" y1="172" x2="100" y2="164"/>
+    <line x1="30" y1="100" x2="38" y2="100"/>
+  </g>
+  <text x="100" y="96" font-family="Arial Black,sans-serif" font-size="15" font-weight="900"
+        fill="#eef2ff" text-anchor="middle" letter-spacing="2">SNUSWORLD</text>
+  <text x="100" y="113" font-family="Arial,sans-serif" font-size="7.5"
+        fill="#0099ff" text-anchor="middle" letter-spacing="1.5">FIND YOUR FLAVOR</text>
+  <line x1="65" y1="120" x2="135" y2="120" stroke="#004699" stroke-width="0.8"/>
+  <text x="100" y="130" font-family="monospace" font-size="6"
+        fill="#233a66" text-anchor="middle" letter-spacing="2">EST.  2024</text>
+</svg>
