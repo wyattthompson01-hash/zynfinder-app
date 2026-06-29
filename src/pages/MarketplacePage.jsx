@@ -75,7 +75,7 @@ function ListingCard({ listing, userCoords, onContact }) {
         <div className="mkt-card-name">{listing.title}</div>
         <div className="mkt-card-meta">
           <span>{listing.quantity} can{listing.quantity !== 1 ? "s" : ""}</span>
-          {listing.flavor && <span>Â· {listing.flavor}</span>}
+          {listing.flavor && <span>· {listing.flavor}</span>}
         </div>
         <div className="mkt-card-footer">
           <div className="mkt-card-price">
@@ -206,7 +206,7 @@ function CreateListingModal({ user, userCoords, onClose, onCreated }) {
           <div className="field">
             <label className="field-label">Title *</label>
             <input className={`field-input ${errors.title ? "error" : ""}`}
-              placeholder="e.g. Zyn Cool Mint 6mg â 3 cans"
+              placeholder="e.g. Zyn Cool Mint 6mg — 3 cans"
               value={form.title} onChange={e => { set("title", e.target.value); setErrors(r => ({...r, title: null})); }} />
             {errors.title && <span className="field-error">{errors.title}</span>}
           </div>
@@ -215,7 +215,7 @@ function CreateListingModal({ user, userCoords, onClose, onCreated }) {
           <div className="field-row">
             <div className="field">
               <label className="field-label">Flavor</label>
-              <input className="field-input" placeholder="Cool Mint, Citrusâ¦"
+              <input className="field-input" placeholder="Cool Mint, Citrus…"
                 value={form.flavor} onChange={e => set("flavor", e.target.value)} />
             </div>
             <div className="field">
@@ -316,7 +316,7 @@ function CreateListingModal({ user, userCoords, onClose, onCreated }) {
 
           <button className="submit-btn" onClick={handleSubmit} disabled={saving}>
             {saving ? <span className="btn-spinner" /> : <i className="ti ti-plus" />}
-            {saving ? "Postingâ¦" : "Post Listing"}
+            {saving ? "Posting…" : "Post Listing"}
           </button>
         </div>
       </div>
@@ -344,7 +344,7 @@ function ContactModal({ listing, onClose }) {
             To message this seller, reply via the SnusWorld community forum or include your contact details when posting.
           </div>
           <div style={{ marginTop: 12, fontSize: 13, color: "var(--gray-500)" }}>
-            Seller ID: <code style={{ fontSize: 12 }}>{listing.user_id?.slice(0, 8)}â¦</code>
+            Seller ID: <code style={{ fontSize: 12 }}>{listing.user_id?.slice(0, 8)}…</code>
           </div>
           <button className="submit-btn" style={{ marginTop: 16 }} onClick={onClose}>
             Got it
@@ -414,7 +414,7 @@ export default function MarketplacePage({ userCoords, user, isLoggedIn, onAuthRe
               <i className="ti ti-shopping-bag" /> SnusWorld Shop
             </div>
             <div className="mkt-sub">
-              Community marketplace Â· Buy &amp; sell nicotine pouches
+              Community marketplace · Buy &amp; sell nicotine pouches
             </div>
           </div>
           <button className="mkt-post-btn" onClick={handleCreateClick}>
@@ -457,7 +457,7 @@ export default function MarketplacePage({ userCoords, user, isLoggedIn, onAuthRe
       <div className="mkt-toolbar">
         <div className="search-wrap" style={{ flex: 1 }}>
           <i className="ti ti-search search-icon" />
-          <input className="search-input" placeholder="Search listingsâ¦"
+          <input className="search-input" placeholder="Search listings…"
             value={search} onChange={e => setSearch(e.target.value)} />
         </div>
         <div className="sort-chips">
@@ -477,7 +477,7 @@ export default function MarketplacePage({ userCoords, user, isLoggedIn, onAuthRe
       {/* Grid */}
       <div className="mkt-grid-wrap">
         {loading ? (
-          <div className="list-loading"><div className="spinner" /><p>Loading listingsâ¦</p></div>
+          <div className="list-loading"><div className="spinner" /><p>Loading listings…</p></div>
         ) : filtered.length === 0 ? (
           <div className="mkt-empty">
             <i className="ti ti-shopping-bag" style={{ fontSize: 40 }} />
