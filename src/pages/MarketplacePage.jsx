@@ -303,7 +303,7 @@ function CreateListingModal({ user, userCoords, onClose, onCreated }) {
             {photoUrl ? (
               <div style={{position:'relative',display:'inline-block',marginTop:4,width:'100%'}}>
                 <img src={photoUrl} alt="Listing" style={{width:'100%',maxHeight:180,objectFit:'cover',borderRadius:10,border:'1px solid #e5e7eb'}}/>
-                <button onClick={()=>setPhotoUrl(null)} style={{position:'absolute',top:6,right:6,background:'rgba(0,0,0,0.6)',border:'none',color:'#fff',borderRadius:99,width:26,height:26,cursor:'pointer',fontSize:16,display:'flex',alignItems:'center',justifyContent:'center'}}>×</button>
+                <button onClick={()=>setPhotoUrl(null)} style={{position:'absolute',top:6,right:6,background:'rgba(0,0,0,0.6)',border:'none',color:'#fff',borderRadius:99,width:26,height:26,cursor:'pointer',fontSize:16,display:'flex',alignItems:'center',justifyContent:'center'}}>Ã</button>
               </div>
             ) : (
               <label style={{display:'flex',alignItems:'center',gap:8,cursor:'pointer',padding:'12px 14px',border:'1.5px dashed #d1d5db',borderRadius:10,fontSize:13,color:'#6b7280',marginTop:4,background:'#f9fafb'}}>
