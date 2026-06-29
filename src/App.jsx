@@ -164,7 +164,7 @@ export default function App() {
               await verifyStore(storeId, confirmed);
               await awardPoints(5);
               await incrementStat("verifications_count");
-              showToast(confirmed ? "Confirmed! +5 points" : "Flagged ÃÂÃÂÃÂÃÂÃÂÃÂÃÂ· +5 points");
+              showToast(confirmed ? "Confirmed! +5 points" : "Flagged · +5 points");
             }} />
         </div>
         {toast && <Toast message={toast} />}
@@ -203,7 +203,7 @@ export default function App() {
               await verifyStore(storeId, confirmed);
               await awardPoints(5);
               await incrementStat("verifications_count");
-              showToast(confirmed ? "Confirmed! +5 points" : "Flagged ÃÂÃÂÃÂÃÂÃÂÃÂÃÂ· +5 points");
+              showToast(confirmed ? "Confirmed! +5 points" : "Flagged · +5 points");
             }}
             onStoreClick={handleStoreClick} />
         )}
