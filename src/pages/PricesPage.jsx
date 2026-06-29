@@ -8,7 +8,7 @@ const headers = {
   "Content-Type": "application/json",
 };
 
-// ── Address parser ─────────────────────────────────────────────────────────
+// ââ Address parser âââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 const CA_PROVINCES = new Set([
   "ON","BC","AB","QC","MB","SK","NS","NB","NL","PE","NT","YT","NU",
   "Ontario","British Columbia","Alberta","Quebec","Manitoba","Saskatchewan",
@@ -38,7 +38,7 @@ function parseAddress(address) {
   return { city: city.replace(/\s*\d.*$/, "").trim(), region: regionClean, country };
 }
 
-// ── Time period filter ─────────────────────────────────────────────────────
+// ââ Time period filter âââââââââââââââââââââââââââââââââââââââââââââââââââââ
 const PERIODS = [
   { id: "1W", label: "1W", days: 7 },
   { id: "1M", label: "1M", days: 30 },
@@ -55,7 +55,7 @@ function filterByPeriod(data, periodId) {
   return data.filter(d => d.date >= cutoff.split("T")[0]);
 }
 
-// ── Chart component ─────────────────────────────────────────────────────────
+// ââ Chart component âââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 function MarketChart({ data, period, currency }) {
   const svgRef = useRef(null);
   const [crosshair, setCrosshair] = useState(null);
@@ -227,7 +227,7 @@ function MarketChart({ data, period, currency }) {
   );
 }
 
-// ── Change badge ───────────────────────────────────────────────────────────
+// ââ Change badge âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 function ChangeBadge({ current, previous }) {
   if (!previous || !current) return null;
   const pct = ((current - previous) / previous) * 100;
@@ -240,7 +240,7 @@ function ChangeBadge({ current, previous }) {
   );
 }
 
-// ── Sparkline ─────────────────────────────────────────────────────────────
+// ââ Sparkline âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 function Sparkline({ values, color: propColor }) {
   if (!values || values.length < 2) return null;
   const W = 72, H = 28;
@@ -261,8 +261,8 @@ function Sparkline({ values, color: propColor }) {
   );
 }
 
-// ── Ticker bar ─────────────────────────────────────────────────────────────
-function TickerBar({ stores }) {
+// ââ Ticker bar âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+function TickerBar({ stores, onSelect }) {
   const priced = stores.filter(s => s.latest_price);
   if (!priced.length) return null;
   const items = [...priced, ...priced]; // duplicate for seamless loop
@@ -270,10 +270,10 @@ function TickerBar({ stores }) {
     <div className="ticker-wrap">
       <div className="ticker-track">
         {items.map((s, i) => (
-          <span key={i} className="ticker-item">
+          <span key={i} className="ticker-item" onClick={() => onSelect?.(s)} style={{cursor:'pointer'}}>
             <span className="ticker-name">{s.name}</span>
             <span className="ticker-price">${parseFloat(s.latest_price).toFixed(2)}</span>
-            <span className="ticker-sep">·</span>
+            <span className="ticker-sep">Â·</span>
           </span>
         ))}
       </div>
@@ -281,7 +281,7 @@ function TickerBar({ stores }) {
   );
 }
 
-// ── Main component ─────────────────────────────────────────────────────────
+// ââ Main component âââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
 
 const TIMEFRAMES = [
   { id: "1W", label: "1W", days: 7 },
@@ -291,7 +291,7 @@ const TIMEFRAMES = [
   { id: "ALL", label: "ALL", days: 9999 },
 ];
 
-function StoreDetailChart({ store, allPrices, currency, onBack, onReportPrice }) {
+function StoreDetailChart({ store, allPrices, currency, onBack, onReportPrice, onViewStore }) {
   const [tf, setTf] = useState("1M");
   const [crosshair, setCrosshair] = useState(null);
   const svgRef = useRef(null);
@@ -393,9 +393,10 @@ function StoreDetailChart({ store, allPrices, currency, onBack, onReportPrice })
           <div style={{fontSize:11,color:"rgba(255,255,255,0.45)",marginTop:1}}>{store.address}</div>
         </div>
         <button onClick={()=>onReportPrice?.(store)} style={{background:"rgba(0,120,255,0.15)",border:"1px solid rgba(0,120,255,0.3)",color:"#60a5fa",borderRadius:8,padding:"6px 10px",fontSize:12,cursor:"pointer",whiteSpace:"nowrap"}}>+ Report</button>
+              {onViewStore && <button onClick={() => onViewStore(store)} style={{background:"rgba(255,255,255,0.06)",border:"1px solid rgba(255,255,255,0.15)",color:"#e2e8f0",borderRadius:8,padding:"6px 10px",fontSize:12,cursor:"pointer",whiteSpace:"nowrap",marginLeft:6}}><i className="ti ti-map-pin" style={{marginRight:4,fontSize:11}}/>View Store</button>}
       </div>
       <div style={{padding:"20px 16px 8px"}}>
-        <div style={{fontSize:36,fontWeight:800,color:"#eef2ff",fontVariantNumeric:"tabular-nums"}}>{displayPrice!=null?currency+parseFloat(displayPrice).toFixed(2):"—"}</div>
+        <div style={{fontSize:36,fontWeight:800,color:"#eef2ff",fontVariantNumeric:"tabular-nums"}}>{displayPrice!=null?currency+parseFloat(displayPrice).toFixed(2):"â"}</div>
         <div style={{fontSize:12,color:"rgba(255,255,255,0.4)",marginTop:2}}>{displayDate}</div>
         {changePct!=null&&!crosshair&&(
           <div style={{marginTop:6,display:"inline-flex",alignItems:"center",gap:4,background:isUp?"rgba(34,197,94,0.12)":"rgba(239,68,68,0.12)",color:isUp?"#4ade80":"#f87171",borderRadius:6,padding:"3px 8px",fontSize:12,fontWeight:600}}>
@@ -419,7 +420,7 @@ function StoreDetailChart({ store, allPrices, currency, onBack, onReportPrice })
       </div>
       {filtered.length>=1&&(
         <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:1,background:"rgba(255,255,255,0.06)",margin:"0 16px 20px",borderRadius:10,overflow:"hidden"}}>
-          {[{label:"Reports",value:storeData.length},{label:"Low",value:filtered.length?currency+Math.min(...filtered.map(d=>d.price)).toFixed(2):"—"},{label:"High",value:filtered.length?currency+Math.max(...filtered.map(d=>d.price)).toFixed(2):"—"}].map(({label,value})=>(
+          {[{label:"Reports",value:storeData.length},{label:"Low",value:filtered.length?currency+Math.min(...filtered.map(d=>d.price)).toFixed(2):"â"},{label:"High",value:filtered.length?currency+Math.max(...filtered.map(d=>d.price)).toFixed(2):"â"}].map(({label,value})=>(
             <div key={label} style={{background:"#141520",padding:"12px 8px",textAlign:"center"}}>
               <div style={{fontSize:11,color:"rgba(255,255,255,0.4)",marginBottom:4}}>{label}</div>
               <div style={{fontSize:15,fontWeight:700,color:"#eef2ff"}}>{value}</div>
@@ -442,7 +443,7 @@ function StoreDetailChart({ store, allPrices, currency, onBack, onReportPrice })
   );
 }
 
-export default function PricesPage({ stores, onReportPrice }) {
+export default function PricesPage({ stores, onReportPrice, onViewStore }) {
   const [allPrices, setAllPrices] = useState([]);
   const [selectedStore, setSelectedStore] = useState(null);
   const [loadingPrices, setLoadingPrices] = useState(false);
@@ -546,20 +547,20 @@ export default function PricesPage({ stores, onReportPrice }) {
     : "Worldwide";
 
       if (selectedStore) {
-      return (<StoreDetailChart store={selectedStore} allPrices={allPrices} currency={currency} onBack={() => setSelectedStore(null)} onReportPrice={onReportPrice} />);
+      return (<StoreDetailChart store={selectedStore} allPrices={allPrices} currency={currency} onBack={() => setSelectedStore(null)} onReportPrice={onReportPrice} onViewStore={onViewStore} />);
     }
     return (
     <div className="prices-page">
-      <TickerBar stores={filteredStores} />
+      <TickerBar stores={filteredStores} onSelect={setSelectedStore} />
 
-      {/* ── Header ── */}
+      {/* ââ Header ââ */}
       <div className="prices-header">
         <div className="ph-top">
           <div>
             <h2 className="ph-title">
               <i className="ti ti-chart-candle" /> Snus Market Index
             </h2>
-            <div className="ph-sub">{locLabel} · {filteredStores.length} locations tracked</div>
+            <div className="ph-sub">{locLabel} Â· {filteredStores.length} locations tracked</div>
           </div>
           {chartChangePct !== null && (
             <div className={`ph-change ${chartChangePct > 0 ? "up" : "down"}`}>
@@ -570,7 +571,7 @@ export default function PricesPage({ stores, onReportPrice }) {
           )}
         </div>
 
-        {/* ── Location filter ── */}
+        {/* ââ Location filter ââ */}
         <div className="loc-filter-row">
           <div className="loc-filter-group">
             <label className="loc-label">Region</label>
@@ -616,7 +617,7 @@ export default function PricesPage({ stores, onReportPrice }) {
           )}
         </div>
 
-        {/* ── Period selector ── */}
+        {/* ââ Period selector ââ */}
         <div className="period-row">
           {PERIODS.map(p => (
             <button key={p.id}
@@ -629,16 +630,16 @@ export default function PricesPage({ stores, onReportPrice }) {
         </div>
       </div>
 
-      {/* ── Main chart ── */}
+      {/* ââ Main chart ââ */}
       <div className="market-chart-panel">
         {loadingPrices ? (
-          <div className="chart-loading"><div className="spinner" /><span>Loading market data…</span></div>
+          <div className="chart-loading"><div className="spinner" /><span>Loading market dataâ¦</span></div>
         ) : (
           <MarketChart data={dailyData} period={period} currency={currency} />
         )}
       </div>
 
-      {/* ── Market movers ── */}
+      {/* ââ Market movers ââ */}
       {movers.length > 0 && (
         <div className="market-movers">
           <div className="movers-title"><i className="ti ti-flame" /> Best Prices</div>
@@ -657,11 +658,11 @@ export default function PricesPage({ stores, onReportPrice }) {
         </div>
       )}
 
-      {/* ── Store list ── */}
+      {/* ââ Store list ââ */}
       <div className="prices-toolbar">
         <div className="search-wrap" style={{ maxWidth: 360 }}>
           <i className="ti ti-search search-icon" />
-          <input className="search-input" placeholder="Search stores…"
+          <input className="search-input" placeholder="Search storesâ¦"
             value={storeSearch} onChange={e => setStoreSearch(e.target.value)} />
         </div>
         <div className="prices-count">{storeRows.length} stores with price data</div>
@@ -688,7 +689,7 @@ export default function PricesPage({ stores, onReportPrice }) {
                 style={{display:'flex',alignItems:'center',padding:'14px 16px',cursor:'pointer',borderBottom:'1px solid rgba(255,255,255,0.07)',WebkitTapHighlightColor:'transparent',userSelect:'none'}}>
                 <div style={{flex:1,minWidth:0,marginRight:8}}>
                   <div style={{fontWeight:700,fontSize:15,color:'#e2e8f0',marginBottom:3,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{s.name}</div>
-                  <div style={{fontSize:12,color:'#94a3b8',overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{s.city ? s.city+' · '+s.region : s.address}</div>
+                  <div style={{fontSize:12,color:'#94a3b8',overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{s.city ? s.city+' Â· '+s.region : s.address}</div>
                 </div>
                 <div style={{margin:'0 14px',flexShrink:0}}>
                   <Sparkline values={s.priceHistory.slice(-12)} color={up ? '#22c55e' : '#ef4444'} />
