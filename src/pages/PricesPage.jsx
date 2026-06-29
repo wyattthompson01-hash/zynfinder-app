@@ -145,7 +145,6 @@ function MarketChart({ data, period, currency }) {
   const handleMouseLeave = useCallback(() => setCrosshair(null), []);
 
   const handleTouchMove = useCallback((e) => {
-    e.preventDefault();
     if (e.touches[0]) findNearest(e.touches[0].clientX);
   }, [findNearest]);
   const handleTouchEnd = useCallback(() => setCrosshair(null), []);
