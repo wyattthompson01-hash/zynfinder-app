@@ -241,7 +241,7 @@ function ChangeBadge({ current, previous }) {
 }
 
 // ── Sparkline ─────────────────────────────────────────────────────────────
-function Sparkline({ values }) {
+function Sparkline({ values, color: propColor }) {
   if (!values || values.length < 2) return null;
   const W = 72, H = 28;
   const min = Math.min(...values), max = Math.max(...values);
@@ -255,7 +255,7 @@ function Sparkline({ values }) {
   const color = isDown ? "#00ffff" : "#ef4444";
   return (
     <svg viewBox={`0 0 ${W} ${H}`} width={W} height={H} style={{ display: "block" }}>
-      <polyline points={pts.join(" ")} fill="none" stroke={color} strokeWidth="1.8"
+      <polyline points={pts.join(" ")} fill="none" stroke={propColor || color} strokeWidth="1.8"
         strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
@@ -678,81 +678,29 @@ export default function PricesPage({ stores, onReportPrice }) {
       ) : (
         <div className="prices-list">
           {storeRows.map(s => {
-            const isExpanded = expandedStore === s.id;
-            const change = s.priceHistory.length >= 2
-              ? s.priceHistory[s.priceHistory.length - 1] - s.priceHistory[0] : null;
-            const changePct = change !== null && s.priceHistory[0]
-              ? (change / s.priceHistory[0]) * 100 : null;
-
+            const pct = s.priceHistory.length >= 2
+              ? ((s.priceHistory[s.priceHistory.length-1] - s.priceHistory[0]) / s.priceHistory[0]) * 100
+              : null;
+            const up = pct !== null && pct >= 0;
             return (
-              <div key={s.id} className={`price-card ${isExpanded ? "expanded" : ""}`}
-                onClick={() => setSelectedStore(s)}>
-                <div className="pc-main">
-                  <div className="pc-left">
-                    <div className="pc-name">{s.name}</div>
-                    <div className="pc-addr">{s.address}</div>
-                    <div className="pc-loc-tag">{s.city} · {s.region}</div>
-                  </div>
-                  <div className="pc-middle">
-                    <Sparkline values={s.priceHistory.slice(-12)} />
-                  </div>
-                  <div className="pc-right">
-                    <div className="pc-price">{currency}{parseFloat(s.latest_price).toFixed(2)}</div>
-                    {changePct !== null && (
-                      <span className={`change-badge ${changePct > 0 ? "up" : "down"}`}>
-                        <i className={`ti ti-trending-${changePct > 0 ? "up" : "down"}`} />
-                        {changePct > 0 ? "+" : ""}{changePct.toFixed(1)}%
-                      </span>
-                    )}
-                    <div className="pc-reports">{s.priceHistory.length} report{s.priceHistory.length !== 1 ? "s" : ""}</div>
-                  </div>
-                  <i className={`ti ti-chevron-${isExpanded ? "up" : "down"} pc-chevron`} />
+              <div key={s.id}
+                onClick={() => setSelectedStore(s)}
+                style={{display:'flex',alignItems:'center',padding:'14px 16px',cursor:'pointer',borderBottom:'1px solid rgba(255,255,255,0.07)',WebkitTapHighlightColor:'transparent',userSelect:'none'}}>
+                <div style={{flex:1,minWidth:0,marginRight:8}}>
+                  <div style={{fontWeight:700,fontSize:15,color:'#e2e8f0',marginBottom:3,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{s.name}</div>
+                  <div style={{fontSize:12,color:'#94a3b8',overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{s.city ? s.city+' · '+s.region : s.address}</div>
                 </div>
-
-                {isExpanded && (
-                  <div className="pc-expanded" onClick={e => e.stopPropagation()}>
-                    {s.priceHistory.length >= 2 ? (
-                      <MarketChart
-                        data={allPrices
-                          .filter(p => String(p.store_id) === String(s.id))
-                          .sort((a, b) => a.reported_at?.localeCompare(b.reported_at))
-                          .reduce((acc, p) => {
-                            const day = p.reported_at?.split("T")[0];
-                            if (!day) return acc;
-                            const existing = acc.find(x => x.date === day);
-                            if (existing) { existing.price = (existing.price + parseFloat(p.price)) / 2; existing.count++; }
-                            else acc.push({ date: day, price: parseFloat(p.price), count: 1 });
-                            return acc;
-                          }, [])}
-                        period={period}
-                        currency={currency}
-                      />
-                    ) : (
-                      <div style={{ color: "rgba(255,255,255,0.5)", fontSize: 13, padding: "16px 0" }}>
-                        Only {s.priceHistory.length} report — need at least 2 to show a chart.
-                      </div>
-                    )}
-                    <div className="pc-history-label">Price history (all reports)</div>
-                    <div className="pc-history-list">
-                      {allPrices
-                        .filter(p => String(p.store_id) === String(s.id))
-                        .sort((a, b) => b.reported_at?.localeCompare(a.reported_at))
-                        .slice(0, 10)
-                        .map((p, i) => (
-                          <div key={i} className="pc-history-row">
-                            <span className="pc-h-date">
-                              {new Date(p.reported_at).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
-                            </span>
-                            <span className="pc-h-price">{currency}{parseFloat(p.price).toFixed(2)}</span>
-                            {p.can_size && <span className="pc-h-size">/ {p.can_size} pack</span>}
-                          </div>
-                        ))}
-                    </div>
-                    <button className="pc-report-btn" onClick={() => onReportPrice?.(s)}>
-                      <i className="ti ti-plus" /> Report new price
-                    </button>
-                  </div>
-                )}
+                <div style={{margin:'0 14px',flexShrink:0}}>
+                  <Sparkline values={s.priceHistory.slice(-12)} color={up ? '#22c55e' : '#ef4444'} />
+                </div>
+                <div style={{textAlign:'right',flexShrink:0}}>
+                  <div style={{fontWeight:700,fontSize:15,color:'#e2e8f0'}}>{currency}{parseFloat(s.latest_price).toFixed(2)}</div>
+                  {pct !== null && (
+                    <span style={{display:'inline-block',marginTop:3,fontSize:12,fontWeight:600,color:'#fff',background:up?'#16a34a':'#dc2626',borderRadius:4,padding:'1px 7px'}}>
+                      {up ? '+' : ''}{pct.toFixed(2)}%
+                    </span>
+                  )}
+                </div>
               </div>
             );
           })}
