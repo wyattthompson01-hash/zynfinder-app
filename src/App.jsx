@@ -8,6 +8,7 @@ import ProfilePage from "./pages/ProfilePage";
 import Leaderboard from "./pages/Leaderboard";
 import PricesPage from "./pages/PricesPage";
 import MarketplacePage from "./pages/MarketplacePage";
+import FeedbackPage from "./pages/FeedbackPage";
 import Header from "./components/Header";
 import Toast from "./components/Toast";
 import AuthModal from "./components/AuthModal";
@@ -26,7 +27,7 @@ export default function App() {
   const [authMode, setAuthMode] = useState("login");
 
   const { coords } = useLocation();
-  const { stores, loading, addStore, verifyStore } = useStores(coords);
+  const { stores, loading, addStore, verifyStore, updateStorePrice } = useStores(coords);
   const {
     user, profile, loading: authLoading,
     signIn, signUp, signOut,
@@ -38,7 +39,6 @@ export default function App() {
     setTimeout(() => setToast(null), 3500);
   }, []);
 
-  // Changing tabs always exits the store detail view
   const handleTabChange = useCallback((newTab) => {
     setSelectedStore(null);
     setShowProfile(false);
@@ -57,6 +57,11 @@ export default function App() {
     if (isLoggedIn) { setShowProfile(true); }
     else { setAuthMode("login"); setShowAuth(true); }
   }, [isLoggedIn]);
+
+  const handleAuthRequired = useCallback(() => {
+    setAuthMode("signup");
+    setShowAuth(true);
+  }, []);
 
   const handleAuthSuccess = useCallback(async (mode, email, password, username) => {
     const result = mode === "login"
@@ -160,11 +165,17 @@ export default function App() {
         )}
         {tab === "leaderboard" && <Leaderboard currentUserId={user?.id} />}
         {tab === "prices" && (
-          <PricesPage stores={stores} userCoords={coords} user={user} onStoreClick={handleStoreClick} />
+          <PricesPage stores={stores} userCoords={coords} user={user}
+            onReportPrice={(store) => { setSelectedStore(store); }}
+          />
         )}
         {tab === "marketplace" && (
           <MarketplacePage userCoords={coords} user={user} isLoggedIn={isLoggedIn}
-            onAuthRequired={() => { setAuthMode("signup"); setShowAuth(true); }} />
+            onAuthRequired={handleAuthRequired} />
+        )}
+        {tab === "feedback" && (
+          <FeedbackPage stores={stores} user={user} isLoggedIn={isLoggedIn}
+            onAuthRequired={handleAuthRequired} />
         )}
       </div>
       {toast && <Toast message={toast} />}
