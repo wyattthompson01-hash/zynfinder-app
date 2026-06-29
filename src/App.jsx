@@ -39,7 +39,7 @@ function PasswordGate({ onUnlock }) {
         <div style={{textAlign:"center",marginBottom:32}}>
           <img src="/snusworld_logo.svg" alt="SnusWorld" style={{width:80,height:80,margin:"0 auto 16px",display:"block"}}/>
           <div style={{fontSize:22,fontWeight:800,color:"#eef2ff",marginBottom:6}}>SnusWorld</div>
-          <div style={{fontSize:13,color:"rgba(255,255,255,0.4)"}}>Private beta Â· enter password to continue</div>
+          <div style={{fontSize:13,color:"rgba(255,255,255,0.4)"}}>Private beta · enter password to continue</div>
         </div>
         <form onSubmit={handleSubmit}>
           <input
@@ -164,7 +164,7 @@ export default function App() {
               await verifyStore(storeId, confirmed);
               await awardPoints(5);
               await incrementStat("verifications_count");
-              showToast(confirmed ? "Confirmed! +5 points" : "Flagged ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÂ· +5 points");
+              showToast(confirmed ? "Confirmed! +5 points" : "Flagged ÃÂÃÂÃÂÃÂÃÂÃÂÃÂ· +5 points");
             }} />
         </div>
         {toast && <Toast message={toast} />}
@@ -203,7 +203,7 @@ export default function App() {
               await verifyStore(storeId, confirmed);
               await awardPoints(5);
               await incrementStat("verifications_count");
-              showToast(confirmed ? "Confirmed! +5 points" : "Flagged ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÂ· +5 points");
+              showToast(confirmed ? "Confirmed! +5 points" : "Flagged ÃÂÃÂÃÂÃÂÃÂÃÂÃÂ· +5 points");
             }}
             onStoreClick={handleStoreClick} />
         )}
