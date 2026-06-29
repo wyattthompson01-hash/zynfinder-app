@@ -3948,3 +3948,738 @@ input[type="checkbox"]:checked::after {
   .pc-report-btn { width: 100%; justify-content: center; }
 }
 
+/* ═══════════════════════════════════════════════════════════════════
+   SnusWorld — Tech Innovation Theme
+   Primary bg:   #1e1e1e  |  Surface:    #141414 / #2a2a2a
+   Blue accent:  #0066ff  |  Cyan hl:    #00ffff
+   Text:         #ffffff  |  Muted text: #a0a0a0
+   Applied last — overrides all base + v6 styles
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── 1. CSS variable remap ─────────────────────────────────────── */
+:root {
+  /* Green scale → blue scale */
+  --green-50:  #0a0f1a;
+  --green-100: #0d1933;
+  --green-200: #0d2b5c;
+  --green-300: #1a4499;
+  --green-400: #4d8fff;
+  --green-500: #0066ff;
+  --green-600: #0066ff;
+  --green-700: #0052cc;
+  --green-900: #002266;
+
+  /* Gray scale → dark theme */
+  --gray-50:   #1e1e1e;
+  --gray-100:  #2a2a2a;
+  --gray-200:  #333333;
+  --gray-300:  #444444;
+  --gray-400:  #6a6a6a;
+  --gray-500:  #a0a0a0;
+  --gray-600:  #c0c0c0;
+  --gray-700:  #d8d8d8;
+  --gray-800:  #eeeeee;
+  --gray-900:  #ffffff;
+
+  /* Amber → cyan */
+  --amber-100: rgba(0, 255, 255, 0.08);
+  --amber-400: #00ffff;
+  --amber-500: #00cccc;
+
+  /* Red stays — semantic danger color */
+  --red-100: rgba(239, 68, 68, 0.12);
+  --red-500: #ef4444;
+  --red-700: #f87171;
+
+  /* Shadows — heavier on dark bg */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.5);
+  --shadow:    0 1px 3px rgba(0,0,0,0.6), 0 1px 2px rgba(0,0,0,0.5);
+  --shadow-md: 0 4px 6px rgba(0,0,0,0.6), 0 2px 4px rgba(0,0,0,0.5);
+  --shadow-lg: 0 10px 15px rgba(0,0,0,0.6), 0 4px 6px rgba(0,0,0,0.4);
+  --shadow-xl: 0 20px 25px rgba(0,0,0,0.7), 0 10px 10px rgba(0,0,0,0.5);
+}
+
+/* ── 2. Global base ───────────────────────────────────────────── */
+html, body, #root {
+  background: #1e1e1e;
+  color: #ffffff;
+}
+.app-shell { background: #141414; }
+
+/* ── 3. Header & nav ─────────────────────────────────────────── */
+.header {
+  background: linear-gradient(135deg, #0a0a0a 0%, #111111 60%, #1a1a1a 100%);
+  box-shadow: 0 2px 12px rgba(0, 102, 255, 0.25);
+  border-bottom: 1px solid rgba(0, 102, 255, 0.18);
+}
+.brand-logo {
+  background: rgba(0, 102, 255, 0.15);
+  border-color: rgba(0, 102, 255, 0.4);
+}
+.brand-name { color: #fff; }
+.brand-sub  { color: rgba(255,255,255,0.5); }
+
+.points-badge {
+  background: rgba(0, 102, 255, 0.15);
+  border-color: rgba(0, 102, 255, 0.35);
+}
+.points-num   { color: #fff; }
+.points-star  { color: #00ffff; }
+.points-label { color: rgba(255,255,255,0.55); }
+
+.tab-bar { background: rgba(0, 0, 0, 0.55); }
+.tab-btn {
+  color: rgba(255,255,255,0.5);
+  border-bottom-color: transparent;
+}
+.tab-btn.active {
+  color: #fff;
+  border-bottom-color: #0066ff;
+  background: rgba(0, 102, 255, 0.12);
+}
+.tab-btn:hover:not(.active) {
+  color: rgba(255,255,255,0.85);
+  background: rgba(255,255,255,0.05);
+}
+
+/* Profile button */
+.profile-btn {
+  background: #2a2a2a;
+  border-color: #3a3a3a;
+  color: #a0a0a0;
+}
+.profile-btn:hover { background: #333; border-color: #444; color: #fff; }
+.profile-btn.logged-in {
+  background: rgba(0,102,255,0.12);
+  border-color: rgba(0,102,255,0.35);
+  color: #4d8fff;
+}
+.profile-btn.logged-in:hover { background: #0066ff; color: #fff; border-color: #0066ff; }
+
+/* ── 4. Main content shell ───────────────────────────────────── */
+.main-content { background: #1e1e1e; }
+
+/* ── 5. List / Nearby panel ──────────────────────────────────── */
+.list-panel        { background: #1e1e1e; }
+.list-toolbar      { background: #1e1e1e; border-color: #2a2a2a; }
+.filter-chips      { background: #1e1e1e; border-color: #2a2a2a; }
+.store-list        { background: #1e1e1e; }
+.store-item        { border-color: #2a2a2a; }
+.store-item:hover  { background: rgba(0, 102, 255, 0.07); }
+.store-name        { color: #fff; }
+.store-addr        { color: #a0a0a0; }
+.store-distance    { color: #6a6a6a; }
+.confirm-count     { color: #6a6a6a; }
+
+/* Store type icons */
+.store-type-icon.gas         { background: rgba(0,102,255,0.15); color: #4d8fff; }
+.store-type-icon.convenience { background: rgba(0,102,255,0.1);  color: #0066ff; }
+.store-type-icon.pharmacy    { background: rgba(255,0,128,0.1);  color: #ff6096; }
+.store-type-icon.other       { background: #2a2a2a;              color: #a0a0a0; }
+
+/* Flavor tags */
+.flavor-tag  { background: #2a2a2a; color: #a0a0a0; }
+.flavor-chip { background: #2a2a2a; border-color: #3a3a3a; color: #c0c0c0; }
+.flavor-chip.selected {
+  background: rgba(0,102,255,0.14);
+  border-color: #0066ff;
+  color: #4d8fff;
+}
+
+/* Filter chips */
+.filter-chip {
+  background: #2a2a2a;
+  border-color: #3a3a3a;
+  color: #a0a0a0;
+}
+.filter-chip.active { background: #0066ff; border-color: #0066ff; color: #fff; }
+.filter-chip:hover:not(.active) { border-color: #0066ff; color: #fff; }
+
+/* Search input */
+.search-wrap .search-icon { color: #6a6a6a; }
+.search-input {
+  background: #2a2a2a;
+  border-color: #3a3a3a;
+  color: #fff;
+}
+.search-input::placeholder { color: #6a6a6a; }
+.search-input:focus {
+  border-color: #0066ff;
+  background: #333;
+  box-shadow: 0 0 0 3px rgba(0,102,255,0.14);
+}
+
+/* Status badges */
+.status-badge.verified   { background: rgba(0,102,255,0.14); color: #4d8fff; }
+.status-badge.pending    { background: rgba(0,255,255,0.09); color: #00cccc; }
+.status-badge.unverified { background: #2a2a2a; color: #a0a0a0; }
+.status-badge.gone       { background: rgba(239,68,68,0.14); color: #f87171; }
+.status-badge.unknown    { background: #2a2a2a; color: #a0a0a0; }
+
+/* Spinner */
+.spinner { border-color: #333; border-top-color: #0066ff; }
+
+/* Empty / loading states */
+.list-empty, .list-loading { color: #6a6a6a; }
+.list-empty p { color: #a0a0a0; }
+
+/* ── 6. Form pages ────────────────────────────────────────────── */
+.form-page        { background: #1e1e1e; }
+.form-container   { background: #1e1e1e; }
+.form-title       { color: #fff; }
+.form-sub         { color: #a0a0a0; }
+.form-card        { background: #2a2a2a; border-color: #3a3a3a; }
+.form-card-title  { color: #707070; }
+
+.field-label  { color: #c0c0c0; }
+.field-error  { color: #f87171; }
+.field-input  {
+  background: #1e1e1e;
+  border-color: #3a3a3a;
+  color: #fff;
+}
+.field-input::placeholder { color: #6a6a6a; }
+.field-input:focus {
+  border-color: #0066ff;
+  background: #222;
+  box-shadow: 0 0 0 3px rgba(0,102,255,0.14);
+}
+.field-input.error { border-color: #ef4444; }
+
+/* Radio buttons */
+.radio-btn {
+  background: #1e1e1e;
+  border-color: #3a3a3a;
+  color: #c0c0c0;
+}
+.radio-btn.selected {
+  background: rgba(0,102,255,0.12);
+  border-color: #0066ff;
+  color: #4d8fff;
+}
+.radio-btn:hover:not(.selected) { border-color: #444; background: #2a2a2a; }
+
+/* Age check */
+.age-check       { background: #1e1e1e; border-color: #3a3a3a; color: #a0a0a0; }
+.age-check input { accent-color: #0066ff; }
+
+/* Submit button */
+.submit-btn {
+  background: linear-gradient(135deg, #0066ff, #0052cc);
+  box-shadow: 0 4px 12px rgba(0,102,255,0.4);
+}
+.submit-btn:hover { box-shadow: 0 6px 16px rgba(0,102,255,0.55); }
+
+/* Price input */
+.price-input-prefix { color: #a0a0a0; }
+.price-current {
+  background: rgba(0,102,255,0.08);
+  border-color: rgba(0,102,255,0.25);
+}
+.price-current-val { color: #4d8fff; }
+
+/* ── 7. Verify page ──────────────────────────────────────────── */
+.verify-page      { background: #1e1e1e; }
+.verify-container { background: #1e1e1e; }
+.verify-card {
+  background: #2a2a2a;
+  border-color: #3a3a3a;
+}
+.verify-meta { color: #6a6a6a; }
+
+.v-btn.yes { background: rgba(0,102,255,0.12); color: #4d8fff; }
+.v-btn.yes:hover { background: #0066ff; color: #fff; }
+.v-btn.no  { background: rgba(239,68,68,0.10); color: #f87171; }
+.v-btn.no:hover  { background: #ef4444; color: #fff; }
+
+.points-banner {
+  background: linear-gradient(135deg, rgba(0,102,255,0.08), #1e1e1e);
+  border-color: rgba(0,102,255,0.2);
+}
+.points-banner-val   { color: #4d8fff; }
+.points-banner-label { color: #0066ff; }
+
+/* ── 8. Location detail page ─────────────────────────────────── */
+.detail-page      { background: #1e1e1e; }
+.detail-container { background: #1e1e1e; }
+.detail-back { color: #a0a0a0; }
+.detail-back:hover { color: #0066ff; }
+
+.detail-hero, .detail-section {
+  background: #2a2a2a;
+  border-color: #3a3a3a;
+}
+.detail-name          { color: #fff; }
+.detail-addr          { color: #a0a0a0; }
+.detail-section-title { color: #707070; }
+
+.stat-box   { background: #1e1e1e; border-color: #333; }
+.stat-val   { color: #fff; }
+.stat-label { color: #a0a0a0; }
+
+.detail-v-btn.yes {
+  background: rgba(0,102,255,0.12);
+  border-color: rgba(0,102,255,0.25);
+  color: #4d8fff;
+}
+.detail-v-btn.yes:hover { background: #0066ff; color: #fff; border-color: #0066ff; }
+.detail-v-btn.no {
+  background: rgba(239,68,68,0.10);
+  border-color: rgba(239,68,68,0.2);
+  color: #f87171;
+}
+.detail-v-btn.no:hover { background: #ef4444; color: #fff; border-color: #ef4444; }
+
+/* Directions link */
+.directions-btn {
+  background: rgba(0,102,255,0.1);
+  border-color: rgba(0,102,255,0.3);
+  color: #4d8fff;
+}
+.directions-btn:hover { background: #0066ff; color: #fff; border-color: #0066ff; }
+
+/* ── 9. Directions page ──────────────────────────────────────── */
+.directions-page   { background: #1e1e1e; }
+.directions-header { background: #1e1e1e; border-color: #2a2a2a; }
+.directions-modes  { background: #1e1e1e; border-color: #2a2a2a; }
+.steps-panel       { background: #1e1e1e; border-color: #2a2a2a; }
+.steps-title       { color: #707070; }
+
+.mode-btn { color: #a0a0a0; }
+.mode-btn.active {
+  color: #0066ff;
+  border-bottom-color: #0066ff;
+  background: rgba(0,102,255,0.08);
+}
+
+.route-summary { background: rgba(0,102,255,0.07); border-color: rgba(0,102,255,0.15); }
+.route-stat    { color: #0066ff; }
+.route-divider { background: rgba(0,102,255,0.2); }
+.route-error   { background: rgba(239,68,68,0.08); color: #f87171; border-color: rgba(239,68,68,0.2); }
+
+.step-item { border-color: #2a2a2a; }
+.step-icon { background: rgba(0,102,255,0.12); color: #0066ff; }
+.step-instruction { color: #e0e0e0; }
+.step-distance { color: #6a6a6a; }
+
+/* ── 10. Map page ────────────────────────────────────────────── */
+.map-legend {
+  background: rgba(20, 20, 20, 0.96);
+  border-color: #2a2a2a;
+}
+.legend-title { color: #707070; }
+.legend-row   { color: #c0c0c0; }
+
+.map-hover-popup {
+  background: #2a2a2a;
+  border-color: #3a3a3a;
+}
+.map-hover-popup::after { background: #2a2a2a; border-color: #3a3a3a; }
+.hover-popup-name { color: #fff; }
+.hover-popup-addr { color: #a0a0a0; }
+.hover-popup-hint { color: #4d8fff; }
+
+.fab { background: #0066ff; box-shadow: 0 4px 14px rgba(0,102,255,0.45); }
+.fab:hover { background: #0052cc; box-shadow: 0 6px 18px rgba(0,102,255,0.55); }
+
+/* Map search overlay */
+.map-search-overlay { }
+.map-search-input {
+  background: #1e1e1e;
+  border-color: #3a3a3a;
+  color: #fff;
+}
+.map-search-input::placeholder { color: #6a6a6a; }
+.map-search-input:focus {
+  border-color: #0066ff;
+  box-shadow: 0 0 0 3px rgba(0,102,255,0.14);
+}
+.map-search-btn { background: #0066ff; color: #fff; }
+.map-search-btn:hover { background: #0052cc; }
+
+.map-search-results {
+  background: #1e1e1e;
+  border-color: #3a3a3a;
+}
+.msr-item { border-color: #2a2a2a; color: #c0c0c0; }
+.msr-item:hover { background: rgba(0,102,255,0.09); }
+.msr-name { color: #fff; }
+.msr-addr { color: #a0a0a0; }
+
+/* Map filter panel */
+.map-filter-panel {
+  background: #1e1e1e;
+  border-color: #3a3a3a;
+}
+.mfp-title         { color: #707070; }
+.mfp-section-label { color: #6a6a6a; }
+
+.map-filter-btn, .filter-toggle-btn {
+  background: #2a2a2a;
+  border-color: #3a3a3a;
+  color: #a0a0a0;
+}
+.map-filter-btn:hover, .filter-toggle-btn:hover { background: #333; color: #fff; }
+.map-filter-btn.active, .filter-toggle-btn.active {
+  background: #0066ff;
+  border-color: #0066ff;
+  color: #fff;
+}
+
+/* Toggle switch */
+.toggle-switch-track { background: #3a3a3a; }
+.toggle-switch input:checked + .toggle-switch-track { background: #0066ff; }
+
+/* ── 11. Nearby / StoreList (card grid) ──────────────────────── */
+.store-card-grid { background: #1e1e1e; }
+.sc-card {
+  background: #2a2a2a;
+  border-color: #3a3a3a;
+}
+.sc-card:hover {
+  box-shadow: 0 4px 20px rgba(0,102,255,0.18);
+  border-color: rgba(0,102,255,0.35);
+  transform: translateY(-1px);
+}
+.sc-name { color: #fff; }
+.sc-addr { color: #a0a0a0; }
+.sc-type-badge {
+  background: rgba(0,102,255,0.12);
+  border-color: rgba(0,102,255,0.2);
+  color: #4d8fff;
+}
+
+/* List / Grid view toggle */
+.view-btn {
+  background: #2a2a2a;
+  border-color: #3a3a3a;
+  color: #a0a0a0;
+}
+.view-btn.active { background: #0066ff; border-color: #0066ff; color: #fff; }
+
+.sort-select, .type-select {
+  background: #2a2a2a;
+  border-color: #3a3a3a;
+  color: #c0c0c0;
+}
+.filter-row, .sort-row, .list-stats-bar { background: #1e1e1e; border-color: #2a2a2a; }
+.list-stats-bar { color: #a0a0a0; }
+
+/* ── 12. Market / Prices page ─────────────────────────────────
+   (Already dark; remap green→blue, keep #0f0f1a-style darks)    */
+.prices-page    { background: #0f0f1a; }
+.prices-header  { background: #0f0f1a; }
+
+/* Ticker */
+.ticker-wrap { background: #080812; border-color: rgba(0,102,255,0.12); }
+.ticker-price { color: #00ffff; }
+
+/* Movers */
+.market-movers   { background: #0c0c18; border-color: rgba(0,102,255,0.1); }
+.movers-title    { color: rgba(255,255,255,0.4); }
+.mover-card {
+  background: rgba(0,102,255,0.06);
+  border-color: rgba(0,102,255,0.14);
+}
+.mover-rank  { color: rgba(255,255,255,0.3); }
+.mover-name  { color: #fff; }
+.mover-addr  { color: rgba(255,255,255,0.4); }
+.mover-price { color: #00ffff; }
+
+/* Chart panel */
+.market-chart-panel { background: #0f0f1a; }
+
+/* Period buttons */
+.period-btn { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.4); }
+.period-btn.active { background: rgba(0,102,255,0.28); color: #fff; }
+.period-btn:hover:not(.active) { background: rgba(0,102,255,0.12); color: rgba(255,255,255,0.8); }
+
+/* Location chips */
+.loc-chip { border-color: rgba(255,255,255,0.12); background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.55); }
+.loc-chip.active { background: #0066ff; border-color: #0066ff; color: #fff; }
+.loc-chip:hover:not(.active) { border-color: rgba(0,102,255,0.5); color: #fff; }
+
+/* Location selects */
+.loc-select {
+  border-color: rgba(255,255,255,0.12);
+  background-color: rgba(255,255,255,0.07);
+  color: #fff;
+}
+.loc-select:focus { border-color: #0066ff; }
+
+/* Chart tooltip */
+.chart-tooltip { background: rgba(15,15,26,0.96); border-color: rgba(0,102,255,0.2); }
+.ct-date  { color: rgba(255,255,255,0.45); }
+.ct-price { color: #fff; }
+.ct-count { color: rgba(255,255,255,0.4); }
+
+/* Chart empty / loading */
+.chart-empty   { color: rgba(255,255,255,0.3); }
+.chart-loading { color: rgba(255,255,255,0.5); }
+
+/* Prices toolbar */
+.prices-toolbar { background: #0f0f1a; border-color: rgba(255,255,255,0.05); }
+.prices-count   { color: rgba(255,255,255,0.35); }
+.prices-toolbar .search-input {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.1);
+  color: #fff;
+}
+.prices-toolbar .search-input:focus { border-color: #0066ff; background: rgba(255,255,255,0.09); }
+.prices-toolbar .search-icon { color: rgba(255,255,255,0.35); }
+
+/* Price cards */
+.prices-list { background: #0f0f1a; }
+.price-card { background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.07); }
+.price-card:hover   { border-color: rgba(0,102,255,0.3); }
+.price-card.expanded { border-color: rgba(0,102,255,0.55); }
+
+.pc-name    { color: #fff; }
+.pc-addr    { color: rgba(255,255,255,0.38); }
+.pc-loc-tag { color: rgba(255,255,255,0.28); }
+.pc-price   { color: #fff; }
+.pc-reports { color: rgba(255,255,255,0.3); }
+.pc-chevron { color: rgba(255,255,255,0.3); }
+
+/* Change badges */
+.change-badge.up   { color: #ef4444; background: rgba(239,68,68,0.14); }
+.change-badge.down { color: #00ffff; background: rgba(0,255,255,0.1); }
+
+/* Expanded card */
+.pc-expanded { border-color: rgba(0,102,255,0.1); }
+.pc-history-label { color: rgba(255,255,255,0.38); }
+.pc-h-date  { color: rgba(255,255,255,0.38); }
+.pc-h-price { color: #fff; }
+.pc-h-size  { color: rgba(255,255,255,0.28); }
+.pc-report-btn {
+  border-color: #0066ff;
+  background: rgba(0,102,255,0.1);
+  color: #4d8fff;
+}
+.pc-report-btn:hover { background: rgba(0,102,255,0.22); }
+
+/* Prices empty state */
+.prices-empty { color: rgba(255,255,255,0.28); }
+
+/* ── 13. Leaderboard ─────────────────────────────────────────── */
+.leaderboard-page   { background: #141414; }
+.leaderboard-header { background: linear-gradient(135deg, #0a0a0a 0%, #141414 100%); }
+.leaderboard-title  { color: #fff; }
+.leaderboard-sub    { color: rgba(255,255,255,0.45); }
+.lb-stat-pill { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.09); }
+
+.lb-tabs  { background: #141414; border-color: #2a2a2a; }
+.lb-tab   { background: #2a2a2a; border-color: #3a3a3a; color: #a0a0a0; }
+.lb-tab:hover { border-color: #444; color: #fff; }
+.lb-tab.active { background: #0066ff; border-color: #0066ff; color: #fff; }
+
+/* Podium */
+.podium { background: linear-gradient(180deg, #111 0%, #141414 100%); }
+.podium-name   { color: #fff; }
+.podium-val    { color: #d8d8d8; }
+.podium-sub    { color: rgba(255,255,255,0.35); }
+.podium-avatar { background: #2a2a2a; color: #a0a0a0; }
+.podium-avatar.gold-ring   { background: rgba(245,158,11,0.15); color: #f59e0b; border-color: #f59e0b; }
+.podium-avatar.bronze-ring { background: rgba(205,124,71,0.15); color: #cd7c47; border-color: #cd7c47; }
+
+/* Rank badges — keep gold/silver/bronze semantic */
+.rank-badge.plain { background: #2a2a2a; color: #a0a0a0; }
+
+/* Table */
+.lb-table-wrap   { background: #141414; }
+.lb-table-header { border-color: #2a2a2a; color: #6a6a6a; }
+.lb-table-row    { color: #c0c0c0; }
+.lb-table-row:hover { background: rgba(0,102,255,0.06); }
+.lb-table-row.me {
+  background: rgba(0,102,255,0.08);
+  border-color: rgba(0,102,255,0.25);
+}
+.lb-username    { color: #fff; }
+.lb-rank-num    { color: #6a6a6a; }
+.lb-you-badge   { background: rgba(0,102,255,0.15); color: #4d8fff; }
+.score-bar      { background: #2a2a2a; }
+
+/* Your rank bar */
+.lb-your-rank-bar {
+  background: rgba(0,102,255,0.07);
+  border-color: rgba(0,102,255,0.2);
+  color: #c0c0c0;
+}
+.lb-your-rank { color: #a0a0a0; }
+.lb-loading   { color: #a0a0a0; }
+
+/* ── 14. Feedback page ───────────────────────────────────────── */
+.feedback-page   { background: #1e1e1e; }
+.fb-page-header  { background: linear-gradient(135deg, #0a0a0a 0%, #141414 100%); }
+.fb-title        { color: #fff; }
+.fb-subtitle     { color: rgba(255,255,255,0.45); }
+
+.fb-tabs { background: #1e1e1e; border-color: #2a2a2a; }
+.fb-tab  {
+  background: #2a2a2a;
+  border-color: #3a3a3a;
+  color: #a0a0a0;
+}
+.fb-tab:hover { border-color: #444; }
+.fb-tab.active { background: #0066ff; border-color: #0066ff; color: #fff; }
+
+.fb-content     { background: #1e1e1e; }
+.fb-panel-title { color: #fff; }
+.fb-panel-sub   { color: #a0a0a0; }
+.fb-label       { color: #c0c0c0; }
+.optional-label { color: #6a6a6a; }
+.fb-char-count  { color: #6a6a6a; }
+
+/* Category buttons */
+.fb-cat-grid { }
+.fb-cat-btn {
+  background: #2a2a2a;
+  border-color: #3a3a3a;
+  color: #a0a0a0;
+}
+.fb-cat-btn:hover { border-color: #444; color: #fff; }
+.fb-cat-btn.active {
+  background: rgba(0,102,255,0.12);
+  border-color: #0066ff;
+  color: #4d8fff;
+}
+
+/* Textarea / input */
+.fb-textarea, .fb-input {
+  background: #1e1e1e;
+  border-color: #3a3a3a;
+  color: #fff;
+}
+.fb-textarea::placeholder, .fb-input::placeholder { color: #6a6a6a; }
+.fb-textarea:focus, .fb-input:focus {
+  border-color: #0066ff;
+  background: #222;
+}
+
+/* Submit */
+.fb-submit-btn { background: #0066ff; }
+.fb-submit-btn:hover:not(:disabled) { background: #0052cc; }
+
+/* Auth note */
+.fb-auth-note   { background: rgba(0,255,255,0.06); color: #a0a0a0; }
+.fb-signin-link { color: #0066ff; }
+
+/* Feedback items */
+.fb-empty { color: #6a6a6a; }
+.fb-item  { background: #2a2a2a; border-color: #3a3a3a; }
+.fb-item-date { color: #6a6a6a; }
+.fb-item-msg  { color: #c0c0c0; }
+.fb-status.resolved { background: rgba(0,102,255,0.12); color: #4d8fff; }
+.fb-status.reviewed { background: rgba(0,255,255,0.08); color: #00cccc; }
+
+/* Review items */
+.review-item        { background: #2a2a2a; }
+.review-store-name  { color: #fff; }
+.review-store-addr  { color: #a0a0a0; }
+.review-rating-label { color: #a0a0a0; }
+.star-btn.filled    { color: #00ffff; }
+.star-label         { color: #a0a0a0; }
+
+/* Store search dropdown */
+.store-search-dropdown { background: #1e1e1e; border-color: #3a3a3a; }
+.ssd-item       { border-color: #2a2a2a; }
+.ssd-item:hover { background: rgba(0,102,255,0.09); }
+.ssd-name       { color: #fff; }
+.ssd-addr       { color: #a0a0a0; }
+.selected-store-badge {
+  background: rgba(0,102,255,0.1);
+  border-color: rgba(0,102,255,0.3);
+  color: #4d8fff;
+}
+.selected-store-badge button { color: #6a6a6a; }
+
+/* ── 15. Auth modal ──────────────────────────────────────────── */
+.modal-overlay { background: rgba(0, 0, 0, 0.72); }
+.modal-card    { background: #1e1e1e; border: 1px solid #2a2a2a; }
+.modal-close   { background: #2a2a2a; color: #a0a0a0; }
+.modal-close:hover { background: #333; color: #fff; }
+
+.modal-tabs { border-color: #2a2a2a; }
+.modal-tab  { color: #a0a0a0; }
+.modal-tab.active { color: #0066ff; border-bottom-color: #0066ff; }
+
+.modal-form .field-label { color: #c0c0c0; }
+
+.modal-submit { background: #0066ff; }
+.modal-submit:hover:not(:disabled) { background: #0052cc; }
+
+.modal-footer-note { color: #a0a0a0; }
+.modal-switch-link { color: #0066ff; }
+
+.modal-guest-btn { border-color: #3a3a3a; color: #a0a0a0; background: transparent; }
+.modal-guest-btn:hover { background: #2a2a2a; border-color: #444; color: #fff; }
+
+.modal-error {
+  background: rgba(239,68,68,0.1);
+  border-color: rgba(239,68,68,0.2);
+  color: #f87171;
+}
+
+/* ── 16. Profile page ────────────────────────────────────────── */
+.profile-avatar { background: linear-gradient(135deg, #0066ff, #00ccff); }
+.profile-username { color: #fff; }
+.profile-email    { color: #a0a0a0; }
+.profile-joined   { color: #6a6a6a; }
+
+.badge-item.locked { background: #2a2a2a; border-color: #333; }
+.badge-label       { color: #d8d8d8; }
+.badge-item.locked .badge-label { color: #6a6a6a; }
+.badge-desc        { color: #a0a0a0; }
+.locked-icon       { background: #333 !important; color: #6a6a6a !important; }
+
+.signout-btn {
+  background: rgba(239,68,68,0.08);
+  border-color: rgba(239,68,68,0.25);
+  color: #f87171;
+}
+.signout-btn:hover { background: #ef4444; color: #fff; border-color: #ef4444; }
+
+/* ── 17. Toast notification ──────────────────────────────────── */
+.toast { background: #1a1a1a; border: 1px solid #2a2a2a; color: #fff; }
+.toast i { color: #0066ff; }
+
+/* ── 18. Scrollbar styling (webkit) ──────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #141414; }
+::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #444; }
+
+/* ── 19. Marketplace page ────────────────────────────────────── */
+.marketplace-page   { background: #1e1e1e; color: #fff; }
+.marketplace-header { background: linear-gradient(135deg, #0a0a0a 0%, #141414 100%); }
+
+/* Generic white surfaces → dark */
+.marketplace-page .form-card,
+.marketplace-page [class*="-card"],
+.marketplace-page [class*="-panel"] {
+  background: #2a2a2a;
+  border-color: #3a3a3a;
+}
+
+/* ── 20. Leaflet map overrides ───────────────────────────────── */
+.leaflet-popup-content-wrapper {
+  background: #1e1e1e !important;
+  border: 1px solid #2a2a2a !important;
+  color: #fff !important;
+  border-radius: 10px !important;
+}
+.leaflet-popup-tip { background: #1e1e1e !important; }
+.leaflet-control-zoom a {
+  background: #1e1e1e !important;
+  border-color: #2a2a2a !important;
+  color: #fff !important;
+}
+.leaflet-control-zoom a:hover {
+  background: #0066ff !important;
+}
+.leaflet-control-attribution {
+  background: rgba(14,14,14,0.75) !important;
+  color: #707070 !important;
+}
+.leaflet-control-attribution a { color: #4d8fff !important; }
+
