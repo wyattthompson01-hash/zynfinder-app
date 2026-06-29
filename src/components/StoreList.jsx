@@ -129,22 +129,53 @@ export default function StoreList({ stores, loading, userCoords, onStoreClick })
       });
   }, [stores, search, filter, sortBy, userCoords, typeFilter]);
 
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const suggestions = useMemo(() => {
+    if (!search || search.length < 1) return [];
+    const q = search.toLowerCase();
+    return stores
+      .filter(s =>
+        (s.name && s.name.toLowerCase().includes(q)) ||
+        (s.address && s.address.toLowerCase().includes(q)) ||
+        (s.city && s.city.toLowerCase().includes(q))
+      )
+      .slice(0, 6);
+  }, [stores, search]);
+
   const nearbyCount = enriched.filter(s => s.distance != null && s.distance < 5).length;
   const pricedCount = enriched.filter(s => s.latest_price).length;
   const verifiedCount = enriched.filter(s => s.status === "verified").length;
 
   return (
     <div className="list-panel">
-      {/* ── Toolbar ── */}
+      {/* ââ Toolbar ââ */}
       <div className="list-toolbar">
-        <div className="search-wrap">
+        <div className="search-wrap" style={{position:'relative'}}>
           <i className="ti ti-search search-icon" />
           <input
             className="search-input"
             placeholder="Search stores or addresses…"
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => { setSearch(e.target.value); setShowSuggestions(true); }}
+            onFocus={() => setShowSuggestions(true)}
+            onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
+            autoComplete="off"
           />
+          {showSuggestions && search.length >= 1 && suggestions.length > 0 && (
+            <div style={{position:'absolute',top:'100%',left:0,right:0,background:'#1a1b2e',border:'1px solid rgba(255,255,255,0.12)',borderRadius:8,zIndex:200,boxShadow:'0 4px 16px rgba(0,0,0,0.5)',overflow:'hidden',marginTop:4}}>
+              {suggestions.map((s, idx2) => (
+                <div key={idx2}
+                  onMouseDown={() => { setSearch(s.name); setShowSuggestions(false); }}
+                  style={{padding:'10px 14px',cursor:'pointer',borderBottom:'1px solid rgba(255,255,255,0.06)',fontSize:14,color:'#e2e8f0',background:'transparent'}}
+                  onMouseEnter={e=>e.currentTarget.style.background='rgba(255,255,255,0.06)'}
+                  onMouseLeave={e=>e.currentTarget.style.background='transparent'}
+                >
+                  <div style={{fontWeight:600,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{s.name}</div>
+                  <div style={{fontSize:12,color:'#94a3b8',marginTop:2,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{s.city || s.address}</div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
         <div className="list-view-toggle">
           <button className={`view-btn ${viewMode === "grid" ? "active" : ""}`}
@@ -158,7 +189,7 @@ export default function StoreList({ stores, loading, userCoords, onStoreClick })
         </div>
       </div>
 
-      {/* ── Stats bar ── */}
+      {/* ââ Stats bar ââ */}
       <div className="list-stats-bar">
         <div className="lsb-item">
           <i className="ti ti-map-pin" />
@@ -180,7 +211,7 @@ export default function StoreList({ stores, loading, userCoords, onStoreClick })
         </div>
       </div>
 
-      {/* ── Filter chips ── */}
+      {/* ââ Filter chips ââ */}
       <div className="filter-row">
         <div className="filter-chips">
           <span className="filter-group-label">Status:</span>
@@ -207,7 +238,7 @@ export default function StoreList({ stores, loading, userCoords, onStoreClick })
         </div>
       </div>
 
-      {/* ── Sort ── */}
+      {/* ââ Sort ââ */}
       <div className="sort-row">
         <span className="sort-label">Sort:</span>
         <div className="sort-chips">
@@ -220,9 +251,9 @@ export default function StoreList({ stores, loading, userCoords, onStoreClick })
         </div>
       </div>
 
-      {/* ── Content ── */}
+      {/* ââ Content ââ */}
       {loading ? (
-        <div className="list-loading"><div className="spinner" /><span>Finding locations…</span></div>
+        <div className="list-loading"><div className="spinner" /><span>Finding locationsâ¦</span></div>
       ) : enriched.length === 0 ? (
         <div className="list-empty">
           <i className="ti ti-map-pin-off" style={{ fontSize: 36 }} />
