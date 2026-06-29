@@ -179,7 +179,7 @@ html, body, #root { height: 100%; font-family: "Inter", system-ui, -apple-system
 .step-distance { font-size: 11px; color: var(--gray-400); margin-top: 2px; }
 @media (min-width: 768px) { .tab-btn span { display: inline; } .header-top { padding: 16px 32px; } .tab-bar { padding: 0 32px; } .tab-btn { flex: none; padding: 10px 20px; font-size: 14px; } .list-toolbar { padding: 14px 24px; } .filter-chips { padding: 10px 24px; } .store-item { padding: 16px 24px; } .store-name { font-size: 15px; } }
 @media (min-width: 1024px) { .main-content { flex-direction: row; } .map-wrapper { flex: 1; } .side-panel { width: 400px; border-left: 1px solid var(--gray-200); overflow-y: auto; flex-shrink: 0; } }
-/* ── Task 2: Auth + Profile additions — append to styles.css ── */
+/* ââ Task 2: Auth + Profile additions â append to styles.css ââ */
 
 /* Profile button in header */
 .profile-btn {
@@ -373,7 +373,7 @@ html, body, #root { height: 100%; font-family: "Inter", system-ui, -apple-system
 }
 .signout-btn:hover { background: #dc2626; color: #fff; border-color: #dc2626; }
 
-/* ── Task 3: Price additions — append to styles.css ── */
+/* ââ Task 3: Price additions â append to styles.css ââ */
 
 /* Price input */
 .price-input-wrap {
@@ -544,7 +544,7 @@ html, body, #root { height: 100%; font-family: "Inter", system-ui, -apple-system
 }
 .sort-chip:hover:not(.active) { border-color: var(--gray-300); color: var(--gray-700); }
 
-/* ── Task 4: Leaderboard additions — append to styles.css ── */
+/* ââ Task 4: Leaderboard additions â append to styles.css ââ */
 
 .leaderboard-page {
   display: flex;
@@ -807,7 +807,7 @@ html, body, #root { height: 100%; font-family: "Inter", system-ui, -apple-system
 }
 .lb-your-rank-bar strong { color: #059669; font-size: 16px; }
 
-/* ── Task 5: Map Overpass additions — append to styles.css ── */
+/* ââ Task 5: Map Overpass additions â append to styles.css ââ */
 
 .overpass-loading-badge {
   position: absolute;
@@ -828,22 +828,22 @@ html, body, #root { height: 100%; font-family: "Inter", system-ui, -apple-system
   z-index: 500;
   white-space: nowrap;
 }
-/* ═══════════════════════════════════════════════════════════════════════════
-   ZynFinder v2 — append to the END of src/styles.css
+/* âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+   ZynFinder v2 â append to the END of src/styles.css
    Covers: desktop layout, cross-platform inputs, live nav, price ticker
-   ═══════════════════════════════════════════════════════════════════════════ */
+   âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 
-/* ── Pulse ring animation (used by live-position marker) ──────────────────── */
+/* ââ Pulse ring animation (used by live-position marker) ââââââââââââââââââââ */
 @keyframes pulse-ring {
   0%   { transform: scale(0.85); opacity: 0.5; }
   70%  { transform: scale(1.3);  opacity: 0; }
   100% { transform: scale(1.3);  opacity: 0; }
 }
 
-/* ─────────────────────────────────────────────────────────────────────────────
+/* âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
    CROSS-PLATFORM INPUT STYLING
    Remove native OS chrome on Mac/Windows/Android; replace with our own design.
-   ───────────────────────────────────────────────────────────────────────────── */
+   âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 
 .field-input,
 .search-input,
@@ -944,7 +944,7 @@ input[type="checkbox"]:focus-visible {
   box-shadow: 0 0 0 3px rgba(5,150,105,0.18);
 }
 
-/* Price number input — hide spinners, keep $ prefix looking right */
+/* Price number input â hide spinners, keep $ prefix looking right */
 .price-input {
   -webkit-appearance: none;
   -moz-appearance: textfield;
@@ -954,9 +954,9 @@ input[type="checkbox"]:focus-visible {
 .price-input::-webkit-outer-spin-button,
 .price-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   LIVE NAVIGATION — nav-step-banner, eta bar, arrived
-   ───────────────────────────────────────────────────────────────────────────── */
+/* âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+   LIVE NAVIGATION â nav-step-banner, eta bar, arrived
+   âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 
 .nav-arrived {
   display: flex;
@@ -1071,9 +1071,9 @@ input[type="checkbox"]:focus-visible {
   color: #9ca3af !important;
 }
 
-/* ─────────────────────────────────────────────────────────────────────────────
+/* âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
    PRICE TICKER / STOCK-MARKET CHART
-   ───────────────────────────────────────────────────────────────────────────── */
+   âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 
 .price-chart-card {
   background: #fff;
@@ -1160,7 +1160,7 @@ input[type="checkbox"]:focus-visible {
   transform: translateX(-50%);
 }
 
-/* Price section in LocationDetail — "no data yet" empty state */
+/* Price section in LocationDetail â "no data yet" empty state */
 .price-empty {
   display: flex;
   flex-direction: column;
@@ -1173,9 +1173,9 @@ input[type="checkbox"]:focus-visible {
 .price-empty i { font-size: 28px; }
 .price-empty p { font-size: 13px; }
 
-/* ─────────────────────────────────────────────────────────────────────────────
-   DESKTOP RESPONSIVE LAYOUT  (≥768px and ≥1100px)
-   ───────────────────────────────────────────────────────────────────────────── */
+/* âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+   DESKTOP RESPONSIVE LAYOUT  (â¥768px and â¥1100px)
+   âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 
 @media (min-width: 768px) {
   /* Form pages: more breathing room */
@@ -1244,7 +1244,7 @@ input[type="checkbox"]:focus-visible {
   .store-name { font-size: 15px; }
   .store-addr { font-size: 13px; }
 
-  /* Directions: split view — map takes most space, steps panel on the side */
+  /* Directions: split view â map takes most space, steps panel on the side */
   .directions-page { flex-direction: column; }
   .directions-map { flex: 1; min-height: 400px; }
   .steps-panel { max-height: 280px; }
@@ -1261,7 +1261,7 @@ input[type="checkbox"]:focus-visible {
   .badges-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
 }
 
-/* ── Map + Sidebar split on wide screens ────────────────────────────────────── */
+/* ââ Map + Sidebar split on wide screens ââââââââââââââââââââââââââââââââââââââ */
 @media (min-width: 1100px) {
   /* When the map tab is active, show a sidebar with the list */
   .map-and-list {
@@ -1278,12 +1278,12 @@ input[type="checkbox"]:focus-visible {
     overflow-y: auto;
   }
 }
-/* ════════════════════════════════════════════════════════════════════
-   ZynFinder v3 additions — append to end of styles.css
+/* ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+   ZynFinder v3 additions â append to end of styles.css
    Covers: fullscreen directions, prices page, desktop layout
-   ════════════════════════════════════════════════════════════════════ */
+   ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 
-/* ── Full-screen Directions ─────────────────────────────────────── */
+/* ââ Full-screen Directions âââââââââââââââââââââââââââââââââââââââ */
 .dir-fullscreen {
   position: relative;
   width: 100%;
@@ -1508,7 +1508,7 @@ input[type="checkbox"]:focus-visible {
   color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px;
 }
 
-/* ── Prices / Market Page ─────────────────────────────────────────── */
+/* ââ Prices / Market Page âââââââââââââââââââââââââââââââââââââââââââ */
 .prices-page {
   display: block;
   min-height: 100%;
@@ -1626,7 +1626,7 @@ input[type="checkbox"]:focus-visible {
 
 .price-report-inline { margin-top: 4px; }
 
-/* ── Desktop layout fixes ─────────────────────────────────────────── */
+/* ââ Desktop layout fixes âââââââââââââââââââââââââââââââââââââââââââ */
 
 /* Tab bar: icons only on very small screens, icon+label on normal */
 @media (max-width: 380px) {
@@ -1678,12 +1678,12 @@ input[type="checkbox"]:focus-visible {
   /* Price chart bigger */
   .price-ticker-current { font-size: 32px; }
 }
-/* ════════════════════════════════════════════════════════════════════
-   SnusWorld v4 — additions & overrides
+/* ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+   SnusWorld v4 â additions & overrides
    Append to end of styles.css after v3 additions
-   ════════════════════════════════════════════════════════════════════ */
+   ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 
-/* ── SnusWorld color overrides ─────────────────────────────────── */
+/* ââ SnusWorld color overrides âââââââââââââââââââââââââââââââââââ */
 :root {
   --navy: #0f172a;
   --navy-700: #1e293b;
@@ -1714,7 +1714,7 @@ input[type="checkbox"]:focus-visible {
 .tab-btn.active { border-bottom-color: #10b981; background: rgba(16,185,129,0.12); color: #6ee7b7; }
 .tab-btn:hover:not(.active) { background: rgba(255,255,255,0.06); }
 
-/* ── Fix all native OS inputs globally ─────────────────────────── */
+/* ââ Fix all native OS inputs globally âââââââââââââââââââââââââââ */
 input, select, textarea, button {
   font-family: inherit;
 }
@@ -1799,7 +1799,7 @@ input[type="checkbox"]:checked::after {
   box-shadow: 0 0 0 3px rgba(16,185,129,0.1);
 }
 
-/* ── Desktop layout — real improvements ─────────────────────────── */
+/* ââ Desktop layout â real improvements âââââââââââââââââââââââââââ */
 
 /* App shell: sidebar split on large screens */
 @media (min-width: 768px) {
@@ -1818,7 +1818,7 @@ input[type="checkbox"]:checked::after {
 @media (min-width: 1100px) {
   .tab-btn { min-width: 90px; padding: 10px 20px; font-size: 13px; }
 
-  /* Form pages — wider, 2-column for form + sidebar tip card */
+  /* Form pages â wider, 2-column for form + sidebar tip card */
   .form-page, .verify-page { background: #f0f4f8; }
   .form-container, .verify-container { max-width: 1100px; padding: 40px 60px 80px; }
   .detail-container { max-width: 1100px; padding: 40px 60px 80px; }
@@ -1845,7 +1845,7 @@ input[type="checkbox"]:checked::after {
   .dir-steps-sheet { max-height: 40vh; }
 }
 
-/* ── Submit / action buttons ─────────────────────────────────────── */
+/* ââ Submit / action buttons âââââââââââââââââââââââââââââââââââââââ */
 .submit-btn {
   background: linear-gradient(135deg, #059669, #10b981);
   box-shadow: 0 4px 14px rgba(16,185,129,0.3);
@@ -1868,7 +1868,7 @@ input[type="checkbox"]:checked::after {
 .sort-chip:hover:not(.active) { border-color: #94a3b8; }
 .sort-chip i { font-size: 13px; }
 
-/* ── Enhanced Prices / Market Page ─────────────────────────────── */
+/* ââ Enhanced Prices / Market Page âââââââââââââââââââââââââââââââ */
 
 /* Live ticker */
 .mkt-ticker-outer {
@@ -2048,13 +2048,13 @@ input[type="checkbox"]:checked::after {
   flex-wrap: wrap;
 }
 .prices-list {
-  flex: 1; overflow-y: auto;
+  flex: none; overflow-y: visible;
   padding: 10px 12px 24px;
   display: flex; flex-direction: column; gap: 8px;
   background: #f8fafc;
 }
 
-/* ── Marketplace Page ──────────────────────────────────────────── */
+/* ââ Marketplace Page ââââââââââââââââââââââââââââââââââââââââââââ */
 .mkt-page {
   display: flex;
   flex-direction: column;
@@ -2268,7 +2268,7 @@ input[type="checkbox"]:checked::after {
   font-size: 13px; line-height: 1.5;
 }
 
-/* ── Directions enhancements ─────────────────────────────────────── */
+/* ââ Directions enhancements âââââââââââââââââââââââââââââââââââââââ */
 .dir-fullscreen { position: relative; width: 100%; height: 100%; overflow: hidden; }
 .dir-map { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; }
 
@@ -2399,10 +2399,10 @@ input[type="checkbox"]:checked::after {
   100% { transform: scale(2.2); opacity: 0; }
 }
 
-/* ── Leaderboard dark theme accents ─────────────────────────────── */
+/* ââ Leaderboard dark theme accents âââââââââââââââââââââââââââââââ */
 .lb-title { color: #0f172a; }
 
-/* ── Price input row ─────────────────────────────────────────────── */
+/* ââ Price input row âââââââââââââââââââââââââââââââââââââââââââââââ */
 .price-input-row { display: flex; gap: 6px; align-items: center; }
 .price-input-wrap { position: relative; }
 .price-input-prefix {
@@ -2413,7 +2413,7 @@ input[type="checkbox"]:checked::after {
 }
 .price-input { padding-left: 26px !important; }
 
-/* ── Desktop prices 2-col ───────────────────────────────────────── */
+/* ââ Desktop prices 2-col âââââââââââââââââââââââââââââââââââââââââ */
 @media (min-width: 1100px) {
   .prices-list { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; align-items: start; }
   .prices-header { padding: 24px 32px 20px; }
@@ -2427,14 +2427,14 @@ input[type="checkbox"]:checked::after {
   .mkt-grid { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
 }
 
-/* ── Wider store list on desktop ────────────────────────────────── */
+/* ââ Wider store list on desktop ââââââââââââââââââââââââââââââââââ */
 @media (min-width: 1100px) {
   .list-toolbar { padding: 14px 32px; }
   .filter-chips { padding: 10px 32px; }
   .store-item { padding: 16px 32px; }
   .store-name { font-size: 15px; }
 }
-/* ── v5 logo + brand tweaks ──────────────────────────────────────── */
+/* ââ v5 logo + brand tweaks ââââââââââââââââââââââââââââââââââââââââ */
 
 /* Bigger logo container to show the globe properly */
 .brand-logo {
@@ -2466,16 +2466,16 @@ input[type="checkbox"]:checked::after {
   letter-spacing: 0.1px;
 }
 
-/* Header slight tweak — a bit taller to breathe */
+/* Header slight tweak â a bit taller to breathe */
 .header-top {
   padding: 12px 24px;
 }
-/* ════════════════════════════════════════════════════════════════════
-   SnusWorld v5 — Desktop layout fix (append after v4 additions)
+/* ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+   SnusWorld v5 â Desktop layout fix (append after v4 additions)
    Goal: every non-map tab fills the full screen width on desktop
-   ════════════════════════════════════════════════════════════════════ */
+   ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 
-/* ── Base: every page fills available space ────────────────────── */
+/* ââ Base: every page fills available space ââââââââââââââââââââââ */
 .form-page,
 .verify-page,
 .detail-page,
@@ -2484,7 +2484,7 @@ input[type="checkbox"]:checked::after {
   width: 100%;
 }
 
-/* ── Tablet (768px) ─────────────────────────────────────────────── */
+/* ââ Tablet (768px) âââââââââââââââââââââââââââââââââââââââââââââââ */
 @media (min-width: 768px) {
   .form-container,
   .verify-container {
@@ -2498,10 +2498,10 @@ input[type="checkbox"]:checked::after {
   .leaderboard-page { max-width: 860px; }
 }
 
-/* ── Desktop (1100px) — full-screen treatment ───────────────────── */
+/* ââ Desktop (1100px) â full-screen treatment âââââââââââââââââââââ */
 @media (min-width: 1100px) {
 
-  /* Remove the narrow column — fill the screen */
+  /* Remove the narrow column â fill the screen */
   .form-container,
   .verify-container {
     max-width: 100%;
@@ -2583,7 +2583,7 @@ input[type="checkbox"]:checked::after {
   .mkt-stats { max-width: 500px; }
 }
 
-/* ── Large desktop (1400px) — even wider ────────────────────────── */
+/* ââ Large desktop (1400px) â even wider ââââââââââââââââââââââââââ */
 @media (min-width: 1400px) {
   .form-container,
   .verify-container,
@@ -2604,7 +2604,7 @@ input[type="checkbox"]:checked::after {
   .filter-chips { padding-left: 40px; padding-right: 40px; }
 }
 
-/* ── Verify queue: wider card layout ────────────────────────────── */
+/* ââ Verify queue: wider card layout ââââââââââââââââââââââââââââââ */
 @media (min-width: 1100px) {
   .verify-list {
     display: grid;
@@ -2615,7 +2615,7 @@ input[type="checkbox"]:checked::after {
   .verify-card { margin: 0; }
 }
 
-/* ── Header: wider content area ─────────────────────────────────── */
+/* ââ Header: wider content area âââââââââââââââââââââââââââââââââââ */
 @media (min-width: 1100px) {
   .header-top { padding: 14px 80px; max-width: 100%; }
   .tab-bar { padding: 0 80px; max-width: 100%; }
@@ -2626,7 +2626,7 @@ input[type="checkbox"]:checked::after {
   .tab-bar { padding: 0 120px; }
 }
 
-/* ── Leaderboard table look on desktop ──────────────────────────── */
+/* ââ Leaderboard table look on desktop ââââââââââââââââââââââââââââ */
 @media (min-width: 1100px) {
   .lb-list { width: 100%; }
   .lb-row {
@@ -2638,7 +2638,7 @@ input[type="checkbox"]:checked::after {
   }
 }
 
-/* ── Profile page ────────────────────────────────────────────────── */
+/* ââ Profile page ââââââââââââââââââââââââââââââââââââââââââââââââââ */
 @media (min-width: 1100px) {
   .profile-page .form-container,
   .profile-page .verify-container {
@@ -2647,7 +2647,7 @@ input[type="checkbox"]:checked::after {
   }
 }
 
-/* ── Fix detail page 2-panel on large desktop ───────────────────── */
+/* ââ Fix detail page 2-panel on large desktop âââââââââââââââââââââ */
 @media (min-width: 1400px) {
   .detail-hero {
     display: grid;
@@ -2657,12 +2657,12 @@ input[type="checkbox"]:checked::after {
   }
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   SnusWorld v6 — addendum styles
+/* âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+   SnusWorld v6 â addendum styles
    Append this after v5/styles.css
-   ═══════════════════════════════════════════════════════════════════ */
+   âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 
-/* ── Map search overlay ────────────────────────────────────────── */
+/* ââ Map search overlay ââââââââââââââââââââââââââââââââââââââââââ */
 .map-search-overlay {
   position: absolute;
   top: 14px;
@@ -2854,7 +2854,7 @@ input[type="checkbox"]:checked::after {
 }
 .mfp-clear:hover { background: var(--red-100); }
 
-/* ── Nearby — stats bar + card grid ───────────────────────────── */
+/* ââ Nearby â stats bar + card grid âââââââââââââââââââââââââââââ */
 .list-stats-bar {
   display: flex;
   gap: 16px;
@@ -3011,12 +3011,11 @@ input[type="checkbox"]:checked::after {
   gap: 4px;
 }
 
-/* ── Market chart ──────────────────────────────────────────────── */
+/* ââ Market chart ââââââââââââââââââââââââââââââââââââââââââââââââ */
 .prices-page {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+  display: block;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   background: #0f0f1a;
   color: #fff;
 }
@@ -3230,9 +3229,11 @@ input[type="checkbox"]:checked::after {
 .prices-list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 8px 24px 40px;
+  gap: 0;
+  padding: 0;
   background: #0f0f1a;
+  flex: none;
+  overflow-y: visible;
 }
 .price-card {
   background: rgba(255,255,255,0.04);
@@ -3329,7 +3330,7 @@ input[type="checkbox"]:checked::after {
 .ticker-sep { color: rgba(255,255,255,0.2); }
 @keyframes ticker-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-/* ── Leaderboard desktop ───────────────────────────────────────── */
+/* ââ Leaderboard desktop âââââââââââââââââââââââââââââââââââââââââ */
 .leaderboard-page {
   display: flex;
   flex-direction: column;
@@ -3534,7 +3535,7 @@ input[type="checkbox"]:checked::after {
   font-size: 14px;
 }
 
-/* ── Feedback page ─────────────────────────────────────────────── */
+/* ââ Feedback page âââââââââââââââââââââââââââââââââââââââââââââââ */
 .feedback-page {
   display: flex;
   flex-direction: column;
@@ -3822,7 +3823,7 @@ input[type="checkbox"]:checked::after {
   margin-left: 8px;
 }
 
-/* ── Desktop media queries ─────────────────────────────────────── */
+/* ââ Desktop media queries âââââââââââââââââââââââââââââââââââââââ */
 @media (min-width: 900px) {
   .fb-two-col {
     grid-template-columns: 1fr 1fr;
@@ -3873,7 +3874,7 @@ input[type="checkbox"]:checked::after {
   .store-card-grid { padding: 20px 60px 60px; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
 }
 
-/* ── Mobile: Prices page (≤768px) ─────────────────────────────────── */
+/* ââ Mobile: Prices page (â¤768px) âââââââââââââââââââââââââââââââââââ */
 @media (max-width: 768px) {
   /* Header */
   .prices-header { padding: 12px 14px 0; }
@@ -3948,17 +3949,17 @@ input[type="checkbox"]:checked::after {
   .pc-report-btn { width: 100%; justify-content: center; }
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   SnusWorld — Tech Innovation Theme
+/* âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+   SnusWorld â Tech Innovation Theme
    Primary bg:   #1e1e1e  |  Surface:    #141414 / #2a2a2a
    Blue accent:  #0066ff  |  Cyan hl:    #00ffff
    Text:         #ffffff  |  Muted text: #a0a0a0
-   Applied last — overrides all base + v6 styles
-   ═══════════════════════════════════════════════════════════════════ */
+   Applied last â overrides all base + v6 styles
+   âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 
-/* ── 1. CSS variable remap ─────────────────────────────────────── */
+/* ââ 1. CSS variable remap âââââââââââââââââââââââââââââââââââââââ */
 :root {
-  /* Green scale → blue scale */
+  /* Green scale â blue scale */
   --green-50:  #0a0f1a;
   --green-100: #0d1933;
   --green-200: #0d2b5c;
@@ -3969,7 +3970,7 @@ input[type="checkbox"]:checked::after {
   --green-700: #0052cc;
   --green-900: #002266;
 
-  /* Gray scale → dark theme */
+  /* Gray scale â dark theme */
   --gray-50:   #1e1e1e;
   --gray-100:  #2a2a2a;
   --gray-200:  #333333;
@@ -3981,17 +3982,17 @@ input[type="checkbox"]:checked::after {
   --gray-800:  #eeeeee;
   --gray-900:  #ffffff;
 
-  /* Amber → cyan */
+  /* Amber â cyan */
   --amber-100: rgba(0, 255, 255, 0.08);
   --amber-400: #00ffff;
   --amber-500: #00cccc;
 
-  /* Red stays — semantic danger color */
+  /* Red stays â semantic danger color */
   --red-100: rgba(239, 68, 68, 0.12);
   --red-500: #ef4444;
   --red-700: #f87171;
 
-  /* Shadows — heavier on dark bg */
+  /* Shadows â heavier on dark bg */
   --shadow-sm: 0 1px 2px rgba(0,0,0,0.5);
   --shadow:    0 1px 3px rgba(0,0,0,0.6), 0 1px 2px rgba(0,0,0,0.5);
   --shadow-md: 0 4px 6px rgba(0,0,0,0.6), 0 2px 4px rgba(0,0,0,0.5);
@@ -3999,14 +4000,14 @@ input[type="checkbox"]:checked::after {
   --shadow-xl: 0 20px 25px rgba(0,0,0,0.7), 0 10px 10px rgba(0,0,0,0.5);
 }
 
-/* ── 2. Global base ───────────────────────────────────────────── */
+/* ââ 2. Global base âââââââââââââââââââââââââââââââââââââââââââââ */
 html, body, #root {
   background: #1e1e1e;
   color: #ffffff;
 }
 .app-shell { background: #141414; }
 
-/* ── 3. Header & nav ─────────────────────────────────────────── */
+/* ââ 3. Header & nav âââââââââââââââââââââââââââââââââââââââââââ */
 .header {
   background: linear-gradient(135deg, #0a0a0a 0%, #111111 60%, #1a1a1a 100%);
   box-shadow: 0 2px 12px rgba(0, 102, 255, 0.25);
@@ -4056,10 +4057,10 @@ html, body, #root {
 }
 .profile-btn.logged-in:hover { background: #0066ff; color: #fff; border-color: #0066ff; }
 
-/* ── 4. Main content shell ───────────────────────────────────── */
+/* ââ 4. Main content shell âââââââââââââââââââââââââââââââââââââ */
 .main-content { background: #1e1e1e; }
 
-/* ── 5. List / Nearby panel ──────────────────────────────────── */
+/* ââ 5. List / Nearby panel ââââââââââââââââââââââââââââââââââââ */
 .list-panel        { background: #1e1e1e; }
 .list-toolbar      { background: #1e1e1e; border-color: #2a2a2a; }
 .filter-chips      { background: #1e1e1e; border-color: #2a2a2a; }
@@ -4123,7 +4124,7 @@ html, body, #root {
 .list-empty, .list-loading { color: #6a6a6a; }
 .list-empty p { color: #a0a0a0; }
 
-/* ── 6. Form pages ────────────────────────────────────────────── */
+/* ââ 6. Form pages ââââââââââââââââââââââââââââââââââââââââââââââ */
 .form-page        { background: #1e1e1e; }
 .form-container   { background: #1e1e1e; }
 .form-title       { color: #fff; }
@@ -4178,7 +4179,7 @@ html, body, #root {
 }
 .price-current-val { color: #4d8fff; }
 
-/* ── 7. Verify page ──────────────────────────────────────────── */
+/* ââ 7. Verify page ââââââââââââââââââââââââââââââââââââââââââââ */
 .verify-page      { background: #1e1e1e; }
 .verify-container { background: #1e1e1e; }
 .verify-card {
@@ -4199,7 +4200,7 @@ html, body, #root {
 .points-banner-val   { color: #4d8fff; }
 .points-banner-label { color: #0066ff; }
 
-/* ── 8. Location detail page ─────────────────────────────────── */
+/* ââ 8. Location detail page âââââââââââââââââââââââââââââââââââ */
 .detail-page      { background: #1e1e1e; }
 .detail-container { background: #1e1e1e; }
 .detail-back { color: #a0a0a0; }
@@ -4238,7 +4239,7 @@ html, body, #root {
 }
 .directions-btn:hover { background: #0066ff; color: #fff; border-color: #0066ff; }
 
-/* ── 9. Directions page ──────────────────────────────────────── */
+/* ââ 9. Directions page ââââââââââââââââââââââââââââââââââââââââ */
 .directions-page   { background: #1e1e1e; }
 .directions-header { background: #1e1e1e; border-color: #2a2a2a; }
 .directions-modes  { background: #1e1e1e; border-color: #2a2a2a; }
@@ -4262,7 +4263,7 @@ html, body, #root {
 .step-instruction { color: #e0e0e0; }
 .step-distance { color: #6a6a6a; }
 
-/* ── 10. Map page ────────────────────────────────────────────── */
+/* ââ 10. Map page ââââââââââââââââââââââââââââââââââââââââââââââ */
 .map-legend {
   background: rgba(20, 20, 20, 0.96);
   border-color: #2a2a2a;
@@ -4330,7 +4331,7 @@ html, body, #root {
 .toggle-switch-track { background: #3a3a3a; }
 .toggle-switch input:checked + .toggle-switch-track { background: #0066ff; }
 
-/* ── 11. Nearby / StoreList (card grid) ──────────────────────── */
+/* ââ 11. Nearby / StoreList (card grid) ââââââââââââââââââââââââ */
 .store-card-grid { background: #1e1e1e; }
 .sc-card {
   background: #2a2a2a;
@@ -4365,8 +4366,8 @@ html, body, #root {
 .filter-row, .sort-row, .list-stats-bar { background: #1e1e1e; border-color: #2a2a2a; }
 .list-stats-bar { color: #a0a0a0; }
 
-/* ── 12. Market / Prices page ─────────────────────────────────
-   (Already dark; remap green→blue, keep #0f0f1a-style darks)    */
+/* ââ 12. Market / Prices page âââââââââââââââââââââââââââââââââ
+   (Already dark; remap greenâblue, keep #0f0f1a-style darks)    */
 .prices-page    { background: #0f0f1a; }
 .prices-header  { background: #0f0f1a; }
 
@@ -4461,7 +4462,7 @@ html, body, #root {
 /* Prices empty state */
 .prices-empty { color: rgba(255,255,255,0.28); }
 
-/* ── 13. Leaderboard ─────────────────────────────────────────── */
+/* ââ 13. Leaderboard âââââââââââââââââââââââââââââââââââââââââââ */
 .leaderboard-page   { background: #141414; }
 .leaderboard-header { background: linear-gradient(135deg, #0a0a0a 0%, #141414 100%); }
 .leaderboard-title  { color: #fff; }
@@ -4482,7 +4483,7 @@ html, body, #root {
 .podium-avatar.gold-ring   { background: rgba(245,158,11,0.15); color: #f59e0b; border-color: #f59e0b; }
 .podium-avatar.bronze-ring { background: rgba(205,124,71,0.15); color: #cd7c47; border-color: #cd7c47; }
 
-/* Rank badges — keep gold/silver/bronze semantic */
+/* Rank badges â keep gold/silver/bronze semantic */
 .rank-badge.plain { background: #2a2a2a; color: #a0a0a0; }
 
 /* Table */
@@ -4508,7 +4509,7 @@ html, body, #root {
 .lb-your-rank { color: #a0a0a0; }
 .lb-loading   { color: #a0a0a0; }
 
-/* ── 14. Feedback page ───────────────────────────────────────── */
+/* ââ 14. Feedback page âââââââââââââââââââââââââââââââââââââââââ */
 .feedback-page   { background: #1e1e1e; }
 .fb-page-header  { background: linear-gradient(135deg, #0a0a0a 0%, #141414 100%); }
 .fb-title        { color: #fff; }
@@ -4593,7 +4594,7 @@ html, body, #root {
 }
 .selected-store-badge button { color: #6a6a6a; }
 
-/* ── 15. Auth modal ──────────────────────────────────────────── */
+/* ââ 15. Auth modal ââââââââââââââââââââââââââââââââââââââââââââ */
 .modal-overlay { background: rgba(0, 0, 0, 0.72); }
 .modal-card    { background: #1e1e1e; border: 1px solid #2a2a2a; }
 .modal-close   { background: #2a2a2a; color: #a0a0a0; }
@@ -4620,7 +4621,7 @@ html, body, #root {
   color: #f87171;
 }
 
-/* ── 16. Profile page ────────────────────────────────────────── */
+/* ââ 16. Profile page ââââââââââââââââââââââââââââââââââââââââââ */
 .profile-avatar { background: linear-gradient(135deg, #0066ff, #00ccff); }
 .profile-username { color: #fff; }
 .profile-email    { color: #a0a0a0; }
@@ -4639,21 +4640,21 @@ html, body, #root {
 }
 .signout-btn:hover { background: #ef4444; color: #fff; border-color: #ef4444; }
 
-/* ── 17. Toast notification ──────────────────────────────────── */
+/* ââ 17. Toast notification ââââââââââââââââââââââââââââââââââââ */
 .toast { background: #1a1a1a; border: 1px solid #2a2a2a; color: #fff; }
 .toast i { color: #0066ff; }
 
-/* ── 18. Scrollbar styling (webkit) ──────────────────────────── */
+/* ââ 18. Scrollbar styling (webkit) ââââââââââââââââââââââââââââ */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: #141414; }
 ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: #444; }
 
-/* ── 19. Marketplace page ────────────────────────────────────── */
+/* ââ 19. Marketplace page ââââââââââââââââââââââââââââââââââââââ */
 .marketplace-page   { background: #1e1e1e; color: #fff; }
 .marketplace-header { background: linear-gradient(135deg, #0a0a0a 0%, #141414 100%); }
 
-/* Generic white surfaces → dark */
+/* Generic white surfaces â dark */
 .marketplace-page .form-card,
 .marketplace-page [class*="-card"],
 .marketplace-page [class*="-panel"] {
@@ -4661,7 +4662,7 @@ html, body, #root {
   border-color: #3a3a3a;
 }
 
-/* ── 20. Leaflet map overrides ───────────────────────────────── */
+/* ââ 20. Leaflet map overrides âââââââââââââââââââââââââââââââââ */
 .leaflet-popup-content-wrapper {
   background: #1e1e1e !important;
   border: 1px solid #2a2a2a !important;
