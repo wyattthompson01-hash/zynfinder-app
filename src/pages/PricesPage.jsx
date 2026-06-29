@@ -283,8 +283,169 @@ function TickerBar({ stores }) {
 }
 
 // ── Main component ─────────────────────────────────────────────────────────
+
+const TIMEFRAMES = [
+  { id: "1W", label: "1W", days: 7 },
+  { id: "1M", label: "1M", days: 30 },
+  { id: "3M", label: "3M", days: 90 },
+  { id: "6M", label: "6M", days: 180 },
+  { id: "ALL", label: "ALL", days: 9999 },
+];
+
+function StoreDetailChart({ store, allPrices, currency, onBack, onReportPrice }) {
+  const [tf, setTf] = useState("1M");
+  const [crosshair, setCrosshair] = useState(null);
+  const svgRef = useRef(null);
+
+  const storeData = allPrices
+    .filter(p => String(p.store_id) === String(store.id))
+    .map(p => ({ date: (p.reported_at || "").slice(0,10), price: parseFloat(p.price) }))
+    .filter(p => p.date && !isNaN(p.price))
+    .sort((a,b) => a.date.localeCompare(b.date));
+
+  const byDay = {};
+  storeData.forEach(p => {
+    if (!byDay[p.date]) byDay[p.date] = [];
+    byDay[p.date].push(p.price);
+  });
+  const daily = Object.entries(byDay)
+    .map(([date, prices]) => ({ date, price: prices.reduce((a,b)=>a+b,0)/prices.length }))
+    .sort((a,b)=>a.date.localeCompare(b.date));
+
+  const tfDays = TIMEFRAMES.find(t=>t.id===tf)?.days ?? 30;
+  const cutoff = new Date(); cutoff.setDate(cutoff.getDate()-tfDays);
+  const filtered = daily.filter(d => tfDays>=9999 || new Date(d.date)>=cutoff);
+
+  const currentPrice = filtered.length ? filtered[filtered.length-1].price : null;
+  const firstPrice = filtered.length ? filtered[0].price : null;
+  const change = (currentPrice!=null&&firstPrice!=null) ? currentPrice-firstPrice : null;
+  const changePct = (change!=null&&firstPrice) ? (change/firstPrice)*100 : null;
+  const isUp = changePct>=0;
+
+  const W=360, H=220;
+  const pad={top:16,right:16,bottom:32,left:48};
+  const iW=W-pad.left-pad.right, iH=H-pad.top-pad.bottom;
+
+  let chartSvg = null;
+  if (filtered.length>=2) {
+    const prices=filtered.map(d=>d.price);
+    const minP=Math.min(...prices), maxP=Math.max(...prices);
+    const pRange=maxP-minP||1;
+    const dates=filtered.map(d=>new Date(d.date).getTime());
+    const minD=dates[0], maxD=dates[dates.length-1], dRange=maxD-minD||1;
+    const xS=t=>pad.left+((t-minD)/dRange)*iW;
+    const yS=p=>pad.top+iH-((p-minP)/pRange)*iH;
+    const pts=filtered.map((d,i)=>({x:xS(dates[i]),y:yS(d.price),...d}));
+    const linePath=pts.map((p,i)=>(i===0?"M":"L")+p.x.toFixed(1)+","+p.y.toFixed(1)).join(" ");
+    const areaPath=["M "+pts[0].x.toFixed(1)+","+(pad.top+iH).toFixed(1),...pts.map(p=>"L "+p.x.toFixed(1)+","+p.y.toFixed(1)),"L "+pts[pts.length-1].x.toFixed(1)+","+(pad.top+iH).toFixed(1),"Z"].join(" ");
+    const yTicks=4;
+    const yGrid=Array.from({length:yTicks+1},(_,i)=>{const p=minP+(pRange*i/yTicks);return{y:yS(p),label:currency+p.toFixed(2)};});
+    const xCount=Math.min(filtered.length,5);
+    const xStep=Math.floor((filtered.length-1)/(xCount-1))||1;
+    const xLabels=[];
+    for(let i=0;i<filtered.length;i+=xStep){if(xLabels.length>=xCount)break;const d=new Date(filtered[i].date);xLabels.push({x:xS(dates[i]),label:d.toLocaleDateString("en-US",{month:"short",day:"numeric"})});}
+    const handlePointer=e=>{const svg=svgRef.current;if(!svg)return;const rect=svg.getBoundingClientRect();const clientX=e.touches?e.touches[0].clientX:e.clientX;const rx=clientX-rect.left;const ratio=(rx-pad.left)/iW;const idx=Math.max(0,Math.min(pts.length-1,Math.round(ratio*(pts.length-1))));setCrosshair({pt:pts[idx],idx});};
+    const handleLeave=()=>setCrosshair(null);
+    const color=isUp?"#22c55e":"#ef4444";
+    const gradId="sg"+store.id;
+    chartSvg=(
+      <svg ref={svgRef} viewBox={"0 0 "+W+" "+H} style={{width:"100%",height:"auto",touchAction:"none",cursor:"crosshair",display:"block"}}
+        onMouseMove={handlePointer} onMouseLeave={handleLeave}
+        onTouchMove={handlePointer} onTouchEnd={handleLeave}>
+        <defs>
+          <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor={color} stopOpacity="0.25"/>
+            <stop offset="100%" stopColor={color} stopOpacity="0.02"/>
+          </linearGradient>
+        </defs>
+        {yGrid.map((g,i)=>(
+          <g key={i}>
+            <line x1={pad.left} y1={g.y.toFixed(1)} x2={W-pad.right} y2={g.y.toFixed(1)} stroke="rgba(255,255,255,0.07)" strokeWidth="1"/>
+            <text x={pad.left-6} y={g.y+4} textAnchor="end" fontSize="9" fill="rgba(255,255,255,0.35)">{g.label}</text>
+          </g>
+        ))}
+        {xLabels.map((xl,i)=>(
+          <text key={i} x={xl.x.toFixed(1)} y={H-8} textAnchor="middle" fontSize="9" fill="rgba(255,255,255,0.35)">{xl.label}</text>
+        ))}
+        <path d={areaPath} fill={"url(#"+gradId+")"}/>
+        <path d={linePath} fill="none" stroke={color} strokeWidth="2" strokeLinejoin="round"/>
+        {crosshair && (
+          <>
+            <line x1={crosshair.pt.x.toFixed(1)} y1={pad.top} x2={crosshair.pt.x.toFixed(1)} y2={pad.top+iH} stroke="rgba(255,255,255,0.3)" strokeWidth="1" strokeDasharray="3 3"/>
+            <circle cx={crosshair.pt.x.toFixed(1)} cy={crosshair.pt.y.toFixed(1)} r="4" fill={color} stroke="#1a1b2e" strokeWidth="2"/>
+          </>
+        )}
+      </svg>
+    );
+  }
+
+  const displayPrice=crosshair?crosshair.pt.price:currentPrice;
+  const displayDate=crosshair?new Date(crosshair.pt.date).toLocaleDateString("en-US",{weekday:"short",month:"short",day:"numeric",year:"numeric"}):"Current price";
+  const recentReports=allPrices.filter(p=>String(p.store_id)===String(store.id)).sort((a,b)=>(b.reported_at||"").localeCompare(a.reported_at||"")).slice(0,15);
+
+  return (
+    <div style={{background:"#0d0e1a",minHeight:"100%",paddingBottom:32}}>
+      <div style={{display:"flex",alignItems:"center",gap:12,padding:"16px 16px 8px",borderBottom:"1px solid rgba(255,255,255,0.08)"}}>
+        <button onClick={onBack} style={{background:"none",border:"none",color:"rgba(255,255,255,0.7)",fontSize:20,cursor:"pointer",padding:"4px 8px",borderRadius:8}}>
+          <i className="ti ti-arrow-left"/>
+        </button>
+        <div style={{flex:1,minWidth:0}}>
+          <div style={{fontWeight:700,fontSize:15,color:"#eef2ff",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{store.name}</div>
+          <div style={{fontSize:11,color:"rgba(255,255,255,0.45)",marginTop:1}}>{store.address}</div>
+        </div>
+        <button onClick={()=>onReportPrice?.(store)} style={{background:"rgba(0,120,255,0.15)",border:"1px solid rgba(0,120,255,0.3)",color:"#60a5fa",borderRadius:8,padding:"6px 10px",fontSize:12,cursor:"pointer",whiteSpace:"nowrap"}}>+ Report</button>
+      </div>
+      <div style={{padding:"20px 16px 8px"}}>
+        <div style={{fontSize:36,fontWeight:800,color:"#eef2ff",fontVariantNumeric:"tabular-nums"}}>{displayPrice!=null?currency+parseFloat(displayPrice).toFixed(2):"—"}</div>
+        <div style={{fontSize:12,color:"rgba(255,255,255,0.4)",marginTop:2}}>{displayDate}</div>
+        {changePct!=null&&!crosshair&&(
+          <div style={{marginTop:6,display:"inline-flex",alignItems:"center",gap:4,background:isUp?"rgba(34,197,94,0.12)":"rgba(239,68,68,0.12)",color:isUp?"#4ade80":"#f87171",borderRadius:6,padding:"3px 8px",fontSize:12,fontWeight:600}}>
+            <i className={"ti ti-trending-"+(isUp?"up":"down")} style={{fontSize:13}}/>
+            {isUp?"+":""}{change?.toFixed(2)} ({isUp?"+":""}{changePct?.toFixed(2)}%)
+          </div>
+        )}
+      </div>
+      <div style={{display:"flex",gap:4,padding:"0 16px 8px"}}>
+        {TIMEFRAMES.map(t=>(
+          <button key={t.id} onClick={()=>{setTf(t.id);setCrosshair(null);}} style={{flex:1,padding:"5px 0",borderRadius:6,border:"none",cursor:"pointer",fontSize:12,fontWeight:600,background:tf===t.id?"rgba(255,255,255,0.12)":"transparent",color:tf===t.id?"#eef2ff":"rgba(255,255,255,0.4)"}}>{t.label}</button>
+        ))}
+      </div>
+      <div style={{padding:"0 8px 8px"}}>
+        {filtered.length>=2?chartSvg:(
+          <div style={{textAlign:"center",padding:"40px 0",color:"rgba(255,255,255,0.35)",fontSize:13}}>
+            <i className="ti ti-chart-line" style={{fontSize:28,display:"block",marginBottom:8}}/>
+            Not enough data for this period.
+          </div>
+        )}
+      </div>
+      {filtered.length>=1&&(
+        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:1,background:"rgba(255,255,255,0.06)",margin:"0 16px 20px",borderRadius:10,overflow:"hidden"}}>
+          {[{label:"Reports",value:storeData.length},{label:"Low",value:filtered.length?currency+Math.min(...filtered.map(d=>d.price)).toFixed(2):"—"},{label:"High",value:filtered.length?currency+Math.max(...filtered.map(d=>d.price)).toFixed(2):"—"}].map(({label,value})=>(
+            <div key={label} style={{background:"#141520",padding:"12px 8px",textAlign:"center"}}>
+              <div style={{fontSize:11,color:"rgba(255,255,255,0.4)",marginBottom:4}}>{label}</div>
+              <div style={{fontSize:15,fontWeight:700,color:"#eef2ff"}}>{value}</div>
+            </div>
+          ))}
+        </div>
+      )}
+      <div style={{padding:"0 16px"}}>
+        <div style={{fontSize:12,fontWeight:600,color:"rgba(255,255,255,0.4)",marginBottom:10,letterSpacing:"0.05em",textTransform:"uppercase"}}>Price history</div>
+        {recentReports.length===0?<div style={{color:"rgba(255,255,255,0.3)",fontSize:13}}>No reports yet.</div>:
+          recentReports.map((p,i)=>(
+            <div key={i} style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"10px 0",borderBottom:"1px solid rgba(255,255,255,0.05)"}}>
+              <span style={{fontSize:12,color:"rgba(255,255,255,0.45)"}}>{new Date(p.reported_at).toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"})}</span>
+              <span style={{fontSize:15,fontWeight:700,color:"#eef2ff"}}>{currency}{parseFloat(p.price).toFixed(2)}</span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  );
+}
+
 export default function PricesPage({ stores, onReportPrice }) {
   const [allPrices, setAllPrices] = useState([]);
+  const [selectedStore, setSelectedStore] = useState(null);
   const [loadingPrices, setLoadingPrices] = useState(false);
   const [period, setPeriod] = useState("1M");
   const [currency] = useState("$");
@@ -385,7 +546,10 @@ export default function PricesPage({ stores, onReportPrice }) {
     : selCountry !== "all" ? selCountry
     : "Worldwide";
 
-  return (
+      if (selectedStore) {
+      return (<StoreDetailChart store={selectedStore} allPrices={allPrices} currency={currency} onBack={() => setSelectedStore(null)} onReportPrice={onReportPrice} />);
+    }
+    return (
     <div className="prices-page">
       <TickerBar stores={filteredStores} />
 
@@ -523,7 +687,7 @@ export default function PricesPage({ stores, onReportPrice }) {
 
             return (
               <div key={s.id} className={`price-card ${isExpanded ? "expanded" : ""}`}
-                onClick={() => setExpandedStore(isExpanded ? null : s.id)}>
+                onClick={() => setSelectedStore(s)}>
                 <div className="pc-main">
                   <div className="pc-left">
                     <div className="pc-name">{s.name}</div>
