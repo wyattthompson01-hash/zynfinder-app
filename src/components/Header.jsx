@@ -1,17 +1,25 @@
 export default function Header({ tab, setTab, userPoints }) {
   const tabs = [
-    { id: "map", label: "Map", icon: "map-2" },
-    { id: "list", label: "Nearby", icon: "list" },
-    { id: "report", label: "Report", icon: "plus" },
-    { id: "verify", label: "Verify", icon: "shield-check" },
+    { id: "map",         label: "Map",      icon: "map-2" },
+    { id: "list",        label: "Nearby",   icon: "list" },
+    { id: "prices",      label: "Market",   icon: "chart-candle" },
+    { id: "marketplace", label: "Shop",     icon: "shopping-bag" },
+    { id: "report",      label: "Report",   icon: "plus" },
+    { id: "verify",      label: "Verify",   icon: "shield-check" },
+    { id: "leaderboard", label: "Ranks",    icon: "trophy" },
+    { id: "feedback",    label: "Feedback", icon: "message-heart" },
   ];
+
   return (
     <header className="header">
       <div className="header-top">
         <div className="header-brand">
           <div className="brand-logo">
-            <img src="/snusworld_logo.svg" alt="SnusWorld"
-              style={{ width: "36px", height: "36px", objectFit: "contain", borderRadius: "50%" }} />
+            <img
+              src="/snusworld_logo.svg"
+              alt="SnusWorld"
+              style={{ width: "36px", height: "36px", objectFit: "contain", borderRadius: "50%" }}
+            />
           </div>
           <div>
             <div className="brand-name">SnusWorld</div>
@@ -28,10 +36,14 @@ export default function Header({ tab, setTab, userPoints }) {
       </div>
       <nav className="tab-bar" role="tablist">
         {tabs.map((t) => (
-          <button key={t.id} role="tab" aria-selected={tab === t.id}
-            className={tab === t.id ? "tab-btn active" : "tab-btn"}
-            onClick={() => setTab(t.id)}>
-            <i className={"ti ti-" + t.icon} aria-hidden="true" />
+          <button
+            key={t.id}
+            role="tab"
+            aria-selected={tab === t.id}
+            className={`tab-btn ${tab === t.id ? "active" : ""}`}
+            onClick={() => setTab(t.id)}
+          >
+            <i className={`ti ti-${t.icon}`} aria-hidden="true" />
             <span>{t.label}</span>
           </button>
         ))}
