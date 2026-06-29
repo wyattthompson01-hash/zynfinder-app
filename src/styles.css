@@ -36,7 +36,7 @@ html, body, #root { height: 100%; font-family: "Inter", system-ui, -apple-system
 .tab-btn i { font-size: 16px; }
 .tab-btn.active { color: #fff; border-bottom-color: rgba(255,255,255,0.9); background: rgba(255,255,255,0.08); }
 .tab-btn:hover:not(.active) { color: rgba(255,255,255,0.85); background: rgba(255,255,255,0.05); }
-.main-content { flex: 1; overflow-y: auto; overflow-x: hidden; display: flex; flex-direction: column; }
+.main-content { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
 .map-wrapper { position: relative; flex: 1; }
 .map-container { width: 100%; height: 100%; }
 .map-legend { position: absolute; bottom: 32px; left: 16px; background: rgba(255,255,255,0.97); border-radius: 12px; padding: 10px 14px; font-size: 12px; box-shadow: var(--shadow-lg); z-index: 1000; border: 1px solid var(--gray-200); }
@@ -1510,9 +1510,8 @@ input[type="checkbox"]:focus-visible {
 
 /* ── Prices / Market Page ─────────────────────────────────────────── */
 .prices-page {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+  display: block;
+  min-height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
   background: #f9fafb;
