@@ -69,10 +69,13 @@ function ListingCard({ listing, userCoords, onContact }) {
             <span className="mkt-strength-badge">{listing.strength}</span>
           )}
         </div>
+        {listing.photo_url && (
+          <img src={listing.photo_url} alt={listing.title} style={{width:'100%',aspectRatio:'16/9',objectFit:'cover',borderRadius:10,marginBottom:10,border:'1px solid #f3f4f6'}}/>
+        )}
         <div className="mkt-card-name">{listing.title}</div>
         <div className="mkt-card-meta">
           <span>{listing.quantity} can{listing.quantity !== 1 ? "s" : ""}</span>
-          {listing.flavor && <span>· {listing.flavor}</span>}
+          {listing.flavor && <span>Â· {listing.flavor}</span>}
         </div>
         <div className="mkt-card-footer">
           <div className="mkt-card-price">
@@ -113,6 +116,8 @@ function CreateListingModal({ user, userCoords, onClose, onCreated }) {
   });
   const [saving, setSaving] = useState(false);
   const [errors, setErrors] = useState({});
+  const [photoUrl, setPhotoUrl] = useState(null);
+  const [photoUploading, setPhotoUploading] = useState(false);
 
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }));
 
@@ -125,6 +130,26 @@ function CreateListingModal({ user, userCoords, onClose, onCreated }) {
     return e;
   };
 
+  const handlePhotoUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    setPhotoUploading(true);
+    try {
+      const ext = file.name.split('.').pop() || 'jpg';
+      const path = `listing-photos/${user.id}/${Date.now()}.${ext}`;
+      const res = await fetch(`${SUPABASE_URL}/storage/v1/object/${path}`, {
+        method: 'POST',
+        headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}`, 'Content-Type': file.type || 'image/jpeg' },
+        body: file
+      });
+      if (res.ok) {
+        setPhotoUrl(`${SUPABASE_URL}/storage/v1/object/public/${path}`);
+      }
+    } catch(err) {} finally {
+      setPhotoUploading(false);
+      e.target.value = '';
+    }
+  };
   const handleSubmit = async () => {
     const e = validate();
     if (Object.keys(e).length) { setErrors(e); return; }
@@ -132,6 +157,7 @@ function CreateListingModal({ user, userCoords, onClose, onCreated }) {
     const total = parseFloat(form.price_per_can) * parseInt(form.quantity);
     const body = {
       ...form,
+      ...(photoUrl ? { photo_url: photoUrl } : {}),
       quantity: parseInt(form.quantity),
       price_per_can: parseFloat(form.price_per_can),
       total_price: total,
@@ -180,7 +206,7 @@ function CreateListingModal({ user, userCoords, onClose, onCreated }) {
           <div className="field">
             <label className="field-label">Title *</label>
             <input className={`field-input ${errors.title ? "error" : ""}`}
-              placeholder="e.g. Zyn Cool Mint 6mg — 3 cans"
+              placeholder="e.g. Zyn Cool Mint 6mg â 3 cans"
               value={form.title} onChange={e => { set("title", e.target.value); setErrors(r => ({...r, title: null})); }} />
             {errors.title && <span className="field-error">{errors.title}</span>}
           </div>
@@ -189,7 +215,7 @@ function CreateListingModal({ user, userCoords, onClose, onCreated }) {
           <div className="field-row">
             <div className="field">
               <label className="field-label">Flavor</label>
-              <input className="field-input" placeholder="Cool Mint, Citrus…"
+              <input className="field-input" placeholder="Cool Mint, Citrusâ¦"
                 value={form.flavor} onChange={e => set("flavor", e.target.value)} />
             </div>
             <div className="field">
@@ -271,9 +297,26 @@ function CreateListingModal({ user, userCoords, onClose, onCreated }) {
 
           {errors.submit && <div className="field-error" style={{ marginBottom: 8 }}>{errors.submit}</div>}
 
+          {/* Photo */}
+          <div className="field">
+            <label className="field-label">Photo (optional)</label>
+            {photoUrl ? (
+              <div style={{position:'relative',display:'inline-block',marginTop:4,width:'100%'}}>
+                <img src={photoUrl} alt="Listing" style={{width:'100%',maxHeight:180,objectFit:'cover',borderRadius:10,border:'1px solid #e5e7eb'}}/>
+                <button onClick={()=>setPhotoUrl(null)} style={{position:'absolute',top:6,right:6,background:'rgba(0,0,0,0.6)',border:'none',color:'#fff',borderRadius:99,width:26,height:26,cursor:'pointer',fontSize:16,display:'flex',alignItems:'center',justifyContent:'center'}}>×</button>
+              </div>
+            ) : (
+              <label style={{display:'flex',alignItems:'center',gap:8,cursor:'pointer',padding:'12px 14px',border:'1.5px dashed #d1d5db',borderRadius:10,fontSize:13,color:'#6b7280',marginTop:4,background:'#f9fafb'}}>
+                <i className="ti ti-camera" style={{fontSize:18,color:'#9ca3af'}}/>
+                {photoUploading ? 'Uploading...' : 'Add a cover photo'}
+                <input type="file" accept="image/*" style={{display:'none'}} onChange={handlePhotoUpload} disabled={photoUploading}/>
+              </label>
+            )}
+          </div>
+
           <button className="submit-btn" onClick={handleSubmit} disabled={saving}>
             {saving ? <span className="btn-spinner" /> : <i className="ti ti-plus" />}
-            {saving ? "Posting…" : "Post Listing"}
+            {saving ? "Postingâ¦" : "Post Listing"}
           </button>
         </div>
       </div>
@@ -301,7 +344,7 @@ function ContactModal({ listing, onClose }) {
             To message this seller, reply via the SnusWorld community forum or include your contact details when posting.
           </div>
           <div style={{ marginTop: 12, fontSize: 13, color: "var(--gray-500)" }}>
-            Seller ID: <code style={{ fontSize: 12 }}>{listing.user_id?.slice(0, 8)}…</code>
+            Seller ID: <code style={{ fontSize: 12 }}>{listing.user_id?.slice(0, 8)}â¦</code>
           </div>
           <button className="submit-btn" style={{ marginTop: 16 }} onClick={onClose}>
             Got it
@@ -371,7 +414,7 @@ export default function MarketplacePage({ userCoords, user, isLoggedIn, onAuthRe
               <i className="ti ti-shopping-bag" /> SnusWorld Shop
             </div>
             <div className="mkt-sub">
-              Community marketplace · Buy &amp; sell nicotine pouches
+              Community marketplace Â· Buy &amp; sell nicotine pouches
             </div>
           </div>
           <button className="mkt-post-btn" onClick={handleCreateClick}>
@@ -414,7 +457,7 @@ export default function MarketplacePage({ userCoords, user, isLoggedIn, onAuthRe
       <div className="mkt-toolbar">
         <div className="search-wrap" style={{ flex: 1 }}>
           <i className="ti ti-search search-icon" />
-          <input className="search-input" placeholder="Search listings…"
+          <input className="search-input" placeholder="Search listingsâ¦"
             value={search} onChange={e => setSearch(e.target.value)} />
         </div>
         <div className="sort-chips">
@@ -434,7 +477,7 @@ export default function MarketplacePage({ userCoords, user, isLoggedIn, onAuthRe
       {/* Grid */}
       <div className="mkt-grid-wrap">
         {loading ? (
-          <div className="list-loading"><div className="spinner" /><p>Loading listings…</p></div>
+          <div className="list-loading"><div className="spinner" /><p>Loading listingsâ¦</p></div>
         ) : filtered.length === 0 ? (
           <div className="mkt-empty">
             <i className="ti ti-shopping-bag" style={{ fontSize: 40 }} />
