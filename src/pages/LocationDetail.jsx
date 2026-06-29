@@ -101,7 +101,7 @@ export default function LocationDetail({ store, onBack, onVerify, userCoords, us
     : { bg: "#d1fae5", color: "#065f46" };
 
   const statusLabel = (s) => {
-    if (s === "verified") return "Ã¢ÂÂ Verified";
+    if (s === "verified") return "✓ Verified";
     if (s === "pending") return "Needs verification";
     if (s === "gone") return "No longer sells Zyns";
     return "Unconfirmed";
