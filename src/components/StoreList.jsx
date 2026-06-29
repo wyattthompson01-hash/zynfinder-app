@@ -148,13 +148,13 @@ export default function StoreList({ stores, loading, userCoords, onStoreClick })
 
   return (
     <div className="list-panel">
-      {/* ââ Toolbar ââ */}
+      {/* Ã¢ÂÂÃ¢ÂÂ Toolbar Ã¢ÂÂÃ¢ÂÂ */}
       <div className="list-toolbar">
         <div className="search-wrap" style={{position:'relative'}}>
           <i className="ti ti-search search-icon" />
           <input
             className="search-input"
-            placeholder="Search stores or addresses…"
+            placeholder="Search stores or addressesâ¦"
             value={search}
             onChange={(e) => { setSearch(e.target.value); setShowSuggestions(true); }}
             onFocus={() => setShowSuggestions(true)}
@@ -189,7 +189,7 @@ export default function StoreList({ stores, loading, userCoords, onStoreClick })
         </div>
       </div>
 
-      {/* ââ Stats bar ââ */}
+      {/* Ã¢ÂÂÃ¢ÂÂ Stats bar Ã¢ÂÂÃ¢ÂÂ */}
       <div className="list-stats-bar">
         <div className="lsb-item">
           <i className="ti ti-map-pin" />
@@ -211,7 +211,7 @@ export default function StoreList({ stores, loading, userCoords, onStoreClick })
         </div>
       </div>
 
-      {/* ââ Filter chips ââ */}
+      {/* Ã¢ÂÂÃ¢ÂÂ Filter chips Ã¢ÂÂÃ¢ÂÂ */}
       <div className="filter-row">
         <div className="filter-chips">
           <span className="filter-group-label">Status:</span>
@@ -238,7 +238,7 @@ export default function StoreList({ stores, loading, userCoords, onStoreClick })
         </div>
       </div>
 
-      {/* ââ Sort ââ */}
+      {/* Ã¢ÂÂÃ¢ÂÂ Sort Ã¢ÂÂÃ¢ÂÂ */}
       <div className="sort-row">
         <span className="sort-label">Sort:</span>
         <div className="sort-chips">
@@ -251,7 +251,7 @@ export default function StoreList({ stores, loading, userCoords, onStoreClick })
         </div>
       </div>
 
-      {/* ââ Content ââ */}
+      {/* Ã¢ÂÂÃ¢ÂÂ Content Ã¢ÂÂÃ¢ÂÂ */}
       {loading ? (
         <div className="list-loading"><div className="spinner" /><span>Finding locationsâ¦</span></div>
       ) : enriched.length === 0 ? (
