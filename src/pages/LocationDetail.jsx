@@ -3,6 +3,8 @@ import DirectionsPage from "./DirectionsPage";
 import PriceChart from "../components/PriceChart";
 import { usePrices } from "../hooks/usePrices";
 
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 const CAN_SIZES = [15, 20];
 
 export default function LocationDetail({ store, onBack, onVerify, userCoords, user }) {
@@ -15,12 +17,54 @@ export default function LocationDetail({ store, onBack, onVerify, userCoords, us
   const [priceSubmitting, setPriceSubmitting] = useState(false);
   const [priceError, setPriceError] = useState(null);
   const [priceDone, setPriceDone] = useState(false);
+  const [photos, setPhotos] = useState([]);
+  const [photoUploading, setPhotoUploading] = useState(false);
 
   const { prices, loading: pricesLoading, fetchPrices, submitPrice } = usePrices(store.id);
 
   useEffect(() => {
     fetchPrices();
   }, [fetchPrices]);
+
+  useEffect(() => {
+    const loadPhotos = async () => {
+      try {
+        const res = await fetch(`${SUPABASE_URL}/storage/v1/object/list/store-photos`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` },
+          body: JSON.stringify({ prefix: `${store.id}/`, limit: 20 })
+        });
+        if (res.ok) {
+          const files = await res.json();
+          if (Array.isArray(files)) {
+            setPhotos(files.filter(f => f.name).map(f => `${SUPABASE_URL}/storage/v1/object/public/store-photos/${store.id}/${f.name}`));
+          }
+        }
+      } catch (e) {}
+    };
+    loadPhotos();
+  }, [store.id]);
+
+  const handlePhotoUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    setPhotoUploading(true);
+    try {
+      const ext = file.name.split('.').pop() || 'jpg';
+      const path = `${store.id}/${Date.now()}.${ext}`;
+      const res = await fetch(`${SUPABASE_URL}/storage/v1/object/store-photos/${path}`, {
+        method: 'POST',
+        headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}`, 'Content-Type': file.type || 'image/jpeg' },
+        body: file
+      });
+      if (res.ok) {
+        setPhotos(prev => [...prev, `${SUPABASE_URL}/storage/v1/object/public/store-photos/${path}`]);
+      }
+    } finally {
+      setPhotoUploading(false);
+      e.target.value = '';
+    }
+  };
 
   const handleVerify = async (confirmed) => {
     setVerifying(true);
@@ -57,7 +101,7 @@ export default function LocationDetail({ store, onBack, onVerify, userCoords, us
     : { bg: "#d1fae5", color: "#065f46" };
 
   const statusLabel = (s) => {
-    if (s === "verified") return "✓ Verified";
+    if (s === "verified") return "â Verified";
     if (s === "pending") return "Needs verification";
     if (s === "gone") return "No longer sells Zyns";
     return "Unconfirmed";
@@ -108,7 +152,7 @@ export default function LocationDetail({ store, onBack, onVerify, userCoords, us
             </div>
             <div className="stat-box">
               <div className="stat-val" style={{ fontSize: 14 }}>
-                {lastSeen ? new Date(lastSeen).toLocaleDateString("en-CA", { month: "short", day: "numeric" }) : "—"}
+                {lastSeen ? new Date(lastSeen).toLocaleDateString("en-CA", { month: "short", day: "numeric" }) : "â"}
               </div>
               <div className="stat-label">Last confirmed</div>
             </div>
@@ -168,7 +212,7 @@ export default function LocationDetail({ store, onBack, onVerify, userCoords, us
               {priceError && <span className="field-error">{priceError}</span>}
               <div style={{ display: "flex", gap: 8, marginTop: 8 }}>
                 <button className="submit-btn" style={{ flex: 1, padding: "9px" }} onClick={handlePriceSubmit} disabled={priceSubmitting}>
-                  {priceSubmitting ? "Saving…" : "Save price"}
+                  {priceSubmitting ? "Savingâ¦" : "Save price"}
                 </button>
                 <button
                   onClick={() => { setShowPriceForm(false); setPriceError(null); }}
@@ -182,7 +226,7 @@ export default function LocationDetail({ store, onBack, onVerify, userCoords, us
 
           {priceDone && (
             <div style={{ fontSize: 13, color: "#059669", marginTop: 8, display: "flex", alignItems: "center", gap: 6 }}>
-              <i className="ti ti-circle-check" /> Price saved — thank you!
+              <i className="ti ti-circle-check" /> Price saved â thank you!
             </div>
           )}
 
@@ -225,7 +269,29 @@ export default function LocationDetail({ store, onBack, onVerify, userCoords, us
         )}
 
         <div className="detail-section">
-          <div className="detail-section-title">Have you been here recently?</div>
+          <div className="detail-section">
+          <div className="detail-section-title" style={{display:'flex',alignItems:'center',justifyContent:'space-between'}}>
+            <span>Photos</span>
+            {user && (
+              <label style={{cursor:'pointer',fontSize:12,color:'#2563eb',fontWeight:600,display:'flex',alignItems:'center',gap:4}}>
+                <i className="ti ti-camera" style={{fontSize:13}}/> Add Photo
+                <input type="file" accept="image/*" style={{display:'none'}} onChange={handlePhotoUpload}/>
+              </label>
+            )}
+          </div>
+          {photoUploading && <div style={{fontSize:12,color:'#6b7280',marginTop:6}}>Uploading...</div>}
+          {photos.length > 0 ? (
+            <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:6,marginTop:8}}>
+              {photos.map((url,idx) => (
+                <img key={idx} src={url} alt="Store photo" style={{width:'100%',aspectRatio:'1/1',objectFit:'cover',borderRadius:8,border:'1px solid #e5e7eb'}}/>
+              ))}
+            </div>
+          ) : (
+            <div style={{fontSize:13,color:'#9ca3af',marginTop:4}}>No photos yet</div>
+          )}
+        </div>
+
+        <div className="detail-section-title">Have you been here recently?</div>
           {done ? (
             <div style={{ textAlign: "center", padding: "16px 0", color: "#059669", fontWeight: 600, fontSize: 15 }}>
               <i className="ti ti-circle-check" style={{ fontSize: 28, display: "block", marginBottom: 6 }} />
