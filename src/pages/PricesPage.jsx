@@ -48,6 +48,44 @@ const PERIODS = [
   { id: "ALL", label: "ALL", days: null },
 ];
 
+// Seeded PRNG (Mulberry32) — deterministic per store so prices are stable across renders
+function mulberry32(seed) {
+  return () => {
+    seed = (seed + 0x6D2B79F5) | 0;
+    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+function generateMockPrices(stores) {
+  const entries = [];
+  const end = new Date("2026-06-30T12:00:00Z");
+  const start = new Date("2025-07-01T00:00:00Z");
+
+  for (const store of stores) {
+    if (!store.latest_price) continue;
+    const base = parseFloat(store.latest_price);
+    const seedVal = String(store.id).split("").reduce((a, c) => (a * 31 + c.charCodeAt(0)) | 0, 7);
+    const rand = mulberry32(seedVal);
+
+    // Begin slightly off-base so there's a visible trend over the year
+    let price = base * (0.90 + rand() * 0.20);
+    let d = new Date(start);
+
+    while (d <= end) {
+      entries.push({ store_id: store.id, price: Math.round(price * 100) / 100, reported_at: d.toISOString() });
+      d = new Date(d.getTime() + (3 + Math.floor(rand() * 6)) * 86400000); // 3–8 day steps
+      // Mean-reverting walk: drift toward base + small noise
+      price += (base - price) * 0.06 + (rand() - 0.5) * base * 0.04;
+      price = Math.max(base * 0.78, Math.min(base * 1.22, price));
+    }
+    // Pin the final entry to today's actual price
+    entries.push({ store_id: store.id, price: base, reported_at: end.toISOString() });
+  }
+  return entries.sort((a, b) => a.reported_at.localeCompare(b.reported_at));
+}
+
 export function filterByPeriod(data, periodId) {
   const p = PERIODS.find(p => p.id === periodId);
   if (!p || !p.days) return data;
@@ -460,18 +498,24 @@ export default function PricesPage({ stores, onReportPrice, onViewStore }) {
   const [storeSearch, setStoreSearch] = useState("");
   const [expandedStore, setExpandedStore] = useState(null);
 
-  // Fetch all prices
+  // Fetch all prices — fall back to generated mock history when Supabase is absent/empty
   useEffect(() => {
-    if (!SUPABASE_URL || !SUPABASE_KEY) return;
+    if (!stores.length) return;
+    if (!SUPABASE_URL || !SUPABASE_KEY) {
+      setAllPrices(generateMockPrices(stores));
+      return;
+    }
     setLoadingPrices(true);
     fetch(`${SUPABASE_URL}/rest/v1/prices?order=reported_at.asc&limit=5000`, { headers })
       .then(r => r.json())
       .then(data => {
-        if (Array.isArray(data)) setAllPrices(data);
+        if (Array.isArray(data) && data.length > 0) setAllPrices(data);
+        else setAllPrices(generateMockPrices(stores));
       })
-      .catch(() => {})
+      .catch(() => setAllPrices(generateMockPrices(stores)))
       .finally(() => setLoadingPrices(false));
-  }, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [stores.length]);
 
   // Parse locations from stores
   const storeLocations = stores.map(s => ({ ...s, ...parseAddress(s.address) }));
