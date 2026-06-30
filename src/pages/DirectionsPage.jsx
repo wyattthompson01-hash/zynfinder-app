@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState, useCallback, useMemo } from "react";
 
 // Each mode uses a separate OSRM backend so walk/cycle actually differ from drive
 const MODES = [
@@ -11,6 +11,7 @@ const TILE_LAYERS = {
   standard:  { label: "Map",       url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", attr: "© OpenStreetMap" },
   satellite: { label: "Satellite", url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", attr: "© Esri" },
   terrain:   { label: "Terrain",   url: "https://tile.opentopomap.org/{z}/{x}/{y}.png", attr: "© OpenTopoMap" },
+  dark:      { label: "Dark",      url: "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", attr: "© OpenStreetMap © CARTO" },
 };
 
 function fmtDist(m) { return m < 1000 ? `${Math.round(m)} m` : `${(m / 1000).toFixed(1)} km`; }
@@ -81,6 +82,7 @@ export default function DirectionsPage({ store, userCoords, onBack }) {
   const mapContainer = useRef(null);
   const mapRef = useRef(null);
   const routeLayerRef = useRef(null);
+  const casingLayerRef = useRef(null);
   const userMarkerRef = useRef(null);
   const tileLayerRef = useRef(null);
   const watchIdRef = useRef(null);
@@ -224,10 +226,14 @@ export default function DirectionsPage({ store, userCoords, onBack }) {
       setRoute({ distance: rt.distance, duration: rt.duration, geometry: rt.geometry, steps: rt.legs[0].steps });
       const L = window.L;
       if (routeLayerRef.current) mapRef.current.removeLayer(routeLayerRef.current);
-      // Different route colors per mode
+      if (casingLayerRef.current) mapRef.current.removeLayer(casingLayerRef.current);
       const colors = { driving: "#3b82f6", walking: "#f59e0b", cycling: "#10b981" };
+      const casingColors = { driving: "#1e3a8a", walking: "#78350f", cycling: "#064e3b" };
+      casingLayerRef.current = L.geoJSON(rt.geometry, {
+        style: { color: casingColors[currentMode] || "#1e3a8a", weight: 13, opacity: 0.55, lineCap: "round", lineJoin: "round" },
+      }).addTo(mapRef.current);
       const layer = L.geoJSON(rt.geometry, {
-        style: { color: colors[currentMode] || "#3b82f6", weight: 7, opacity: 0.9, lineCap: "round", lineJoin: "round" },
+        style: { color: colors[currentMode] || "#3b82f6", weight: 7, opacity: 0.95, lineCap: "round", lineJoin: "round" },
       }).addTo(mapRef.current);
       routeLayerRef.current = layer;
       mapRef.current.fitBounds(
@@ -261,6 +267,25 @@ export default function DirectionsPage({ store, userCoords, onBack }) {
   const remTime = remaining.reduce((a, s) => a + s.duration, 0);
   const curStep = route?.steps[stepIdx];
   const nxtStep = route?.steps[stepIdx + 1];
+
+  const distToNextTurn = useMemo(() => {
+    if (!liveCoords || !curStep) return null;
+    const [sLng, sLat] = curStep.maneuver.location;
+    return haversine(liveCoords.lat, liveCoords.lng, sLat, sLng);
+  }, [liveCoords, curStep]);
+
+  const arrivalTime = remTime > 0
+    ? new Date(Date.now() + remTime * 1000).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+    : null;
+
+  // Auto-zoom approaching turns: zoom in when within 150 m of maneuver
+  useEffect(() => {
+    if (!mapRef.current || distToNextTurn == null || !isFollowing) return;
+    const z = distToNextTurn < 60 ? 19 : distToNextTurn < 150 ? 18 : 17;
+    if (Math.abs(mapRef.current.getZoom() - z) >= 1) {
+      mapRef.current.setZoom(z, { animate: true });
+    }
+  }, [distToNextTurn, isFollowing]);
 
   const modeColors = { driving: "#3b82f6", walking: "#f59e0b", cycling: "#10b981" };
   const activeColor = modeColors[mode] || "#3b82f6";
@@ -329,7 +354,12 @@ export default function DirectionsPage({ store, userCoords, onBack }) {
             <div className="dir-step-main">{stepText(curStep)}</div>
             {nxtStep && <div className="dir-step-then">then · {stepText(nxtStep).slice(0, 50)}</div>}
           </div>
-          <div className="dir-step-dist">{curStep.distance > 0 && fmtDist(curStep.distance)}</div>
+          <div className="dir-step-right">
+            <div className="dir-step-dist">
+              {distToNextTurn != null ? fmtDist(distToNextTurn) : (curStep.distance > 0 ? fmtDist(curStep.distance) : "")}
+            </div>
+            <div className="dir-step-counter">{stepIdx + 1} / {route.steps.length}</div>
+          </div>
         </div>
       )}
 
@@ -347,6 +377,7 @@ export default function DirectionsPage({ store, userCoords, onBack }) {
           <div className="dir-eta-item" style={{ color: activeColor }}>
             <i className="ti ti-clock" />
             <strong>{fmtTime(remTime)}</strong>
+            {arrivalTime && <span className="dir-eta-arrives">· {arrivalTime}</span>}
           </div>
           <div className="dir-eta-divider" />
           <div className="dir-eta-item" style={{ color: activeColor }}>
