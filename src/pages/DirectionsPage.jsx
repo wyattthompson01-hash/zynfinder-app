@@ -140,7 +140,13 @@ export default function DirectionsPage({ store, userCoords, onBack }) {
       }).addTo(map);
     }
 
-    map.on("dragstart", () => setIsFollowing(false));
+    map.on("dragstart", () => {
+      setIsFollowing(false);
+      // Snap back to north-up when user manually pans
+      const c = map.getContainer();
+      c.style.transform = "";
+      c.style.transformOrigin = "";
+    });
     mapRef.current = map;
   }, [store, userCoords]);
 
@@ -169,20 +175,22 @@ export default function DirectionsPage({ store, userCoords, onBack }) {
           bearingRef.current = b;
           setBearing(b);
 
-          // Update user marker arrow rotation
-          const dot = document.getElementById("user-nav-dot");
-          if (dot) {
-            const arrow = dot.querySelector("div[style*='border-bottom']");
-            if (arrow) arrow.style.transform = `rotate(${b}deg)`;
+          if (isFollowing && mapRef.current) {
+            // Rotate map so direction of travel is always at the top (heading-up).
+            // Scale 1.42 fills the corners at any rotation angle (1/cos 45° ≈ √2).
+            const mc = mapRef.current.getContainer();
+            mc.style.transformOrigin = "center center";
+            mc.style.transform = `rotate(${-b}deg) scale(1.42)`;
+            // Arrow inside the user dot: +b in a -b container = 0 → always points "up"
+            // which is the direction of travel in heading-up mode. No change needed.
           }
         }
         prevCoordsRef.current = c;
         setLiveCoords(c);
         userMarkerRef.current?.setLatLng([c.lat, c.lng]);
 
-        // "From behind" following: center slightly behind user so road ahead is visible
+        // "From behind" following: center 80m behind user so road ahead is visible
         if (isFollowing && mapRef.current) {
-          // Offset center 80m behind user (opposite of travel direction)
           const behind = offsetPoint(c.lat, c.lng, (bearingRef.current + 180) % 360, 80);
           mapRef.current.setView([behind.lat, behind.lng], 17, { animate: true });
         }
@@ -259,6 +267,9 @@ export default function DirectionsPage({ store, userCoords, onBack }) {
     if (liveCoords && mapRef.current) {
       const behind = offsetPoint(liveCoords.lat, liveCoords.lng, (bearingRef.current + 180) % 360, 80);
       mapRef.current.setView([behind.lat, behind.lng], 17, { animate: true });
+      const mc = mapRef.current.getContainer();
+      mc.style.transformOrigin = "center center";
+      mc.style.transform = `rotate(${-bearingRef.current}deg) scale(1.42)`;
     }
   };
 
