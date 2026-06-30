@@ -162,7 +162,7 @@ export default function Map({ stores, userCoords, onAddClick, onStoreClick }) {
       attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
       maxZoom: 19,
     }).addTo(map);
-    L.control.zoom({ position: "topright" }).addTo(map);
+    L.control.zoom({ position: "bottomright" }).addTo(map);
     mapRef.current = map;
 
     const handleMoveEnd = () => {
@@ -305,39 +305,41 @@ export default function Map({ stores, userCoords, onAddClick, onStoreClick }) {
 
       {/* ── Search overlay ── */}
       <div className={`map-search-overlay ${searchFocused || searchQuery ? "focused" : ""}`}>
-        <div className="map-search-bar">
-          <i className="ti ti-search map-search-icon" />
-          <input
-            ref={searchInputRef}
-            className="map-search-input"
-            placeholder="Search stores or type an address…"
-            value={searchQuery}
-            onChange={e => { setSearchQuery(e.target.value); setSearchFocused(true); }}
-            onFocus={() => setSearchFocused(true)}
-            onBlur={() => setTimeout(() => setSearchFocused(false), 200)}
-            onKeyDown={e => {
-              if (e.key === "Enter") {
-                if (searchResults.length > 0) flyToStore(searchResults[0]);
-                else if (placeSuggestions.length > 0) {
-                  const p = placeSuggestions[0];
-                  mapRef.current?.setView([parseFloat(p.lat), parseFloat(p.lon)], 14, { animate: true });
-                  setSearchQuery("");
-                  setSearchFocused(false);
-                } else geocodeSearch(searchQuery);
-              }
-              if (e.key === "Escape") { setSearchFocused(false); searchInputRef.current?.blur(); }
-            }}
-          />
-          {(geocoding || placesLoading) && (
-            <div className="map-search-spinner"><div className="spinner" style={{ width: 14, height: 14, borderWidth: 2 }} /></div>
-          )}
-          {searchQuery && (
-            <button className="map-search-clear" onClick={() => { setSearchQuery(""); setPlaceSuggestions([]); searchInputRef.current?.focus(); }}>
-              <i className="ti ti-x" />
-            </button>
-          )}
+        <div className="map-search-row">
+          <div className="map-search-bar">
+            <i className="ti ti-search map-search-icon" />
+            <input
+              ref={searchInputRef}
+              className="map-search-input"
+              placeholder="Search stores or type an address…"
+              value={searchQuery}
+              onChange={e => { setSearchQuery(e.target.value); setSearchFocused(true); }}
+              onFocus={() => setSearchFocused(true)}
+              onBlur={() => setTimeout(() => setSearchFocused(false), 200)}
+              onKeyDown={e => {
+                if (e.key === "Enter") {
+                  if (searchResults.length > 0) flyToStore(searchResults[0]);
+                  else if (placeSuggestions.length > 0) {
+                    const p = placeSuggestions[0];
+                    mapRef.current?.setView([parseFloat(p.lat), parseFloat(p.lon)], 14, { animate: true });
+                    setSearchQuery("");
+                    setSearchFocused(false);
+                  } else geocodeSearch(searchQuery);
+                }
+                if (e.key === "Escape") { setSearchFocused(false); searchInputRef.current?.blur(); }
+              }}
+            />
+            {(geocoding || placesLoading) && (
+              <div className="map-search-spinner"><div className="spinner" style={{ width: 14, height: 14, borderWidth: 2 }} /></div>
+            )}
+            {searchQuery && (
+              <button className="map-search-clear" onClick={() => { setSearchQuery(""); setPlaceSuggestions([]); searchInputRef.current?.focus(); }}>
+                <i className="ti ti-x" />
+              </button>
+            )}
+          </div>
           <button
-            className={`map-filter-btn ${showFilters ? "active" : ""} ${activeFilters > 0 ? "has-filters" : ""}`}
+            className={`map-filter-pill ${showFilters ? "active" : ""}`}
             onClick={() => setShowFilters(f => !f)}
             title="Filters"
           >

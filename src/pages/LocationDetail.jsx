@@ -215,8 +215,8 @@ export default function LocationDetail({ store, onBack, onVerify, userCoords, us
                   {priceSubmitting ? "Saving…" : "Save price"}
                 </button>
                 <button
+                  className="price-cancel-btn"
                   onClick={() => { setShowPriceForm(false); setPriceError(null); }}
-                  style={{ padding: "9px 14px", border: "1.5px solid #e5e7eb", borderRadius: 10, background: "transparent", cursor: "pointer", fontSize: 13, color: "#6b7280" }}
                 >
                   Cancel
                 </button>
@@ -264,7 +264,7 @@ export default function LocationDetail({ store, onBack, onVerify, userCoords, us
         {store.notes && (
           <div className="detail-section">
             <div className="detail-section-title">Notes</div>
-            <p style={{ fontSize: 14, color: "#4b5563", lineHeight: 1.6 }}>{store.notes}</p>
+            <p className="detail-notes-text">{store.notes}</p>
           </div>
         )}
 
@@ -273,17 +273,17 @@ export default function LocationDetail({ store, onBack, onVerify, userCoords, us
           <div className="detail-section-title" style={{display:'flex',alignItems:'center',justifyContent:'space-between'}}>
             <span>Photos</span>
             {user && (
-              <label style={{cursor:'pointer',fontSize:12,color:'#2563eb',fontWeight:600,display:'flex',alignItems:'center',gap:4}}>
-                <i className="ti ti-camera" style={{fontSize:13}}/> Add Photo
+              <label className="add-photo-label">
+                <i className="ti ti-camera" /> Add Photo
                 <input type="file" accept="image/*" style={{display:'none'}} onChange={handlePhotoUpload}/>
               </label>
             )}
           </div>
           {photoUploading && <div style={{fontSize:12,color:'#6b7280',marginTop:6}}>Uploading...</div>}
           {photos.length > 0 ? (
-            <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:6,marginTop:8}}>
+            <div className="detail-photo-grid">
               {photos.map((url,idx) => (
-                <img key={idx} src={url} alt="Store photo" style={{width:'100%',aspectRatio:'1/1',objectFit:'cover',borderRadius:8,border:'1px solid #e5e7eb'}}/>
+                <img key={idx} src={url} alt="Store photo" className="detail-photo-img" />
               ))}
             </div>
           ) : (
