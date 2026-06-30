@@ -3,6 +3,33 @@ import { useState, useEffect, useCallback } from "react";
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
+const MOCK_LISTINGS = [
+  { id: "l1",  title: "Zyn Cool Mint 6mg — 5 cans",                  brand: "zyn",           flavor: "Cool Mint",       strength: "6mg",   quantity: 5,  price_per_can: 6.50,  total_price: 32.50, condition: "new",  pickup: true,  shipping: true,  location_text: "New York, NY",          lat: 40.7580, lng: -73.9930, created_at: "2026-06-29T14:30:00Z", user_id: "u1a2b3c4", is_active: true },
+  { id: "l2",  title: "Nordic Spirit Spearmint 9mg — bulk 10 cans",   brand: "nordic_spirit", flavor: "Spearmint",       strength: "9mg",   quantity: 10, price_per_can: 9.00,  total_price: 90.00, condition: "new",  pickup: false, shipping: true,  location_text: "London, UK",            lat: 51.5200, lng: -0.1357,  created_at: "2026-06-29T10:00:00Z", user_id: "u2b3c4d5", is_active: true },
+  { id: "l3",  title: "Velo Citrus Burst 6mg — 3 cans",               brand: "velo",          flavor: "Citrus Burst",    strength: "6mg",   quantity: 3,  price_per_can: 8.25,  total_price: 24.75, condition: "new",  pickup: true,  shipping: false, location_text: "Stockholm, Sweden",     lat: 59.3340, lng: 18.0656,  created_at: "2026-06-28T18:00:00Z", user_id: "u3c4d5e6", is_active: true },
+  { id: "l4",  title: "Zyn Spearmint 3mg — 2 cans",                   brand: "zyn",           flavor: "Spearmint",       strength: "3mg",   quantity: 2,  price_per_can: 6.00,  total_price: 12.00, condition: "new",  pickup: true,  shipping: true,  location_text: "Chicago, IL",           lat: 41.8832, lng: -87.6249, created_at: "2026-06-28T12:00:00Z", user_id: "u4d5e6f7", is_active: true },
+  { id: "l5",  title: "White Fox Full Charge Menthol 12mg — 4 cans",  brand: "white_fox",     flavor: "Menthol",         strength: "12mg",  quantity: 4,  price_per_can: 10.50, total_price: 42.00, condition: "new",  pickup: false, shipping: true,  location_text: "Oslo, Norway",          lat: 59.9127, lng: 10.7462,  created_at: "2026-06-28T09:00:00Z", user_id: "u5e6f7g8", is_active: true },
+  { id: "l6",  title: "Zyn Coffee 6mg — 6 cans (bulk deal)",          brand: "zyn",           flavor: "Coffee",          strength: "6mg",   quantity: 6,  price_per_can: 5.99,  total_price: 35.94, condition: "new",  pickup: true,  shipping: true,  location_text: "Austin, TX",            lat: 30.3083, lng: -97.7181, created_at: "2026-06-27T20:00:00Z", user_id: "u6f7g8h9", is_active: true },
+  { id: "l7",  title: "Lyft Mint Strong 12mg — 3 cans",               brand: "lyft",          flavor: "Mint",            strength: "12mg",  quantity: 3,  price_per_can: 11.00, total_price: 33.00, condition: "new",  pickup: true,  shipping: false, location_text: "Copenhagen, Denmark",   lat: 55.6826, lng: 12.5720,  created_at: "2026-06-27T14:00:00Z", user_id: "u7g8h9i0", is_active: true },
+  { id: "l8",  title: "On! Citrus 3mg — 1 can (like new)",            brand: "on",            flavor: "Citrus",          strength: "3mg",   quantity: 1,  price_per_can: 4.50,  total_price: 4.50,  condition: "open", pickup: true,  shipping: false, location_text: "Los Angeles, CA",       lat: 34.0904, lng: -118.3866,created_at: "2026-06-27T11:00:00Z", user_id: "u8h9i0j1", is_active: true },
+  { id: "l9",  title: "Zyn Cinnamon 6mg — 8 cans",                   brand: "zyn",           flavor: "Cinnamon",        strength: "6mg",   quantity: 8,  price_per_can: 6.25,  total_price: 50.00, condition: "new",  pickup: false, shipping: true,  location_text: "Toronto, ON",           lat: 43.6649, lng: -79.4102, created_at: "2026-06-26T16:00:00Z", user_id: "u9i0j1k2", is_active: true },
+  { id: "l10", title: "Nordic Spirit Elderflower 6mg — 2 cans",       brand: "nordic_spirit", flavor: "Elderflower",     strength: "6mg",   quantity: 2,  price_per_can: 9.50,  total_price: 19.00, condition: "new",  pickup: true,  shipping: true,  location_text: "Amsterdam, NL",         lat: 52.3740, lng: 4.8945,   created_at: "2026-06-26T10:00:00Z", user_id: "u0j1k2l3", is_active: true },
+  { id: "l11", title: "Velo Berry Frost 6mg — 5 cans",                brand: "velo",          flavor: "Berry Frost",     strength: "6mg",   quantity: 5,  price_per_can: 8.75,  total_price: 43.75, condition: "new",  pickup: true,  shipping: true,  location_text: "Berlin, Germany",       lat: 52.5170, lng: 13.3880,  created_at: "2026-06-25T18:00:00Z", user_id: "u1k2l3m4", is_active: true },
+  { id: "l12", title: "Zyn Smooth 3mg — 4 cans",                      brand: "zyn",           flavor: "Smooth",          strength: "3mg",   quantity: 4,  price_per_can: 5.75,  total_price: 23.00, condition: "new",  pickup: true,  shipping: false, location_text: "Miami, FL",             lat: 25.7916, lng: -80.1390, created_at: "2026-06-25T12:00:00Z", user_id: "u2l3m4n5", is_active: true },
+  { id: "l13", title: "White Fox Peppered Mint 16mg — 3 cans",        brand: "white_fox",     flavor: "Peppered Mint",   strength: "15mg+", quantity: 3,  price_per_can: 11.99, total_price: 35.97, condition: "new",  pickup: false, shipping: true,  location_text: "Helsinki, Finland",     lat: 60.1680, lng: 24.9335,  created_at: "2026-06-25T08:00:00Z", user_id: "u3m4n5o6", is_active: true },
+  { id: "l14", title: "Zyn Wintergreen 6mg — 2 cans",                 brand: "zyn",           flavor: "Wintergreen",     strength: "6mg",   quantity: 2,  price_per_can: 6.99,  total_price: 13.98, condition: "new",  pickup: true,  shipping: true,  location_text: "Seattle, WA",           lat: 47.6038, lng: -122.3351,created_at: "2026-06-24T20:00:00Z", user_id: "u4n5o6p7", is_active: true },
+  { id: "l15", title: "Lyft Tropic Breeze 9mg — 4 cans",              brand: "lyft",          flavor: "Tropic Breeze",   strength: "9mg",   quantity: 4,  price_per_can: 10.25, total_price: 41.00, condition: "new",  pickup: true,  shipping: true,  location_text: "Dubai, UAE",            lat: 25.1985, lng: 55.2796,  created_at: "2026-06-24T14:00:00Z", user_id: "u5o6p7q8", is_active: true },
+  { id: "l16", title: "On! Coffee 9mg — 1 can",                       brand: "on",            flavor: "Coffee",          strength: "9mg",   quantity: 1,  price_per_can: 5.25,  total_price: 5.25,  condition: "new",  pickup: true,  shipping: false, location_text: "Boston, MA",            lat: 42.3585, lng: -71.0577, created_at: "2026-06-24T10:00:00Z", user_id: "u6p7q8r9", is_active: true },
+  { id: "l17", title: "Zyn Mango 6mg — 10 cans (bulk)",               brand: "zyn",           flavor: "Mango",           strength: "6mg",   quantity: 10, price_per_can: 5.50,  total_price: 55.00, condition: "new",  pickup: false, shipping: true,  location_text: "Vancouver, BC",         lat: 49.2830, lng: -123.1239,created_at: "2026-06-23T18:00:00Z", user_id: "u7q8r9s0", is_active: true },
+  { id: "l18", title: "Nordic Spirit Watermelon 6mg — 3 cans",        brand: "nordic_spirit", flavor: "Watermelon",      strength: "6mg",   quantity: 3,  price_per_can: 9.25,  total_price: 27.75, condition: "new",  pickup: true,  shipping: true,  location_text: "Dublin, Ireland",       lat: 53.3502, lng: -6.2605,  created_at: "2026-06-23T12:00:00Z", user_id: "u8r9s0t1", is_active: true },
+  { id: "l19", title: "Velo Strong Mint 14mg — 2 cans",               brand: "velo",          flavor: "Strong Mint",     strength: "15mg+", quantity: 2,  price_per_can: 9.99,  total_price: 19.98, condition: "new",  pickup: true,  shipping: false, location_text: "Zurich, Switzerland",   lat: 47.3780, lng: 8.5404,   created_at: "2026-06-22T14:00:00Z", user_id: "u9s0t1u2", is_active: true },
+  { id: "l20", title: "Zyn Peppermint 9mg — 3 cans",                  brand: "zyn",           flavor: "Peppermint",      strength: "9mg",   quantity: 3,  price_per_can: 7.25,  total_price: 21.75, condition: "new",  pickup: true,  shipping: true,  location_text: "Denver, CO",            lat: 39.7407, lng: -104.9629,created_at: "2026-06-22T10:00:00Z", user_id: "u0t1u2v3", is_active: true },
+  { id: "l21", title: "White Fox Double Mint 12mg — 5 cans",          brand: "white_fox",     flavor: "Double Mint",     strength: "12mg",  quantity: 5,  price_per_can: 11.50, total_price: 57.50, condition: "new",  pickup: false, shipping: true,  location_text: "Sydney, Australia",     lat: -33.8715,lng: 151.2069, created_at: "2026-06-21T08:00:00Z", user_id: "u1u2v3w4", is_active: true },
+  { id: "l22", title: "On! Mango 3mg — 2 cans",                       brand: "on",            flavor: "Mango",           strength: "3mg",   quantity: 2,  price_per_can: 4.75,  total_price: 9.50,  condition: "new",  pickup: true,  shipping: true,  location_text: "Montreal, QC",          lat: 45.5162, lng: -73.5784, created_at: "2026-06-21T16:00:00Z", user_id: "u2v3w4x5", is_active: true },
+  { id: "l23", title: "Zyn Black Cherry 6mg — 4 cans",                brand: "zyn",           flavor: "Black Cherry",    strength: "6mg",   quantity: 4,  price_per_can: 6.75,  total_price: 27.00, condition: "new",  pickup: true,  shipping: true,  location_text: "Singapore",             lat: 1.3040,  lng: 103.8318, created_at: "2026-06-20T12:00:00Z", user_id: "u3w4x5y6", is_active: true },
+  { id: "l24", title: "Lyft Lime Strong 12mg — 6 cans",               brand: "lyft",          flavor: "Lime",            strength: "12mg",  quantity: 6,  price_per_can: 10.75, total_price: 64.50, condition: "new",  pickup: false, shipping: true,  location_text: "Oslo, Norway",          lat: 59.9127, lng: 10.7462,  created_at: "2026-06-20T08:00:00Z", user_id: "u4x5y6z7", is_active: true },
+];
+
 const BRANDS = [
   { id: "all",           label: "All brands" },
   { id: "zyn",           label: "Zyn" },
@@ -366,13 +393,25 @@ export default function MarketplacePage({ userCoords, user, isLoggedIn, onAuthRe
 
   const fetchListings = useCallback(async () => {
     setLoading(true);
+    if (!SUPABASE_URL || !SUPABASE_KEY) {
+      setListings(MOCK_LISTINGS);
+      setLoading(false);
+      return;
+    }
     try {
-      let url = `${SUPABASE_URL}/rest/v1/marketplace_listings?is_active=eq.true&order=created_at.desc&limit=100`;
-      const res = await fetch(url, {
-        headers: { "apikey": SUPABASE_KEY, "Authorization": `Bearer ${SUPABASE_KEY}` },
-      });
-      if (res.ok) setListings(await res.json());
-    } catch { /* ignore */ }
+      const res = await fetch(
+        `${SUPABASE_URL}/rest/v1/marketplace_listings?is_active=eq.true&order=created_at.desc&limit=100`,
+        { headers: { "apikey": SUPABASE_KEY, "Authorization": `Bearer ${SUPABASE_KEY}` } }
+      );
+      if (res.ok) {
+        const data = await res.json();
+        setListings(Array.isArray(data) && data.length > 0 ? data : MOCK_LISTINGS);
+      } else {
+        setListings(MOCK_LISTINGS);
+      }
+    } catch {
+      setListings(MOCK_LISTINGS);
+    }
     setLoading(false);
   }, []);
 
