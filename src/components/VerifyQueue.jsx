@@ -29,7 +29,7 @@ export default function VerifyQueue({ stores, onVerify, onStoreClick }) {
         {pending.length === 0 ? (
           <div className="list-empty">
             <i className="ti ti-circle-check" style={{ fontSize: 40, color: "#059669" }} />
-            <p style={{ fontWeight: 600, color: "#111827" }}>All caught up!</p>
+            <p className="list-empty-heading">All caught up!</p>
             <p>No locations need verification right now.</p>
           </div>
         ) : (
