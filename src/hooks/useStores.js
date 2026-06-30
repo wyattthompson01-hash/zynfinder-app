@@ -126,7 +126,8 @@ export function useStores(coords) {
       );
       if (!res.ok) throw new Error("fetch failed");
       const data = await res.json();
-      if (data.length > 0) setStores(data);
+      // Only replace seed data if Supabase has a meaningful number of real stores
+      if (data.length >= 10) setStores(data);
     } catch (err) {
       console.warn("Using seed data:", err.message);
     } finally {
