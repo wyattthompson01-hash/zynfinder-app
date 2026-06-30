@@ -120,197 +120,67 @@ export default function StoreList({ stores, loading, userCoords, onStoreClick })
     <div className="list-panel">
       <div className="list-toolbar">
         <div
-          style={{ position: "relative" }}
+          className="search-wrap"
           onFocus={() => { if (search) setShowDropdown(true); }}
         >
-          <div
-            style={{
-              position: "relative",
-              background: "rgba(255,255,255,0.06)",
-              borderRadius: 14,
-              border: "1.5px solid rgba(255,255,255,0.12)",
-              transition: "border-color 0.2s, box-shadow 0.2s",
-              boxShadow: showDropdown && suggestions.length > 0
-                ? "0 0 0 3px rgba(99,102,241,0.2)"
-                : "none",
+          <i className="ti ti-search search-icon" />
+          <input
+            ref={inputRef}
+            className={`search-input${search ? " search-has-clear" : ""}`}
+            placeholder="Search stores, cities, countries\u2026"
+            value={search}
+            onChange={(e) => {
+              setSearch(e.target.value);
+              setShowDropdown(true);
+              setActiveIdx(-1);
             }}
-            className="search-focus-wrap"
-          >
-            <i
-              className="ti ti-search"
-              style={{
-                position: "absolute",
-                left: 14,
-                top: "50%",
-                transform: "translateY(-50%)",
-                fontSize: 16,
-                color: "#6b7280",
-                pointerEvents: "none",
-              }}
-            />
-            <input
-              ref={inputRef}
-              style={{
-                width: "100%",
-                background: "transparent",
-                border: "none",
-                outline: "none",
-                padding: "12px 40px 12px 42px",
-                fontSize: 14,
-                color: "#f1f5f9",
-                fontFamily: "inherit",
-                boxSizing: "border-box",
-              }}
-              placeholder="Search stores, cities, countries\u2026"
-              value={search}
-              onChange={(e) => {
-                setSearch(e.target.value);
-                setShowDropdown(true);
-                setActiveIdx(-1);
-              }}
-              onFocus={() => { if (search) setShowDropdown(true); }}
-              onKeyDown={handleKeyDown}
-              autoComplete="off"
-              spellCheck={false}
-            />
-            {search && (
-              <button
-                onClick={() => { setSearch(""); setShowDropdown(false); }}
-                style={{
-                  position: "absolute",
-                  right: 12,
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                  background: "rgba(255,255,255,0.1)",
-                  border: "none",
-                  cursor: "pointer",
-                  color: "#9ca3af",
-                  fontSize: 12,
-                  padding: "3px 6px",
-                  borderRadius: 6,
-                  lineHeight: 1,
-                }}
-                aria-label="Clear search"
-              >
-                <i className="ti ti-x" />
-              </button>
-            )}
-          </div>
+            onFocus={() => { if (search) setShowDropdown(true); }}
+            onKeyDown={handleKeyDown}
+            autoComplete="off"
+            spellCheck={false}
+          />
+          {search && (
+            <button
+              className="search-clear"
+              onClick={() => { setSearch(""); setShowDropdown(false); }}
+              aria-label="Clear search"
+            >
+              <i className="ti ti-x" />
+            </button>
+          )}
 
           {showDropdown && suggestions.length > 0 && (
-            <div
-              ref={dropRef}
-              style={{
-                position: "absolute",
-                top: "calc(100% + 8px)",
-                left: 0,
-                right: 0,
-                background: "#1a1d2e",
-                border: "1px solid rgba(255,255,255,0.1)",
-                borderRadius: 14,
-                boxShadow: "0 12px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(99,102,241,0.15)",
-                zIndex: 1000,
-                overflow: "hidden",
-              }}
-            >
-              <div style={{ padding: "6px 12px 4px", fontSize: 10, fontWeight: 700, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+            <div ref={dropRef} className="store-search-dropdown">
+              <div style={{ padding: "6px 12px 4px", fontSize: 10, fontWeight: 700, color: "var(--gray-400)", textTransform: "uppercase", letterSpacing: "0.08em" }}>
                 Locations
               </div>
               {suggestions.map((s, idx) => {
                 const loc = [s.city, s.region, s.country].filter(Boolean).join(", ") || s.address;
                 return (
-                  <div
+                  <button
                     key={s.id}
+                    type="button"
+                    className={`ssd-item${idx === activeIdx ? " active" : ""}`}
                     onMouseDown={() => {
                       onStoreClick(s);
                       setShowDropdown(false);
                       setSearch("");
                     }}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 10,
-                      padding: "9px 14px",
-                      cursor: "pointer",
-                      background:
-                        idx === activeIdx
-                          ? "rgba(99,102,241,0.18)"
-                          : "transparent",
-                      borderTop: "1px solid rgba(255,255,255,0.05)",
-                      transition: "background 0.12s",
-                    }}
                     onMouseEnter={() => setActiveIdx(idx)}
                     onMouseLeave={() => setActiveIdx(-1)}
                   >
-                    <div
-                      style={{
-                        width: 32,
-                        height: 32,
-                        borderRadius: 9,
-                        background:
-                          s.status === "verified"
-                            ? "rgba(52,211,153,0.15)"
-                            : "rgba(99,102,241,0.15)",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        flexShrink: 0,
-                      }}
-                    >
-                      <i
-                        className={"ti ti-" + typeIcon(s.type)}
-                        style={{
-                          fontSize: 14,
-                          color:
-                            s.status === "verified" ? "#34d399" : "#818cf8",
-                        }}
-                      />
-                    </div>
                     <div style={{ minWidth: 0, flex: 1 }}>
-                      <div
-                        style={{
-                          fontSize: 13,
-                          fontWeight: 600,
-                          color: "#f1f5f9",
-                          whiteSpace: "nowrap",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                        }}
-                      >
-                        {s.name}
-                      </div>
-                      <div
-                        style={{
-                          fontSize: 11,
-                          color: "#94a3b8",
-                          marginTop: 1,
-                          whiteSpace: "nowrap",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                        }}
-                      >
-                        {loc}
-                      </div>
+                      <div className="ssd-name">{s.name}</div>
+                      <div className="ssd-addr">{loc}</div>
                     </div>
                     {s.latest_price != null && (
-                      <div
-                        style={{
-                          fontSize: 13,
-                          fontWeight: 700,
-                          color: "#34d399",
-                          flexShrink: 0,
-                        }}
-                      >
+                      <span style={{ fontSize: 12, fontWeight: 700, color: "var(--green-600)", flexShrink: 0 }}>
                         {currencySymbol(s.currency)}{s.latest_price}
-                      </div>
+                      </span>
                     )}
-                  </div>
+                  </button>
                 );
               })}
-              <div style={{ padding: "6px 14px 8px", fontSize: 11, color: "#4b5563", display: "flex", alignItems: "center", gap: 4 }}>
-                <i className="ti ti-keyboard" style={{ fontSize: 11 }} />
-                Arrow keys to navigate · Enter to select · Esc to close
-              </div>
             </div>
           )}
         </div>

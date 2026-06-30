@@ -457,8 +457,14 @@ export default function MarketplacePage({ userCoords, user, isLoggedIn, onAuthRe
       <div className="mkt-toolbar">
         <div className="search-wrap" style={{ flex: 1 }}>
           <i className="ti ti-search search-icon" />
-          <input className="search-input" placeholder="Search listings…"
+          <input className={`search-input${search ? " search-has-clear" : ""}`}
+            placeholder="Search listings…"
             value={search} onChange={e => setSearch(e.target.value)} />
+          {search && (
+            <button className="search-clear" onClick={() => setSearch("")} aria-label="Clear search">
+              <i className="ti ti-x" />
+            </button>
+          )}
         </div>
         <div className="sort-chips">
           {[
