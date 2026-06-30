@@ -18,50 +18,7 @@ import { useAuth } from "./hooks/useAuth";
 
 const AUTH_SHOWN_KEY = "snusworld_auth_shown";
 
-const GATE_PASSWORD = "8472916350284719";
-
-function PasswordGate({ onUnlock }) {
-  const [val, setVal] = useState("");
-  const [err, setErr] = useState(false);
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (val === GATE_PASSWORD) {
-      sessionStorage.setItem("sw_auth", "1");
-      onUnlock();
-    } else {
-      setErr(true);
-      setVal("");
-    }
-  };
-  return (
-    <div style={{minHeight:"100vh",background:"#0d0e1a",display:"flex",alignItems:"center",justifyContent:"center",padding:"24px"}}>
-      <div style={{width:"100%",maxWidth:360,background:"#13142a",borderRadius:20,padding:"40px 32px",boxShadow:"0 8px 40px rgba(0,0,0,0.5)",border:"1px solid rgba(255,255,255,0.08)"}}>
-        <div style={{textAlign:"center",marginBottom:32}}>
-          <img src="/snusworld_logo.svg" alt="SnusWorld" style={{width:80,height:80,margin:"0 auto 16px",display:"block"}}/>
-          <div style={{fontSize:22,fontWeight:800,color:"#eef2ff",marginBottom:6}}>SnusWorld</div>
-          <div style={{fontSize:13,color:"rgba(255,255,255,0.4)"}}>Private beta · enter password to continue</div>
-        </div>
-        <form onSubmit={handleSubmit}>
-          <input
-            type="password"
-            placeholder="Password"
-            value={val}
-            onChange={e=>{setVal(e.target.value);setErr(false);}}
-            autoFocus
-            style={{width:"100%",padding:"13px 16px",background:"rgba(255,255,255,0.06)",border:err?"1.5px solid #f87171":"1.5px solid rgba(255,255,255,0.1)",borderRadius:12,color:"#eef2ff",fontSize:15,outline:"none",boxSizing:"border-box",marginBottom:err?6:16}}
-          />
-          {err && <div style={{color:"#f87171",fontSize:12,marginBottom:12,textAlign:"center"}}>Incorrect password</div>}
-          <button type="submit" style={{width:"100%",padding:"13px",background:"#2563eb",border:"none",borderRadius:12,color:"#fff",fontSize:15,fontWeight:700,cursor:"pointer"}}>
-            Enter
-          </button>
-        </form>
-      </div>
-    </div>
-  );
-}
-
 export default function App() {
-  const [unlocked, setUnlocked] = useState(() => sessionStorage.getItem("sw_auth") === "1");
   const [tab, setTab] = useState("map");
   const [toast, setToast] = useState(null);
   const [selectedStore, setSelectedStore] = useState(null);
@@ -173,7 +130,6 @@ export default function App() {
     );
   }
 
-  if (!unlocked) return <PasswordGate onUnlock={() => setUnlocked(true)} />;
   return (
     <div className="app-shell">
       {sharedHeader}
