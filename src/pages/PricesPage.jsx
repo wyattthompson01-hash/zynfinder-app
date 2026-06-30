@@ -99,75 +99,32 @@ function MarketChart({ data, period, currency }) {
   const [crosshair, setCrosshair] = useState(null);
 
   const filtered = filterByPeriod(data, period);
-  if (filtered.length < 2) {
-    return (
-      <div className="chart-empty">
-        <i className="ti ti-chart-line" />
-        <p>Not enough data for this period. Report prices to see the market chart.</p>
-      </div>
-    );
-  }
 
+  // Compute chart geometry (safe even when filtered is empty)
   const W = 800, H = 280;
   const pad = { top: 16, right: 24, bottom: 48, left: 68 };
   const iW = W - pad.left - pad.right;
   const iH = H - pad.top - pad.bottom;
 
   const prices = filtered.map(d => d.price);
-  const minP = Math.min(...prices);
-  const maxP = Math.max(...prices);
+  const minP = filtered.length ? Math.min(...prices) : 0;
+  const maxP = filtered.length ? Math.max(...prices) : 1;
   const pRange = maxP - minP || 1;
   const padP = pRange * 0.12;
-
   const yMin = minP - padP;
   const yMax = maxP + padP;
-
   const dates = filtered.map(d => new Date(d.date + "T12:00:00Z").getTime());
-  const dMin = dates[0];
-  const dMax = dates[dates.length - 1];
+  const dMin = dates[0] ?? 0;
+  const dMax = dates[dates.length - 1] ?? 1;
   const dRange = dMax - dMin || 1;
-
   const xScale = (ts) => pad.left + ((ts - dMin) / dRange) * iW;
   const yScale = (p) => pad.top + iH - ((p - yMin) / (yMax - yMin)) * iH;
+  const pts = filtered.map((d, i) => ({ x: xScale(dates[i]), y: yScale(d.price), ...d }));
 
-  const pts = filtered.map((d, i) => ({
-    x: xScale(dates[i]),
-    y: yScale(d.price),
-    ...d,
-  }));
-
-  const linePath = pts.map((p, i) => `${i === 0 ? "M" : "L"} ${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(" ");
-  const areaPath = [
-    `M ${pts[0].x.toFixed(1)},${(pad.top + iH).toFixed(1)}`,
-    ...pts.map(p => `L ${p.x.toFixed(1)},${p.y.toFixed(1)}`),
-    `L ${pts[pts.length - 1].x.toFixed(1)},${(pad.top + iH).toFixed(1)}`,
-    "Z",
-  ].join(" ");
-
-  const startPrice = filtered[0].price;
-  const endPrice = filtered[filtered.length - 1].price;
-  const isUp = endPrice > startPrice;
-  const lineColor = isUp ? "#ef4444" : "#00ffff"; // up = red (expensive), down = cyan (cheaper)
-  const gradId = `grad-${period}`;
-
-  // Y gridlines
-  const yTicks = 5;
-  const yStep = (yMax - yMin) / yTicks;
-  const yTickVals = Array.from({ length: yTicks + 1 }, (_, i) => yMin + i * yStep);
-
-  // X date labels
-  const xTickCount = Math.min(filtered.length, period === "1W" ? 7 : period === "1M" ? 6 : 5);
-  const xTickStep = Math.max(1, Math.floor(filtered.length / xTickCount));
-  const xTicks = filtered.filter((_, i) => i % xTickStep === 0 || i === filtered.length - 1);
-
-  const fmtDate = (dateStr) => {
-    const d = new Date(dateStr + "T12:00:00Z");
-    return d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
-  };
-
+  // All useCallback hooks must be declared before any early return
   const findNearest = useCallback((clientX) => {
     const svg = svgRef.current;
-    if (!svg) return;
+    if (!svg || !pts.length) return;
     const rect = svg.getBoundingClientRect();
     const scaleX = W / rect.width;
     const mx = (clientX - rect.left) * scaleX;
@@ -181,11 +138,45 @@ function MarketChart({ data, period, currency }) {
 
   const handleMouseMove = useCallback((e) => findNearest(e.clientX), [findNearest]);
   const handleMouseLeave = useCallback(() => setCrosshair(null), []);
-
-  const handleTouchMove = useCallback((e) => {
-    if (e.touches[0]) findNearest(e.touches[0].clientX);
-  }, [findNearest]);
+  const handleTouchMove = useCallback((e) => { if (e.touches[0]) findNearest(e.touches[0].clientX); }, [findNearest]);
   const handleTouchEnd = useCallback(() => setCrosshair(null), []);
+
+  // Now safe to return early — all hooks already called
+  if (filtered.length < 2) {
+    return (
+      <div className="chart-empty">
+        <i className="ti ti-chart-line" />
+        <p>Not enough data for this period. Report prices to see the market chart.</p>
+      </div>
+    );
+  }
+
+  const linePath = pts.map((p, i) => `${i === 0 ? "M" : "L"} ${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(" ");
+  const areaPath = [
+    `M ${pts[0].x.toFixed(1)},${(pad.top + iH).toFixed(1)}`,
+    ...pts.map(p => `L ${p.x.toFixed(1)},${p.y.toFixed(1)}`),
+    `L ${pts[pts.length - 1].x.toFixed(1)},${(pad.top + iH).toFixed(1)}`,
+    "Z",
+  ].join(" ");
+
+  const startPrice = filtered[0].price;
+  const endPrice = filtered[filtered.length - 1].price;
+  const isUp = endPrice > startPrice;
+  const lineColor = isUp ? "#ef4444" : "#00ffff";
+  const gradId = `grad-${period}`;
+
+  const yTicks = 5;
+  const yStep = (yMax - yMin) / yTicks;
+  const yTickVals = Array.from({ length: yTicks + 1 }, (_, i) => yMin + i * yStep);
+
+  const xTickCount = Math.min(filtered.length, period === "1W" ? 7 : period === "1M" ? 6 : 5);
+  const xTickStep = Math.max(1, Math.floor(filtered.length / xTickCount));
+  const xTicks = filtered.filter((_, i) => i % xTickStep === 0 || i === filtered.length - 1);
+
+  const fmtDate = (dateStr) => {
+    const d = new Date(dateStr + "T12:00:00Z");
+    return d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+  };
 
   return (
     <div className="market-chart-wrap">

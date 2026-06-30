@@ -166,7 +166,7 @@ export default function App() {
             onStoreClick={handleStoreClick} />
         )}
         {tab === "leaderboard" && <Leaderboard currentUserId={user?.id} />}
-        {tab === "prices" && (
+        {tab === "market" && (
           <PricesPage stores={stores} userCoords={coords} user={user}
             onReportPrice={(store) => { setSelectedStore(store); }}
             onViewStore={(store) => { setSelectedStore(store); }}
