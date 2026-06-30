@@ -37,7 +37,7 @@ export default function Header({ tab, setTab, userPoints, user, onProfileClick }
             onClick={onProfileClick}
             title={user ? "My profile" : "Sign in"}
           >
-            <i className={`ti ti-${user ? "user-circle" : "login"}`} />
+            <i className="ti ti-user" />
           </button>
         </div>
       </div>
