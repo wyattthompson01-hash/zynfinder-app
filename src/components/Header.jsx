@@ -2,7 +2,7 @@ export default function Header({ tab, setTab, userPoints, user, onProfileClick }
   const tabs = [
     { id: "map",         label: "Map",      icon: "map-2" },
     { id: "list",        label: "Nearby",   icon: "list" },
-    { id: "prices",      label: "Market",   icon: "chart-candle" },
+    { id: "market",      label: "Market",   icon: "chart-candle" },
     { id: "marketplace", label: "Shop",     icon: "shopping-bag" },
     { id: "report",      label: "Report",   icon: "plus" },
     { id: "verify",      label: "Verify",   icon: "shield-check" },
