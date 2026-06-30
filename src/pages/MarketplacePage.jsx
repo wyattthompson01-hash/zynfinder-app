@@ -63,13 +63,13 @@ function timeAgo(dateStr) {
 
 function BrandBadge({ brand }) {
   const colors = {
-    zyn: "#fff7e6 #d97706",
-    velo: "#eff6ff #2563eb",
-    on: "#f0fdf4 #16a34a",
-    nordic_spirit: "#faf5ff #7c3aed",
-    white_fox: "#f8fafc #334155",
-    lyft: "#fff1f2 #e11d48",
-    other: "#f3f4f6 #6b7280",
+    zyn: "rgba(217,119,6,0.18) #f59e0b",
+    velo: "rgba(37,99,235,0.18) #60a5fa",
+    on: "rgba(22,163,74,0.18) #34d399",
+    nordic_spirit: "rgba(124,58,237,0.18) #a78bfa",
+    white_fox: "rgba(148,163,184,0.15) #cbd5e1",
+    lyft: "rgba(225,29,72,0.18) #f87171",
+    other: "rgba(107,114,128,0.18) #9ca3af",
   };
   const [bg, color] = (colors[brand] || colors.other).split(" ");
   return (
@@ -97,7 +97,7 @@ function ListingCard({ listing, userCoords, onContact }) {
           )}
         </div>
         {listing.photo_url && (
-          <img src={listing.photo_url} alt={listing.title} style={{width:'100%',aspectRatio:'16/9',objectFit:'cover',borderRadius:10,marginBottom:10,border:'1px solid #f3f4f6'}}/>
+          <img src={listing.photo_url} alt={listing.title} style={{width:'100%',aspectRatio:'16/9',objectFit:'cover',borderRadius:10,marginBottom:10,border:'1px solid rgba(255,255,255,0.08)'}}/>
         )}
         <div className="mkt-card-name">{listing.title}</div>
         <div className="mkt-card-meta">
@@ -329,12 +329,12 @@ function CreateListingModal({ user, userCoords, onClose, onCreated }) {
             <label className="field-label">Photo (optional)</label>
             {photoUrl ? (
               <div style={{position:'relative',display:'inline-block',marginTop:4,width:'100%'}}>
-                <img src={photoUrl} alt="Listing" style={{width:'100%',maxHeight:180,objectFit:'cover',borderRadius:10,border:'1px solid #e5e7eb'}}/>
+                <img src={photoUrl} alt="Listing" style={{width:'100%',maxHeight:180,objectFit:'cover',borderRadius:10,border:'1px solid rgba(255,255,255,0.1)'}}/>
                 <button onClick={()=>setPhotoUrl(null)} style={{position:'absolute',top:6,right:6,background:'rgba(0,0,0,0.6)',border:'none',color:'#fff',borderRadius:99,width:26,height:26,cursor:'pointer',fontSize:16,display:'flex',alignItems:'center',justifyContent:'center'}}>Ã</button>
               </div>
             ) : (
-              <label style={{display:'flex',alignItems:'center',gap:8,cursor:'pointer',padding:'12px 14px',border:'1.5px dashed #d1d5db',borderRadius:10,fontSize:13,color:'#6b7280',marginTop:4,background:'#f9fafb'}}>
-                <i className="ti ti-camera" style={{fontSize:18,color:'#9ca3af'}}/>
+              <label style={{display:'flex',alignItems:'center',gap:8,cursor:'pointer',padding:'12px 14px',border:'1.5px dashed #2a2a45',borderRadius:10,fontSize:13,color:'#94a3b8',marginTop:4,background:'#141428'}}>
+                <i className="ti ti-camera" style={{fontSize:18,color:'#64748b'}}/>
                 {photoUploading ? 'Uploading...' : 'Add a cover photo'}
                 <input type="file" accept="image/*" style={{display:'none'}} onChange={handlePhotoUpload} disabled={photoUploading}/>
               </label>

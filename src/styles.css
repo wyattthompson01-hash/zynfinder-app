@@ -4747,16 +4747,29 @@ html, body, #root {
 ::-webkit-scrollbar-thumb:hover { background: #444; }
 
 /* Ã¢ÂÂÃ¢ÂÂ 19. Marketplace page Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
-.marketplace-page   { background: #1e1e1e; color: #fff; }
-.marketplace-header { background: linear-gradient(135deg, #0a0a0a 0%, #141414 100%); }
-
-/* Generic white surfaces Ã¢ÂÂ dark */
-.marketplace-page .form-card,
-.marketplace-page [class*="-card"],
-.marketplace-page [class*="-panel"] {
-  background: #2a2a2a;
-  border-color: #3a3a3a;
-}
+/* ── 19. Marketplace (mkt-page) dark overrides ──────────────────────── */
+.mkt-page            { background: #0f0f1a; }
+.mkt-brand-bar       { background: #1a1a2e; border-bottom-color: #222239; }
+.mkt-toolbar         { background: #1a1a2e; border-bottom-color: #222239; }
+.mkt-card            { background: #1a1a2e; border-color: #2a2a45; }
+.mkt-card:hover      { box-shadow: 0 6px 20px rgba(0,0,0,0.45); border-color: #3a3a60; }
+.mkt-card-img        { background: linear-gradient(135deg, #141428, #1e1e3a); }
+.mkt-strength-badge  { background: #252545; color: #94a3b8; }
+.mkt-card-name       { color: #e2e8f0; }
+.mkt-card-price      { color: #f1f5f9; }
+.mkt-tag             { background: #252545; color: #94a3b8; }
+.mkt-empty           { color: #94a3b8; }
+.mkt-empty p         { color: #64748b; }
+.mkt-create-modal    { background: #1a1a2e; }
+.mkt-contact-modal   { background: #1a1a2e; }
+.modal-header        { border-bottom-color: #2a2a45; }
+.modal-title         { color: #f1f5f9; }
+.mkt-total-preview   { background: rgba(16,185,129,0.1); color: #34d399; }
+.mkt-listing-preview { background: #141428; }
+.mkt-contact-info    { background: rgba(59,130,246,0.1); color: #60a5fa; }
+.sort-chip           { background: #1e1e3a; border-color: #2a2a45; color: #94a3b8; }
+.sort-chip.active    { background: #0066ff; border-color: #0066ff; color: #fff; }
+.sort-chip:hover:not(.active) { border-color: #0066ff; color: #c0d0ff; }
 
 /* Ã¢ÂÂÃ¢ÂÂ 20. Leaflet map overrides Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
 .leaflet-popup-content-wrapper {
