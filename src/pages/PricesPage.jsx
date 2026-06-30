@@ -498,21 +498,22 @@ export default function PricesPage({ stores, onReportPrice, onViewStore }) {
   const [storeSearch, setStoreSearch] = useState("");
   const [expandedStore, setExpandedStore] = useState(null);
 
-  // Fetch all prices — fall back to generated mock history when Supabase is absent/empty
+  // Fetch all prices — mock history always fills seed stores; real Supabase prices are merged in
   useEffect(() => {
     if (!stores.length) return;
+    const mock = generateMockPrices(stores);
     if (!SUPABASE_URL || !SUPABASE_KEY) {
-      setAllPrices(generateMockPrices(stores));
+      setAllPrices(mock);
       return;
     }
     setLoadingPrices(true);
     fetch(`${SUPABASE_URL}/rest/v1/prices?order=reported_at.asc&limit=5000`, { headers })
       .then(r => r.json())
       .then(data => {
-        if (Array.isArray(data) && data.length > 0) setAllPrices(data);
-        else setAllPrices(generateMockPrices(stores));
+        // Always include mock (seed store history) + any real prices from Supabase
+        setAllPrices(Array.isArray(data) ? [...mock, ...data] : mock);
       })
-      .catch(() => setAllPrices(generateMockPrices(stores)))
+      .catch(() => setAllPrices(mock))
       .finally(() => setLoadingPrices(false));
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [stores.length]);
