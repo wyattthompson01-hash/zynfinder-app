@@ -33,6 +33,7 @@ export default function AuthModal({ onClose, onSignIn, onSignUp, authLoading, in
     <div
       className="modal-overlay"
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
+      onKeyDown={(e) => { if (e.key === "Escape") onClose(); }}
       role="dialog" aria-modal="true"
       aria-label={mode === "login" ? "Sign in" : "Create account"}
     >
