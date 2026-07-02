@@ -157,18 +157,6 @@ export function useAuth() {
     } catch (e) { console.warn("Stat update failed:", e); }
   }, [user, accessToken, profile]);
 
-  const updateProfile = useCallback(async (fields) => {
-    if (!user?.id || !accessToken) return;
-    setProfile((p) => p ? { ...p, ...fields } : p);
-    try {
-      await fetch(`${SUPABASE_URL}/rest/v1/profiles?id=eq.${user.id}`, {
-        method: "PATCH",
-        headers: authHeaders(accessToken),
-        body: JSON.stringify(fields),
-      });
-    } catch (e) { console.warn("Profile update failed:", e); }
-  }, [user, accessToken]);
-
   // Points to display: DB if logged in, localStorage if guest
   const displayPoints = user
     ? (profile?.points ?? 0)
@@ -187,6 +175,5 @@ export function useAuth() {
     isLoggedIn: !!user,
     accessToken,
     displayPoints,
-    updateProfile,
   };
 }
