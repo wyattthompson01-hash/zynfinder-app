@@ -32,7 +32,6 @@ export default function App() {
     user, profile, loading: authLoading,
     signIn, signUp, signOut,
     awardPoints, incrementStat, isLoggedIn, displayPoints,
-    updateProfile, accessToken,
   } = useAuth();
 
   const showToast = useCallback((msg) => {
@@ -104,8 +103,7 @@ export default function App() {
         {sharedHeader}
         <div className="main-content">
           <ProfilePage user={user} profile={profile}
-            onBack={() => setShowProfile(false)} onSignOut={handleSignOut}
-            updateProfile={updateProfile} accessToken={accessToken} />
+            onBack={() => setShowProfile(false)} onSignOut={handleSignOut} />
         </div>
         {toast && <Toast message={toast} />}
       </div>
@@ -166,10 +164,9 @@ export default function App() {
             onStoreClick={handleStoreClick} />
         )}
         {tab === "leaderboard" && <Leaderboard currentUserId={user?.id} />}
-        {tab === "market" && (
+        {tab === "prices" && (
           <PricesPage stores={stores} userCoords={coords} user={user}
             onReportPrice={(store) => { setSelectedStore(store); }}
-            onViewStore={(store) => { setSelectedStore(store); }}
           />
         )}
         {tab === "marketplace" && (
