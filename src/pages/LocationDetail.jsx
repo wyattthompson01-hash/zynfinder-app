@@ -3,8 +3,6 @@ import DirectionsPage from "./DirectionsPage";
 import PriceChart from "../components/PriceChart";
 import { usePrices } from "../hooks/usePrices";
 
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
-const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 const CAN_SIZES = [15, 20];
 
 export default function LocationDetail({ store, onBack, onVerify, userCoords, user }) {
@@ -17,54 +15,12 @@ export default function LocationDetail({ store, onBack, onVerify, userCoords, us
   const [priceSubmitting, setPriceSubmitting] = useState(false);
   const [priceError, setPriceError] = useState(null);
   const [priceDone, setPriceDone] = useState(false);
-  const [photos, setPhotos] = useState([]);
-  const [photoUploading, setPhotoUploading] = useState(false);
 
   const { prices, loading: pricesLoading, fetchPrices, submitPrice } = usePrices(store.id);
 
   useEffect(() => {
     fetchPrices();
   }, [fetchPrices]);
-
-  useEffect(() => {
-    const loadPhotos = async () => {
-      try {
-        const res = await fetch(`${SUPABASE_URL}/storage/v1/object/list/store-photos`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` },
-          body: JSON.stringify({ prefix: `${store.id}/`, limit: 20 })
-        });
-        if (res.ok) {
-          const files = await res.json();
-          if (Array.isArray(files)) {
-            setPhotos(files.filter(f => f.name).map(f => `${SUPABASE_URL}/storage/v1/object/public/store-photos/${store.id}/${f.name}`));
-          }
-        }
-      } catch (e) {}
-    };
-    loadPhotos();
-  }, [store.id]);
-
-  const handlePhotoUpload = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    setPhotoUploading(true);
-    try {
-      const ext = file.name.split('.').pop() || 'jpg';
-      const path = `${store.id}/${Date.now()}.${ext}`;
-      const res = await fetch(`${SUPABASE_URL}/storage/v1/object/store-photos/${path}`, {
-        method: 'POST',
-        headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}`, 'Content-Type': file.type || 'image/jpeg' },
-        body: file
-      });
-      if (res.ok) {
-        setPhotos(prev => [...prev, `${SUPABASE_URL}/storage/v1/object/public/store-photos/${path}`]);
-      }
-    } finally {
-      setPhotoUploading(false);
-      e.target.value = '';
-    }
-  };
 
   const handleVerify = async (confirmed) => {
     setVerifying(true);
@@ -215,8 +171,8 @@ export default function LocationDetail({ store, onBack, onVerify, userCoords, us
                   {priceSubmitting ? "Saving…" : "Save price"}
                 </button>
                 <button
-                  className="price-cancel-btn"
                   onClick={() => { setShowPriceForm(false); setPriceError(null); }}
+                  style={{ padding: "9px 14px", border: "1.5px solid #e5e7eb", borderRadius: 10, background: "transparent", cursor: "pointer", fontSize: 13, color: "#6b7280" }}
                 >
                   Cancel
                 </button>
@@ -264,34 +220,12 @@ export default function LocationDetail({ store, onBack, onVerify, userCoords, us
         {store.notes && (
           <div className="detail-section">
             <div className="detail-section-title">Notes</div>
-            <p className="detail-notes-text">{store.notes}</p>
+            <p style={{ fontSize: 14, color: "#4b5563", lineHeight: 1.6 }}>{store.notes}</p>
           </div>
         )}
 
         <div className="detail-section">
-          <div className="detail-section">
-          <div className="detail-section-title" style={{display:'flex',alignItems:'center',justifyContent:'space-between'}}>
-            <span>Photos</span>
-            {user && (
-              <label className="add-photo-label">
-                <i className="ti ti-camera" /> Add Photo
-                <input type="file" accept="image/*" style={{display:'none'}} onChange={handlePhotoUpload}/>
-              </label>
-            )}
-          </div>
-          {photoUploading && <div style={{fontSize:12,color:'#6b7280',marginTop:6}}>Uploading...</div>}
-          {photos.length > 0 ? (
-            <div className="detail-photo-grid">
-              {photos.map((url,idx) => (
-                <img key={idx} src={url} alt="Store photo" className="detail-photo-img" />
-              ))}
-            </div>
-          ) : (
-            <div style={{fontSize:13,color:'#9ca3af',marginTop:4}}>No photos yet</div>
-          )}
-        </div>
-
-        <div className="detail-section-title">Have you been here recently?</div>
+          <div className="detail-section-title">Have you been here recently?</div>
           {done ? (
             <div style={{ textAlign: "center", padding: "16px 0", color: "#059669", fontWeight: 600, fontSize: 15 }}>
               <i className="ti ti-circle-check" style={{ fontSize: 28, display: "block", marginBottom: 6 }} />
