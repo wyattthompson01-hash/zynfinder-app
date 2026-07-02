@@ -79,12 +79,9 @@ export default function Map({ stores, userCoords, onAddClick, onStoreClick }) {
   const [filterHasPrice, setFilterHasPrice] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
   const searchInputRef = useRef(null);
-  const suggestDebounceRef = useRef(null);
 
-  // Geocode suggestions
+  // Geocode search result navigation
   const [geocoding, setGeocoding] = useState(false);
-  const [placeSuggestions, setPlaceSuggestions] = useState([]);
-  const [placesLoading, setPlacesLoading] = useState(false);
 
   // Filtered store results for dropdown
   const allDisplayStores = [...stores, ...overpassStores];
@@ -92,27 +89,8 @@ export default function Map({ stores, userCoords, onAddClick, onStoreClick }) {
     ? allDisplayStores.filter(s => {
         const q = searchQuery.toLowerCase();
         return s.name.toLowerCase().includes(q) || s.address.toLowerCase().includes(q);
-      }).slice(0, 5)
+      }).slice(0, 8)
     : [];
-
-  // Fetch Nominatim place suggestions as user types
-  useEffect(() => {
-    clearTimeout(suggestDebounceRef.current);
-    if (searchQuery.length < 2) { setPlaceSuggestions([]); return; }
-    suggestDebounceRef.current = setTimeout(async () => {
-      setPlacesLoading(true);
-      try {
-        const res = await fetch(
-          `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(searchQuery)}&format=json&limit=4`,
-          { headers: { "Accept-Language": "en", "User-Agent": "ZynFinder/1.0" } }
-        );
-        const data = await res.json();
-        setPlaceSuggestions(data);
-      } catch {}
-      setPlacesLoading(false);
-    }, 350);
-    return () => clearTimeout(suggestDebounceRef.current);
-  }, [searchQuery]);
 
   // Active filter count
   const activeFilters = [filterType !== "all", filterStatus !== "all", filterHasPrice].filter(Boolean).length;
@@ -162,7 +140,7 @@ export default function Map({ stores, userCoords, onAddClick, onStoreClick }) {
       attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
       maxZoom: 19,
     }).addTo(map);
-    L.control.zoom({ position: "bottomright" }).addTo(map);
+    L.control.zoom({ position: "topright" }).addTo(map);
     mapRef.current = map;
 
     const handleMoveEnd = () => {
@@ -305,41 +283,31 @@ export default function Map({ stores, userCoords, onAddClick, onStoreClick }) {
 
       {/* ── Search overlay ── */}
       <div className={`map-search-overlay ${searchFocused || searchQuery ? "focused" : ""}`}>
-        <div className="map-search-row">
-          <div className="map-search-bar">
-            <i className="ti ti-search map-search-icon" />
-            <input
-              ref={searchInputRef}
-              className="map-search-input"
-              placeholder="Search stores or type an address…"
-              value={searchQuery}
-              onChange={e => { setSearchQuery(e.target.value); setSearchFocused(true); }}
-              onFocus={() => setSearchFocused(true)}
-              onBlur={() => setTimeout(() => setSearchFocused(false), 200)}
-              onKeyDown={e => {
-                if (e.key === "Enter") {
-                  if (searchResults.length > 0) flyToStore(searchResults[0]);
-                  else if (placeSuggestions.length > 0) {
-                    const p = placeSuggestions[0];
-                    mapRef.current?.setView([parseFloat(p.lat), parseFloat(p.lon)], 14, { animate: true });
-                    setSearchQuery("");
-                    setSearchFocused(false);
-                  } else geocodeSearch(searchQuery);
-                }
-                if (e.key === "Escape") { setSearchFocused(false); searchInputRef.current?.blur(); }
-              }}
-            />
-            {(geocoding || placesLoading) && (
-              <div className="map-search-spinner"><div className="spinner" style={{ width: 14, height: 14, borderWidth: 2 }} /></div>
-            )}
-            {searchQuery && (
-              <button className="map-search-clear" onClick={() => { setSearchQuery(""); setPlaceSuggestions([]); searchInputRef.current?.focus(); }}>
-                <i className="ti ti-x" />
-              </button>
-            )}
-          </div>
+        <div className="map-search-bar">
+          <i className="ti ti-search map-search-icon" />
+          <input
+            ref={searchInputRef}
+            className="map-search-input"
+            placeholder="Search stores or addresses…"
+            value={searchQuery}
+            onChange={e => setSearchQuery(e.target.value)}
+            onFocus={() => setSearchFocused(true)}
+            onBlur={() => setTimeout(() => setSearchFocused(false), 150)}
+            onKeyDown={e => {
+              if (e.key === "Enter") {
+                if (searchResults.length > 0) flyToStore(searchResults[0]);
+                else geocodeSearch(searchQuery);
+              }
+            }}
+          />
+          {geocoding && <div className="map-search-spinner"><div className="spinner" style={{ width: 14, height: 14, borderWidth: 2 }} /></div>}
+          {searchQuery && (
+            <button className="map-search-clear" onClick={() => { setSearchQuery(""); searchInputRef.current?.focus(); }}>
+              <i className="ti ti-x" />
+            </button>
+          )}
           <button
-            className={`map-filter-pill ${showFilters ? "active" : ""}`}
+            className={`map-filter-btn ${showFilters ? "active" : ""} ${activeFilters > 0 ? "has-filters" : ""}`}
             onClick={() => setShowFilters(f => !f)}
             title="Filters"
           >
@@ -349,65 +317,24 @@ export default function Map({ stores, userCoords, onAddClick, onStoreClick }) {
         </div>
 
         {/* Dropdown results */}
-        {searchFocused && searchQuery.length >= 2 && (searchResults.length > 0 || placeSuggestions.length > 0 || placesLoading) && (
+        {searchFocused && searchResults.length > 0 && (
           <div className="map-search-results">
-            {/* Known store matches */}
-            {searchResults.length > 0 && (
-              <>
-                <div className="msr-section-label">Stores</div>
-                {searchResults.map((s, i) => (
-                  <button key={i} className="msr-item" onMouseDown={() => flyToStore(s)}>
-                    <div className={`msr-type-icon ${s.status === "verified" ? "verified" : s.type}`}>
-                      <i className={`ti ti-${s.type === "gas" ? "gas-station" : "building-store"}`} />
-                    </div>
-                    <div className="msr-info">
-                      <div className="msr-name">{s.name}</div>
-                      <div className="msr-addr">{s.address}</div>
-                    </div>
-                    {s.status !== "unknown" && (
-                      <span className={`status-badge ${s.status}`} style={{ fontSize: 10, padding: "2px 6px", flexShrink: 0 }}>
-                        {statusLabel(s.status)}
-                      </span>
-                    )}
-                  </button>
-                ))}
-              </>
-            )}
-
-            {/* Geocoded place suggestions */}
-            {placeSuggestions.length > 0 && (
-              <>
-                <div className="msr-section-label">Places</div>
-                {placeSuggestions.map((place, i) => {
-                  const parts = place.display_name.split(",");
-                  const title = parts[0].trim();
-                  const subtitle = parts.slice(1, 3).join(",").trim();
-                  return (
-                    <button key={`place-${i}`} className="msr-item" onMouseDown={() => {
-                      mapRef.current?.setView([parseFloat(place.lat), parseFloat(place.lon)], 14, { animate: true });
-                      setSearchQuery("");
-                      setPlaceSuggestions([]);
-                      setSearchFocused(false);
-                    }}>
-                      <div className="msr-type-icon place">
-                        <i className="ti ti-map-pin" />
-                      </div>
-                      <div className="msr-info">
-                        <div className="msr-name">{title}</div>
-                        <div className="msr-addr">{subtitle}</div>
-                      </div>
-                    </button>
-                  );
-                })}
-              </>
-            )}
-
-            {/* Loading state */}
-            {placesLoading && searchResults.length === 0 && placeSuggestions.length === 0 && (
-              <div className="msr-empty">
-                <div className="spinner" style={{ width: 13, height: 13, borderWidth: 2, display: "inline-block", verticalAlign: "middle", marginRight: 6 }} />
-                Searching…
-              </div>
+            {searchResults.map((s, i) => (
+              <button key={i} className="msr-item" onMouseDown={() => flyToStore(s)}>
+                <i className={`ti ti-${s.type === "gas" ? "gas-station" : "building-store"} msr-icon`} />
+                <div className="msr-info">
+                  <div className="msr-name">{s.name}</div>
+                  <div className="msr-addr">{s.address}</div>
+                </div>
+                {s.status !== "unknown" && (
+                  <span className={`status-badge ${s.status}`} style={{ fontSize: 10, padding: "2px 6px" }}>
+                    {statusLabel(s.status)}
+                  </span>
+                )}
+              </button>
+            ))}
+            {searchResults.length === 0 && (
+              <div className="msr-empty">Press Enter to search by location</div>
             )}
           </div>
         )}
