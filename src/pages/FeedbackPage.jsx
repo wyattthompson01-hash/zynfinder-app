@@ -319,7 +319,6 @@ export default function FeedbackPage({ stores, user, isLoggedIn, onAuthRequired 
                 <div className="fb-field">
                   <label className="fb-label">Store</label>
                   <div className="store-search-wrap">
-                    <i className="ti ti-search search-icon" />
                     <input
                       className="fb-input"
                       placeholder="Search for a store…"
