@@ -179,7 +179,7 @@ html, body, #root { height: 100%; font-family: "Inter", system-ui, -apple-system
 .step-distance { font-size: 11px; color: var(--gray-400); margin-top: 2px; }
 @media (min-width: 768px) { .tab-btn span { display: inline; } .header-top { padding: 16px 32px; } .tab-bar { padding: 0 32px; } .tab-btn { flex: none; padding: 10px 20px; font-size: 14px; } .list-toolbar { padding: 14px 24px; } .filter-chips { padding: 10px 24px; } .store-item { padding: 16px 24px; } .store-name { font-size: 15px; } }
 @media (min-width: 1024px) { .main-content { flex-direction: row; } .map-wrapper { flex: 1; } .side-panel { width: 400px; border-left: 1px solid var(--gray-200); overflow-y: auto; flex-shrink: 0; } }
-/* Ã¢ÂÂÃ¢ÂÂ Task 2: Auth + Profile additions Ã¢ÂÂ append to styles.css Ã¢ÂÂÃ¢ÂÂ */
+/* ── Task 2: Auth + Profile additions — append to styles.css ── */
 
 /* Profile button in header */
 .profile-btn {
@@ -202,7 +202,7 @@ html, body, #root { height: 100%; font-family: "Inter", system-ui, -apple-system
   position: fixed; inset: 0;
   background: rgba(0, 0, 0, 0.45);
   display: flex; align-items: center; justify-content: center;
-  z-index: 9000;
+  z-index: 1000;
   padding: 16px;
   animation: fadeIn 0.15s ease;
 }
@@ -373,7 +373,7 @@ html, body, #root { height: 100%; font-family: "Inter", system-ui, -apple-system
 }
 .signout-btn:hover { background: #dc2626; color: #fff; border-color: #dc2626; }
 
-/* Ã¢ÂÂÃ¢ÂÂ Task 3: Price additions Ã¢ÂÂ append to styles.css Ã¢ÂÂÃ¢ÂÂ */
+/* ── Task 3: Price additions — append to styles.css ── */
 
 /* Price input */
 .price-input-wrap {
@@ -544,13 +544,13 @@ html, body, #root { height: 100%; font-family: "Inter", system-ui, -apple-system
 }
 .sort-chip:hover:not(.active) { border-color: var(--gray-300); color: var(--gray-700); }
 
-/* Ã¢ÂÂÃ¢ÂÂ Task 4: Leaderboard additions Ã¢ÂÂ append to styles.css Ã¢ÂÂÃ¢ÂÂ */
+/* ── Task 4: Leaderboard additions — append to styles.css ── */
 
 .leaderboard-page {
   display: flex;
   flex-direction: column;
-  min-height: 100%;
-  height: auto;
+  height: 100%;
+  overflow-y: auto;
   background: #fff;
 }
 
@@ -807,7 +807,7 @@ html, body, #root { height: 100%; font-family: "Inter", system-ui, -apple-system
 }
 .lb-your-rank-bar strong { color: #059669; font-size: 16px; }
 
-/* Ã¢ÂÂÃ¢ÂÂ Task 5: Map Overpass additions Ã¢ÂÂ append to styles.css Ã¢ÂÂÃ¢ÂÂ */
+/* ── Task 5: Map Overpass additions — append to styles.css ── */
 
 .overpass-loading-badge {
   position: absolute;
@@ -817,34 +817,33 @@ html, body, #root { height: 100%; font-family: "Inter", system-ui, -apple-system
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 6px 14px;
-  background: rgba(26, 26, 46, 0.92);
-  backdrop-filter: blur(8px);
+  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(4px);
   border-radius: 20px;
   font-size: 12px;
-  color: #aaa;
-  border: 1px solid rgba(255,255,255,0.08);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+  color: #6b7280;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
   pointer-events: none;
   z-index: 500;
   white-space: nowrap;
 }
-/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
-   ZynFinder v2 Ã¢ÂÂ append to the END of src/styles.css
+/* ═══════════════════════════════════════════════════════════════════════════
+   ZynFinder v2 — append to the END of src/styles.css
    Covers: desktop layout, cross-platform inputs, live nav, price ticker
-   Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+   ═══════════════════════════════════════════════════════════════════════════ */
 
-/* Ã¢ÂÂÃ¢ÂÂ Pulse ring animation (used by live-position marker) Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+/* ── Pulse ring animation (used by live-position marker) ──────────────────── */
 @keyframes pulse-ring {
   0%   { transform: scale(0.85); opacity: 0.5; }
   70%  { transform: scale(1.3);  opacity: 0; }
   100% { transform: scale(1.3);  opacity: 0; }
 }
 
-/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+/* ─────────────────────────────────────────────────────────────────────────────
    CROSS-PLATFORM INPUT STYLING
    Remove native OS chrome on Mac/Windows/Android; replace with our own design.
-   Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+   ───────────────────────────────────────────────────────────────────────────── */
 
 .field-input,
 .search-input,
@@ -945,7 +944,7 @@ input[type="checkbox"]:focus-visible {
   box-shadow: 0 0 0 3px rgba(5,150,105,0.18);
 }
 
-/* Price number input Ã¢ÂÂ hide spinners, keep $ prefix looking right */
+/* Price number input — hide spinners, keep $ prefix looking right */
 .price-input {
   -webkit-appearance: none;
   -moz-appearance: textfield;
@@ -955,9 +954,9 @@ input[type="checkbox"]:focus-visible {
 .price-input::-webkit-outer-spin-button,
 .price-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 
-/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
-   LIVE NAVIGATION Ã¢ÂÂ nav-step-banner, eta bar, arrived
-   Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+/* ─────────────────────────────────────────────────────────────────────────────
+   LIVE NAVIGATION — nav-step-banner, eta bar, arrived
+   ───────────────────────────────────────────────────────────────────────────── */
 
 .nav-arrived {
   display: flex;
@@ -1072,9 +1071,9 @@ input[type="checkbox"]:focus-visible {
   color: #9ca3af !important;
 }
 
-/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
+/* ─────────────────────────────────────────────────────────────────────────────
    PRICE TICKER / STOCK-MARKET CHART
-   Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+   ───────────────────────────────────────────────────────────────────────────── */
 
 .price-chart-card {
   background: #fff;
@@ -1161,7 +1160,7 @@ input[type="checkbox"]:focus-visible {
   transform: translateX(-50%);
 }
 
-/* Price section in LocationDetail Ã¢ÂÂ "no data yet" empty state */
+/* Price section in LocationDetail — "no data yet" empty state */
 .price-empty {
   display: flex;
   flex-direction: column;
@@ -1174,9 +1173,9 @@ input[type="checkbox"]:focus-visible {
 .price-empty i { font-size: 28px; }
 .price-empty p { font-size: 13px; }
 
-/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
-   DESKTOP RESPONSIVE LAYOUT  (Ã¢ÂÂ¥768px and Ã¢ÂÂ¥1100px)
-   Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+/* ─────────────────────────────────────────────────────────────────────────────
+   DESKTOP RESPONSIVE LAYOUT  (≥768px and ≥1100px)
+   ───────────────────────────────────────────────────────────────────────────── */
 
 @media (min-width: 768px) {
   /* Form pages: more breathing room */
@@ -1245,7 +1244,7 @@ input[type="checkbox"]:focus-visible {
   .store-name { font-size: 15px; }
   .store-addr { font-size: 13px; }
 
-  /* Directions: split view Ã¢ÂÂ map takes most space, steps panel on the side */
+  /* Directions: split view — map takes most space, steps panel on the side */
   .directions-page { flex-direction: column; }
   .directions-map { flex: 1; min-height: 400px; }
   .steps-panel { max-height: 280px; }
@@ -1262,7 +1261,7 @@ input[type="checkbox"]:focus-visible {
   .badges-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
 }
 
-/* Ã¢ÂÂÃ¢ÂÂ Map + Sidebar split on wide screens Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+/* ── Map + Sidebar split on wide screens ────────────────────────────────────── */
 @media (min-width: 1100px) {
   /* When the map tab is active, show a sidebar with the list */
   .map-and-list {
@@ -1279,12 +1278,12 @@ input[type="checkbox"]:focus-visible {
     overflow-y: auto;
   }
 }
-/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
-   ZynFinder v3 additions Ã¢ÂÂ append to end of styles.css
+/* ════════════════════════════════════════════════════════════════════
+   ZynFinder v3 additions — append to end of styles.css
    Covers: fullscreen directions, prices page, desktop layout
-   Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+   ════════════════════════════════════════════════════════════════════ */
 
-/* Ã¢ÂÂÃ¢ÂÂ Full-screen Directions Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+/* ── Full-screen Directions ─────────────────────────────────────── */
 .dir-fullscreen {
   position: relative;
   width: 100%;
@@ -1411,10 +1410,7 @@ input[type="checkbox"]:focus-visible {
 .dir-step-text { flex: 1; min-width: 0; }
 .dir-step-main { font-size: 15px; font-weight: 700; line-height: 1.3; }
 .dir-step-then { font-size: 12px; opacity: 0.75; margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.dir-step-right { display: flex; flex-direction: column; align-items: flex-end; flex-shrink: 0; gap: 2px; }
-.dir-step-dist { font-size: 20px; font-weight: 800; }
-.dir-step-counter { font-size: 11px; opacity: 0.7; font-weight: 600; }
-.dir-eta-arrives { font-size: 12px; font-weight: 600; opacity: 0.75; margin-left: 2px; }
+.dir-step-dist { font-size: 20px; font-weight: 800; flex-shrink: 0; }
 
 /* Arrived */
 .dir-arrived {
@@ -1512,12 +1508,12 @@ input[type="checkbox"]:focus-visible {
   color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px;
 }
 
-/* Ã¢ÂÂÃ¢ÂÂ Prices / Market Page Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+/* ── Prices / Market Page ─────────────────────────────────────────── */
 .prices-page {
-  display: block;
-  min-height: 100%;
-  overflow-y: auto;
-  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
   background: #f9fafb;
 }
 .prices-header {
@@ -1559,8 +1555,8 @@ input[type="checkbox"]:focus-visible {
 }
 
 .prices-list {
-  flex: none;
-  overflow-y: visible;
+  flex: 1;
+  overflow-y: auto;
   padding: 10px 12px 24px;
   display: flex;
   flex-direction: column;
@@ -1630,7 +1626,7 @@ input[type="checkbox"]:focus-visible {
 
 .price-report-inline { margin-top: 4px; }
 
-/* Ã¢ÂÂÃ¢ÂÂ Desktop layout fixes Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+/* ── Desktop layout fixes ─────────────────────────────────────────── */
 
 /* Tab bar: icons only on very small screens, icon+label on normal */
 @media (max-width: 380px) {
@@ -1682,12 +1678,12 @@ input[type="checkbox"]:focus-visible {
   /* Price chart bigger */
   .price-ticker-current { font-size: 32px; }
 }
-/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
-   SnusWorld v4 Ã¢ÂÂ additions & overrides
+/* ════════════════════════════════════════════════════════════════════
+   SnusWorld v4 — additions & overrides
    Append to end of styles.css after v3 additions
-   Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+   ════════════════════════════════════════════════════════════════════ */
 
-/* Ã¢ÂÂÃ¢ÂÂ SnusWorld color overrides Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+/* ── SnusWorld color overrides ─────────────────────────────────── */
 :root {
   --navy: #0f172a;
   --navy-700: #1e293b;
@@ -1718,7 +1714,7 @@ input[type="checkbox"]:focus-visible {
 .tab-btn.active { border-bottom-color: #10b981; background: rgba(16,185,129,0.12); color: #6ee7b7; }
 .tab-btn:hover:not(.active) { background: rgba(255,255,255,0.06); }
 
-/* Ã¢ÂÂÃ¢ÂÂ Fix all native OS inputs globally Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+/* ── Fix all native OS inputs globally ─────────────────────────── */
 input, select, textarea, button {
   font-family: inherit;
 }
@@ -1803,7 +1799,7 @@ input[type="checkbox"]:checked::after {
   box-shadow: 0 0 0 3px rgba(16,185,129,0.1);
 }
 
-/* Ã¢ÂÂÃ¢ÂÂ Desktop layout Ã¢ÂÂ real improvements Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+/* ── Desktop layout — real improvements ─────────────────────────── */
 
 /* App shell: sidebar split on large screens */
 @media (min-width: 768px) {
@@ -1822,7 +1818,7 @@ input[type="checkbox"]:checked::after {
 @media (min-width: 1100px) {
   .tab-btn { min-width: 90px; padding: 10px 20px; font-size: 13px; }
 
-  /* Form pages Ã¢ÂÂ wider, 2-column for form + sidebar tip card */
+  /* Form pages — wider, 2-column for form + sidebar tip card */
   .form-page, .verify-page { background: #f0f4f8; }
   .form-container, .verify-container { max-width: 1100px; padding: 40px 60px 80px; }
   .detail-container { max-width: 1100px; padding: 40px 60px 80px; }
@@ -1849,7 +1845,7 @@ input[type="checkbox"]:checked::after {
   .dir-steps-sheet { max-height: 40vh; }
 }
 
-/* Ã¢ÂÂÃ¢ÂÂ Submit / action buttons Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+/* ── Submit / action buttons ─────────────────────────────────────── */
 .submit-btn {
   background: linear-gradient(135deg, #059669, #10b981);
   box-shadow: 0 4px 14px rgba(16,185,129,0.3);
@@ -1872,7 +1868,7 @@ input[type="checkbox"]:checked::after {
 .sort-chip:hover:not(.active) { border-color: #94a3b8; }
 .sort-chip i { font-size: 13px; }
 
-/* Ã¢ÂÂÃ¢ÂÂ Enhanced Prices / Market Page Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+/* ── Enhanced Prices / Market Page ─────────────────────────────── */
 
 /* Live ticker */
 .mkt-ticker-outer {
@@ -2052,13 +2048,13 @@ input[type="checkbox"]:checked::after {
   flex-wrap: wrap;
 }
 .prices-list {
-  flex: none; overflow-y: visible;
+  flex: 1; overflow-y: auto;
   padding: 10px 12px 24px;
   display: flex; flex-direction: column; gap: 8px;
   background: #f8fafc;
 }
 
-/* Ã¢ÂÂÃ¢ÂÂ Marketplace Page Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+/* ── Marketplace Page ──────────────────────────────────────────── */
 .mkt-page {
   display: flex;
   flex-direction: column;
@@ -2272,7 +2268,7 @@ input[type="checkbox"]:checked::after {
   font-size: 13px; line-height: 1.5;
 }
 
-/* Ã¢ÂÂÃ¢ÂÂ Directions enhancements Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+/* ── Directions enhancements ─────────────────────────────────────── */
 .dir-fullscreen { position: relative; width: 100%; height: 100%; overflow: hidden; }
 .dir-map { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; }
 
@@ -2348,10 +2344,7 @@ input[type="checkbox"]:checked::after {
 .dir-step-text { flex: 1; min-width: 0; }
 .dir-step-main { font-size: 15px; font-weight: 700; line-height: 1.3; }
 .dir-step-then { font-size: 12px; opacity: 0.75; margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.dir-step-right { display: flex; flex-direction: column; align-items: flex-end; flex-shrink: 0; gap: 2px; }
-.dir-step-dist { font-size: 20px; font-weight: 800; }
-.dir-step-counter { font-size: 11px; opacity: 0.7; font-weight: 600; }
-.dir-eta-arrives { font-size: 12px; font-weight: 600; opacity: 0.75; margin-left: 2px; }
+.dir-step-dist { font-size: 20px; font-weight: 800; flex-shrink: 0; }
 
 .dir-arrived {
   position: absolute; left: 12px; right: 12px; bottom: 90px;
@@ -2406,10 +2399,10 @@ input[type="checkbox"]:checked::after {
   100% { transform: scale(2.2); opacity: 0; }
 }
 
-/* Ã¢ÂÂÃ¢ÂÂ Leaderboard dark theme accents Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+/* ── Leaderboard dark theme accents ─────────────────────────────── */
 .lb-title { color: #0f172a; }
 
-/* Ã¢ÂÂÃ¢ÂÂ Price input row Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+/* ── Price input row ─────────────────────────────────────────────── */
 .price-input-row { display: flex; gap: 6px; align-items: center; }
 .price-input-wrap { position: relative; }
 .price-input-prefix {
@@ -2420,7 +2413,7 @@ input[type="checkbox"]:checked::after {
 }
 .price-input { padding-left: 26px !important; }
 
-/* Ã¢ÂÂÃ¢ÂÂ Desktop prices 2-col Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+/* ── Desktop prices 2-col ───────────────────────────────────────── */
 @media (min-width: 1100px) {
   .prices-list { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; align-items: start; }
   .prices-header { padding: 24px 32px 20px; }
@@ -2434,14 +2427,14 @@ input[type="checkbox"]:checked::after {
   .mkt-grid { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
 }
 
-/* Ã¢ÂÂÃ¢ÂÂ Wider store list on desktop Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+/* ── Wider store list on desktop ────────────────────────────────── */
 @media (min-width: 1100px) {
   .list-toolbar { padding: 14px 32px; }
   .filter-chips { padding: 10px 32px; }
   .store-item { padding: 16px 32px; }
   .store-name { font-size: 15px; }
 }
-/* Ã¢ÂÂÃ¢ÂÂ v5 logo + brand tweaks Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+/* ── v5 logo + brand tweaks ──────────────────────────────────────── */
 
 /* Bigger logo container to show the globe properly */
 .brand-logo {
@@ -2473,16 +2466,16 @@ input[type="checkbox"]:checked::after {
   letter-spacing: 0.1px;
 }
 
-/* Header slight tweak Ã¢ÂÂ a bit taller to breathe */
+/* Header slight tweak — a bit taller to breathe */
 .header-top {
   padding: 12px 24px;
 }
-/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
-   SnusWorld v5 Ã¢ÂÂ Desktop layout fix (append after v4 additions)
+/* ════════════════════════════════════════════════════════════════════
+   SnusWorld v5 — Desktop layout fix (append after v4 additions)
    Goal: every non-map tab fills the full screen width on desktop
-   Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+   ════════════════════════════════════════════════════════════════════ */
 
-/* Ã¢ÂÂÃ¢ÂÂ Base: every page fills available space Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+/* ── Base: every page fills available space ────────────────────── */
 .form-page,
 .verify-page,
 .detail-page,
@@ -2491,7 +2484,7 @@ input[type="checkbox"]:checked::after {
   width: 100%;
 }
 
-/* Ã¢ÂÂÃ¢ÂÂ Tablet (768px) Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+/* ── Tablet (768px) ─────────────────────────────────────────────── */
 @media (min-width: 768px) {
   .form-container,
   .verify-container {
@@ -2505,10 +2498,10 @@ input[type="checkbox"]:checked::after {
   .leaderboard-page { max-width: 860px; }
 }
 
-/* Ã¢ÂÂÃ¢ÂÂ Desktop (1100px) Ã¢ÂÂ full-screen treatment Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+/* ── Desktop (1100px) — full-screen treatment ───────────────────── */
 @media (min-width: 1100px) {
 
-  /* Remove the narrow column Ã¢ÂÂ fill the screen */
+  /* Remove the narrow column — fill the screen */
   .form-container,
   .verify-container {
     max-width: 100%;
@@ -2590,7 +2583,7 @@ input[type="checkbox"]:checked::after {
   .mkt-stats { max-width: 500px; }
 }
 
-/* Ã¢ÂÂÃ¢ÂÂ Large desktop (1400px) Ã¢ÂÂ even wider Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+/* ── Large desktop (1400px) — even wider ────────────────────────── */
 @media (min-width: 1400px) {
   .form-container,
   .verify-container,
@@ -2611,7 +2604,7 @@ input[type="checkbox"]:checked::after {
   .filter-chips { padding-left: 40px; padding-right: 40px; }
 }
 
-/* Ã¢ÂÂÃ¢ÂÂ Verify queue: wider card layout Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+/* ── Verify queue: wider card layout ────────────────────────────── */
 @media (min-width: 1100px) {
   .verify-list {
     display: grid;
@@ -2622,7 +2615,7 @@ input[type="checkbox"]:checked::after {
   .verify-card { margin: 0; }
 }
 
-/* Ã¢ÂÂÃ¢ÂÂ Header: wider content area Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+/* ── Header: wider content area ─────────────────────────────────── */
 @media (min-width: 1100px) {
   .header-top { padding: 14px 80px; max-width: 100%; }
   .tab-bar { padding: 0 80px; max-width: 100%; }
@@ -2633,7 +2626,7 @@ input[type="checkbox"]:checked::after {
   .tab-bar { padding: 0 120px; }
 }
 
-/* Ã¢ÂÂÃ¢ÂÂ Leaderboard table look on desktop Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+/* ── Leaderboard table look on desktop ──────────────────────────── */
 @media (min-width: 1100px) {
   .lb-list { width: 100%; }
   .lb-row {
@@ -2645,7 +2638,7 @@ input[type="checkbox"]:checked::after {
   }
 }
 
-/* Ã¢ÂÂÃ¢ÂÂ Profile page Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+/* ── Profile page ────────────────────────────────────────────────── */
 @media (min-width: 1100px) {
   .profile-page .form-container,
   .profile-page .verify-container {
@@ -2654,7 +2647,7 @@ input[type="checkbox"]:checked::after {
   }
 }
 
-/* Ã¢ÂÂÃ¢ÂÂ Fix detail page 2-panel on large desktop Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+/* ── Fix detail page 2-panel on large desktop ───────────────────── */
 @media (min-width: 1400px) {
   .detail-hero {
     display: grid;
@@ -2664,92 +2657,80 @@ input[type="checkbox"]:checked::after {
   }
 }
 
-/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
-   SnusWorld v6 Ã¢ÂÂ addendum styles
+/* ═══════════════════════════════════════════════════════════════════
+   SnusWorld v6 — addendum styles
    Append this after v5/styles.css
-   Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+   ═══════════════════════════════════════════════════════════════════ */
 
-/* Ã¢ÂÂÃ¢ÂÂ Map search overlay Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+/* ── Map search overlay ────────────────────────────────────────── */
 .map-search-overlay {
   position: absolute;
   top: 14px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 1100;
-  width: min(540px, calc(100% - 28px));
+  width: min(520px, calc(100% - 80px));
 }
-.map-search-row {
+.map-search-bar {
   display: flex;
   align-items: center;
   gap: 8px;
-}
-.map-search-bar {
-  flex: 1;
-  display: flex;
-  align-items: center;
   background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.16), 0 1px 4px rgba(0,0,0,0.08);
-  padding: 0 8px 0 0;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.18);
+  padding: 0 12px 0 0;
   border: 1.5px solid var(--gray-200);
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: border-color 0.15s, box-shadow 0.15s;
 }
 .map-search-overlay.focused .map-search-bar {
-  border-color: var(--green-400);
-  box-shadow: 0 4px 28px rgba(16,185,129,0.18), 0 1px 4px rgba(0,0,0,0.08);
+  border-color: var(--green-500);
+  box-shadow: 0 4px 24px rgba(16,185,129,0.2);
 }
 .map-search-icon {
-  padding: 14px 6px 14px 16px;
+  padding: 12px 4px 12px 14px;
   color: var(--gray-400);
-  font-size: 17px;
+  font-size: 16px;
   flex-shrink: 0;
 }
 .map-search-input {
   flex: 1;
   border: none;
   background: transparent;
-  font-size: 15px;
+  font-size: 14px;
   color: var(--gray-900);
   font-family: inherit;
-  padding: 13px 4px;
+  padding: 11px 4px;
   min-width: 0;
 }
 .map-search-input:focus { outline: none; }
 .map-search-input::placeholder { color: var(--gray-400); }
 .map-search-clear {
-  background: var(--gray-100);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--gray-400);
+  font-size: 14px;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+}
+.map-search-clear:hover { color: var(--gray-600); }
+.map-search-spinner { display: flex; align-items: center; padding: 4px; }
+.map-filter-btn {
+  background: none;
   border: none;
   cursor: pointer;
   color: var(--gray-500);
-  font-size: 12px;
-  padding: 5px;
-  display: flex;
-  align-items: center;
-  border-radius: 50%;
-  transition: background 0.15s, color 0.15s;
-}
-.map-search-clear:hover { background: var(--gray-200); color: var(--gray-700); }
-.map-search-spinner { display: flex; align-items: center; padding: 4px; }
-.map-filter-pill {
-  flex-shrink: 0;
-  width: 50px;
-  height: 50px;
-  border-radius: 14px;
-  background: #fff;
-  border: 1.5px solid var(--gray-200);
-  color: var(--gray-500);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
   font-size: 18px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
-  transition: all 0.15s;
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
   position: relative;
-  font-family: inherit;
+  border-left: 1px solid var(--gray-200);
+  margin-left: 4px;
+  transition: color 0.15s;
 }
-.map-filter-pill:hover { background: var(--gray-50); color: var(--gray-700); border-color: var(--gray-300); }
-.map-filter-pill.active { background: var(--green-600); border-color: var(--green-600); color: #fff; }
+.map-filter-btn:hover, .map-filter-btn.active { color: var(--green-600); }
 .filter-count-dot {
   position: absolute;
   top: 5px;
@@ -2767,25 +2748,17 @@ input[type="checkbox"]:checked::after {
 /* Dropdown */
 .map-search-results {
   background: #fff;
-  border-radius: 14px;
-  box-shadow: 0 12px 32px rgba(0,0,0,0.16);
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.14);
   border: 1px solid var(--gray-200);
-  margin-top: 8px;
+  margin-top: 6px;
   overflow: hidden;
-}
-.msr-section-label {
-  padding: 8px 14px 4px;
-  font-size: 10px;
-  font-weight: 700;
-  color: var(--gray-400);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
 }
 .msr-item {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px 14px;
+  padding: 11px 14px;
   background: none;
   border: none;
   border-bottom: 1px solid var(--gray-100);
@@ -2797,27 +2770,11 @@ input[type="checkbox"]:checked::after {
 }
 .msr-item:last-child { border-bottom: none; }
 .msr-item:hover { background: var(--green-50); }
-.msr-type-icon {
-  width: 34px;
-  height: 34px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 15px;
-  flex-shrink: 0;
-  background: var(--gray-100);
-  color: var(--gray-500);
-}
-.msr-type-icon.verified { background: #d1fae5; color: #059669; }
-.msr-type-icon.gas { background: #dbeafe; color: #1d4ed8; }
-.msr-type-icon.convenience { background: var(--green-100); color: var(--green-700); }
-.msr-type-icon.pharmacy { background: #fce7f3; color: #be185d; }
-.msr-type-icon.place { background: #ede9fe; color: #7c3aed; }
+.msr-icon { font-size: 16px; color: var(--green-600); flex-shrink: 0; }
 .msr-info { flex: 1; min-width: 0; }
 .msr-name { font-size: 13px; font-weight: 600; color: var(--gray-900); }
-.msr-addr { font-size: 12px; color: var(--gray-500); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 1px; }
-.msr-empty { padding: 14px 16px; color: var(--gray-400); font-size: 13px; text-align: center; }
+.msr-addr { font-size: 12px; color: var(--gray-500); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.msr-empty { padding: 12px 16px; color: var(--gray-400); font-size: 13px; text-align: center; }
 
 /* Filter panel */
 .map-filter-panel {
@@ -2897,7 +2854,7 @@ input[type="checkbox"]:checked::after {
 }
 .mfp-clear:hover { background: var(--red-100); }
 
-/* Ã¢ÂÂÃ¢ÂÂ Nearby Ã¢ÂÂ stats bar + card grid Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+/* ── Nearby — stats bar + card grid ───────────────────────────── */
 .list-stats-bar {
   display: flex;
   gap: 16px;
@@ -3054,11 +3011,12 @@ input[type="checkbox"]:checked::after {
   gap: 4px;
 }
 
-/* Ã¢ÂÂÃ¢ÂÂ Market chart Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+/* ── Market chart ──────────────────────────────────────────────── */
 .prices-page {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
   background: #0f0f1a;
   color: #fff;
 }
@@ -3272,11 +3230,9 @@ input[type="checkbox"]:checked::after {
 .prices-list {
   display: flex;
   flex-direction: column;
-  gap: 0;
-  padding: 0;
+  gap: 8px;
+  padding: 8px 24px 40px;
   background: #0f0f1a;
-  flex: none;
-  overflow-y: visible;
 }
 .price-card {
   background: rgba(255,255,255,0.04);
@@ -3373,7 +3329,7 @@ input[type="checkbox"]:checked::after {
 .ticker-sep { color: rgba(255,255,255,0.2); }
 @keyframes ticker-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-/* Ã¢ÂÂÃ¢ÂÂ Leaderboard desktop Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+/* ── Leaderboard desktop ───────────────────────────────────────── */
 .leaderboard-page {
   display: flex;
   flex-direction: column;
@@ -3578,7 +3534,7 @@ input[type="checkbox"]:checked::after {
   font-size: 14px;
 }
 
-/* Ã¢ÂÂÃ¢ÂÂ Feedback page Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+/* ── Feedback page ─────────────────────────────────────────────── */
 .feedback-page {
   display: flex;
   flex-direction: column;
@@ -3866,7 +3822,7 @@ input[type="checkbox"]:checked::after {
   margin-left: 8px;
 }
 
-/* Ã¢ÂÂÃ¢ÂÂ Desktop media queries Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+/* ── Desktop media queries ─────────────────────────────────────── */
 @media (min-width: 900px) {
   .fb-two-col {
     grid-template-columns: 1fr 1fr;
@@ -3917,7 +3873,7 @@ input[type="checkbox"]:checked::after {
   .store-card-grid { padding: 20px 60px 60px; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
 }
 
-/* Ã¢ÂÂÃ¢ÂÂ Mobile: Prices page (Ã¢ÂÂ¤768px) Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+/* ── Mobile: Prices page (≤768px) ─────────────────────────────────── */
 @media (max-width: 768px) {
   /* Header */
   .prices-header { padding: 12px 14px 0; }
@@ -3992,17 +3948,19 @@ input[type="checkbox"]:checked::after {
   .pc-report-btn { width: 100%; justify-content: center; }
 }
 
-/* Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
-   SnusWorld Ã¢ÂÂ Tech Innovation Theme
-   Primary bg:   #1e1e1e  |  Surface:    #141414 / #2a2a2a
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+/* ═══════════════════════════════════════════════════════════════════
+   SnusWorld — Tech Innovation Theme  (v2 — deeper palette)
+   Primary bg:   #0c0c10  |  Surface:    #0f0f14 / #1a1a24
    Blue accent:  #0066ff  |  Cyan hl:    #00ffff
    Text:         #ffffff  |  Muted text: #a0a0a0
-   Applied last Ã¢ÂÂ overrides all base + v6 styles
-   Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+   Applied last — overrides all base + v6 styles
+   ═══════════════════════════════════════════════════════════════════ */
 
-/* Ã¢ÂÂÃ¢ÂÂ 1. CSS variable remap Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+/* ── 1. CSS variable remap ─────────────────────────────────────── */
 :root {
-  /* Green scale Ã¢ÂÂ blue scale */
+  /* Green scale → blue scale */
   --green-50:  #0a0f1a;
   --green-100: #0d1933;
   --green-200: #0d2b5c;
@@ -4013,11 +3971,11 @@ input[type="checkbox"]:checked::after {
   --green-700: #0052cc;
   --green-900: #002266;
 
-  /* Gray scale Ã¢ÂÂ dark theme */
-  --gray-50:   #1e1e1e;
-  --gray-100:  #2a2a2a;
-  --gray-200:  #333333;
-  --gray-300:  #444444;
+  /* Gray scale → dark theme */
+  --gray-50:   #0c0c10;
+  --gray-100:  #1a1a24;
+  --gray-200:  #252530;
+  --gray-300:  #383848;
   --gray-400:  #6a6a6a;
   --gray-500:  #a0a0a0;
   --gray-600:  #c0c0c0;
@@ -4025,17 +3983,17 @@ input[type="checkbox"]:checked::after {
   --gray-800:  #eeeeee;
   --gray-900:  #ffffff;
 
-  /* Amber Ã¢ÂÂ cyan */
+  /* Amber → cyan */
   --amber-100: rgba(0, 255, 255, 0.08);
   --amber-400: #00ffff;
   --amber-500: #00cccc;
 
-  /* Red stays Ã¢ÂÂ semantic danger color */
+  /* Red stays — semantic danger color */
   --red-100: rgba(239, 68, 68, 0.12);
   --red-500: #ef4444;
   --red-700: #f87171;
 
-  /* Shadows Ã¢ÂÂ heavier on dark bg */
+  /* Shadows — heavier on dark bg */
   --shadow-sm: 0 1px 2px rgba(0,0,0,0.5);
   --shadow:    0 1px 3px rgba(0,0,0,0.6), 0 1px 2px rgba(0,0,0,0.5);
   --shadow-md: 0 4px 6px rgba(0,0,0,0.6), 0 2px 4px rgba(0,0,0,0.5);
@@ -4043,22 +4001,22 @@ input[type="checkbox"]:checked::after {
   --shadow-xl: 0 20px 25px rgba(0,0,0,0.7), 0 10px 10px rgba(0,0,0,0.5);
 }
 
-/* Ã¢ÂÂÃ¢ÂÂ 2. Global base Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+/* ── 2. Global base ───────────────────────────────────────────── */
 html, body, #root {
-  background: #1e1e1e;
+  background: #0c0c10;
   color: #ffffff;
 }
-.app-shell { background: #141414; }
+.app-shell { background: #0f0f14; }
 
-/* Ã¢ÂÂÃ¢ÂÂ 3. Header & nav Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+/* ── 3. Header & nav ─────────────────────────────────────────── */
 .header {
   background: linear-gradient(135deg, #0a0a0a 0%, #111111 60%, #1a1a1a 100%);
   box-shadow: 0 2px 12px rgba(0, 102, 255, 0.25);
   border-bottom: 1px solid rgba(0, 102, 255, 0.18);
 }
 .brand-logo {
-  background: transparent;
-  border: none;
+  background: rgba(0, 102, 255, 0.15);
+  border-color: rgba(0, 102, 255, 0.4);
 }
 .brand-name { color: #fff; }
 .brand-sub  { color: rgba(255,255,255,0.5); }
@@ -4088,11 +4046,11 @@ html, body, #root {
 
 /* Profile button */
 .profile-btn {
-  background: #2a2a2a;
+  background: #1a1a24;
   border-color: #3a3a3a;
   color: #a0a0a0;
 }
-.profile-btn:hover { background: #333; border-color: #444; color: #fff; }
+.profile-btn:hover { background: #1a1a24; border-color: #444; color: #fff; }
 .profile-btn.logged-in {
   background: rgba(0,102,255,0.12);
   border-color: rgba(0,102,255,0.35);
@@ -4100,15 +4058,15 @@ html, body, #root {
 }
 .profile-btn.logged-in:hover { background: #0066ff; color: #fff; border-color: #0066ff; }
 
-/* Ã¢ÂÂÃ¢ÂÂ 4. Main content shell Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
-.main-content { background: #1e1e1e; }
+/* ── 4. Main content shell ───────────────────────────────────── */
+.main-content { background: #0c0c10; }
 
-/* Ã¢ÂÂÃ¢ÂÂ 5. List / Nearby panel Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
-.list-panel        { background: #1e1e1e; }
-.list-toolbar      { background: #1e1e1e; border-color: #2a2a2a; }
-.filter-chips      { background: #1e1e1e; border-color: #2a2a2a; }
-.store-list        { background: #1e1e1e; }
-.store-item        { border-color: #2a2a2a; }
+/* ── 5. List / Nearby panel ──────────────────────────────────── */
+.list-panel        { background: #0c0c10; }
+.list-toolbar      { background: #0c0c10; border-color: #1a1a24; }
+.filter-chips      { background: #0c0c10; border-color: #1a1a24; }
+.store-list        { background: #0c0c10; }
+.store-item        { border-color: #1a1a24; }
 .store-item:hover  { background: rgba(0, 102, 255, 0.07); }
 .store-name        { color: #fff; }
 .store-addr        { color: #a0a0a0; }
@@ -4119,11 +4077,11 @@ html, body, #root {
 .store-type-icon.gas         { background: rgba(0,102,255,0.15); color: #4d8fff; }
 .store-type-icon.convenience { background: rgba(0,102,255,0.1);  color: #0066ff; }
 .store-type-icon.pharmacy    { background: rgba(255,0,128,0.1);  color: #ff6096; }
-.store-type-icon.other       { background: #2a2a2a;              color: #a0a0a0; }
+.store-type-icon.other       { background: #1a1a24;              color: #a0a0a0; }
 
 /* Flavor tags */
-.flavor-tag  { background: #2a2a2a; color: #a0a0a0; }
-.flavor-chip { background: #2a2a2a; border-color: #3a3a3a; color: #c0c0c0; }
+.flavor-tag  { background: #1a1a24; color: #a0a0a0; }
+.flavor-chip { background: #1a1a24; border-color: #3a3a3a; color: #c0c0c0; }
 .flavor-chip.selected {
   background: rgba(0,102,255,0.14);
   border-color: #0066ff;
@@ -4132,7 +4090,7 @@ html, body, #root {
 
 /* Filter chips */
 .filter-chip {
-  background: #2a2a2a;
+  background: #1a1a24;
   border-color: #3a3a3a;
   color: #a0a0a0;
 }
@@ -4142,23 +4100,23 @@ html, body, #root {
 /* Search input */
 .search-wrap .search-icon { color: #6a6a6a; }
 .search-input {
-  background: #2a2a2a;
+  background: #1a1a24;
   border-color: #3a3a3a;
   color: #fff;
 }
 .search-input::placeholder { color: #6a6a6a; }
 .search-input:focus {
   border-color: #0066ff;
-  background: #333;
+  background: #14141e;
   box-shadow: 0 0 0 3px rgba(0,102,255,0.14);
 }
 
 /* Status badges */
 .status-badge.verified   { background: rgba(0,102,255,0.14); color: #4d8fff; }
 .status-badge.pending    { background: rgba(0,255,255,0.09); color: #00cccc; }
-.status-badge.unverified { background: #2a2a2a; color: #a0a0a0; }
+.status-badge.unverified { background: #1a1a24; color: #a0a0a0; }
 .status-badge.gone       { background: rgba(239,68,68,0.14); color: #f87171; }
-.status-badge.unknown    { background: #2a2a2a; color: #a0a0a0; }
+.status-badge.unknown    { background: #1a1a24; color: #a0a0a0; }
 
 /* Spinner */
 .spinner { border-color: #333; border-top-color: #0066ff; }
@@ -4167,32 +4125,32 @@ html, body, #root {
 .list-empty, .list-loading { color: #6a6a6a; }
 .list-empty p { color: #a0a0a0; }
 
-/* Ã¢ÂÂÃ¢ÂÂ 6. Form pages Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
-.form-page        { background: #1e1e1e; }
-.form-container   { background: #1e1e1e; }
+/* ── 6. Form pages ────────────────────────────────────────────── */
+.form-page        { background: #0c0c10; }
+.form-container   { background: #0c0c10; }
 .form-title       { color: #fff; }
 .form-sub         { color: #a0a0a0; }
-.form-card        { background: #2a2a2a; border-color: #3a3a3a; }
+.form-card        { background: #1a1a24; border-color: #3a3a3a; }
 .form-card-title  { color: #707070; }
 
 .field-label  { color: #c0c0c0; }
 .field-error  { color: #f87171; }
 .field-input  {
-  background: #1e1e1e;
+  background: #0c0c10;
   border-color: #3a3a3a;
   color: #fff;
 }
 .field-input::placeholder { color: #6a6a6a; }
 .field-input:focus {
   border-color: #0066ff;
-  background: #222;
+  background: #10101a;
   box-shadow: 0 0 0 3px rgba(0,102,255,0.14);
 }
 .field-input.error { border-color: #ef4444; }
 
 /* Radio buttons */
 .radio-btn {
-  background: #1e1e1e;
+  background: #0c0c10;
   border-color: #3a3a3a;
   color: #c0c0c0;
 }
@@ -4201,10 +4159,10 @@ html, body, #root {
   border-color: #0066ff;
   color: #4d8fff;
 }
-.radio-btn:hover:not(.selected) { border-color: #444; background: #2a2a2a; }
+.radio-btn:hover:not(.selected) { border-color: #444; background: #14141e; }
 
 /* Age check */
-.age-check       { background: #1e1e1e; border-color: #3a3a3a; color: #a0a0a0; }
+.age-check       { background: #0c0c10; border-color: #3a3a3a; color: #a0a0a0; }
 .age-check input { accent-color: #0066ff; }
 
 /* Submit button */
@@ -4222,11 +4180,11 @@ html, body, #root {
 }
 .price-current-val { color: #4d8fff; }
 
-/* Ã¢ÂÂÃ¢ÂÂ 7. Verify page Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
-.verify-page      { background: #1e1e1e; }
-.verify-container { background: #1e1e1e; }
+/* ── 7. Verify page ──────────────────────────────────────────── */
+.verify-page      { background: #0c0c10; }
+.verify-container { background: #0c0c10; }
 .verify-card {
-  background: #2a2a2a;
+  background: #1a1a24;
   border-color: #3a3a3a;
 }
 .verify-meta { color: #6a6a6a; }
@@ -4237,27 +4195,27 @@ html, body, #root {
 .v-btn.no:hover  { background: #ef4444; color: #fff; }
 
 .points-banner {
-  background: linear-gradient(135deg, rgba(0,102,255,0.08), #1e1e1e);
+  background: linear-gradient(135deg, rgba(0,102,255,0.08), #0c0c10);
   border-color: rgba(0,102,255,0.2);
 }
 .points-banner-val   { color: #4d8fff; }
 .points-banner-label { color: #0066ff; }
 
-/* Ã¢ÂÂÃ¢ÂÂ 8. Location detail page Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
-.detail-page      { background: #1e1e1e; }
-.detail-container { background: #1e1e1e; }
+/* ── 8. Location detail page ─────────────────────────────────── */
+.detail-page      { background: #0c0c10; }
+.detail-container { background: #0c0c10; }
 .detail-back { color: #a0a0a0; }
 .detail-back:hover { color: #0066ff; }
 
 .detail-hero, .detail-section {
-  background: #2a2a2a;
+  background: #1a1a24;
   border-color: #3a3a3a;
 }
 .detail-name          { color: #fff; }
 .detail-addr          { color: #a0a0a0; }
 .detail-section-title { color: #707070; }
 
-.stat-box   { background: #1e1e1e; border-color: #333; }
+.stat-box   { background: #0c0c10; border-color: #333; }
 .stat-val   { color: #fff; }
 .stat-label { color: #a0a0a0; }
 
@@ -4282,11 +4240,11 @@ html, body, #root {
 }
 .directions-btn:hover { background: #0066ff; color: #fff; border-color: #0066ff; }
 
-/* Ã¢ÂÂÃ¢ÂÂ 9. Directions page Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
-.directions-page   { background: #1e1e1e; }
-.directions-header { background: #1e1e1e; border-color: #2a2a2a; }
-.directions-modes  { background: #1e1e1e; border-color: #2a2a2a; }
-.steps-panel       { background: #1e1e1e; border-color: #2a2a2a; }
+/* ── 9. Directions page ──────────────────────────────────────── */
+.directions-page   { background: #0c0c10; }
+.directions-header { background: #0c0c10; border-color: #1a1a24; }
+.directions-modes  { background: #0c0c10; border-color: #1a1a24; }
+.steps-panel       { background: #0c0c10; border-color: #1a1a24; }
 .steps-title       { color: #707070; }
 
 .mode-btn { color: #a0a0a0; }
@@ -4301,24 +4259,24 @@ html, body, #root {
 .route-divider { background: rgba(0,102,255,0.2); }
 .route-error   { background: rgba(239,68,68,0.08); color: #f87171; border-color: rgba(239,68,68,0.2); }
 
-.step-item { border-color: #2a2a2a; }
+.step-item { border-color: #1a1a24; }
 .step-icon { background: rgba(0,102,255,0.12); color: #0066ff; }
 .step-instruction { color: #e0e0e0; }
 .step-distance { color: #6a6a6a; }
 
-/* Ã¢ÂÂÃ¢ÂÂ 10. Map page Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+/* ── 10. Map page ────────────────────────────────────────────── */
 .map-legend {
   background: rgba(20, 20, 20, 0.96);
-  border-color: #2a2a2a;
+  border-color: #1a1a24;
 }
 .legend-title { color: #707070; }
 .legend-row   { color: #c0c0c0; }
 
 .map-hover-popup {
-  background: #2a2a2a;
+  background: #1a1a24;
   border-color: #3a3a3a;
 }
-.map-hover-popup::after { background: #2a2a2a; border-color: #3a3a3a; }
+.map-hover-popup::after { background: #1a1a24; border-color: #3a3a3a; }
 .hover-popup-name { color: #fff; }
 .hover-popup-addr { color: #a0a0a0; }
 .hover-popup-hint { color: #4d8fff; }
@@ -4326,61 +4284,45 @@ html, body, #root {
 .fab { background: #0066ff; box-shadow: 0 4px 14px rgba(0,102,255,0.45); }
 .fab:hover { background: #0052cc; box-shadow: 0 6px 18px rgba(0,102,255,0.55); }
 
-/* Map search overlay — dark theme */
-.map-search-bar {
-  background: #1a1a2e;
-  border-color: rgba(255,255,255,0.1);
+/* Map search overlay */
+.map-search-overlay { }
+.map-search-input {
+  background: #0c0c10;
+  border-color: #3a3a3a;
+  color: #fff;
 }
-.map-search-overlay.focused .map-search-bar {
+.map-search-input::placeholder { color: #6a6a6a; }
+.map-search-input:focus {
   border-color: #0066ff;
-  box-shadow: 0 4px 28px rgba(0,102,255,0.2), 0 1px 4px rgba(0,0,0,0.3);
+  box-shadow: 0 0 0 3px rgba(0,102,255,0.14);
 }
-.map-filter-pill {
-  background: #252540;
-  border-color: rgba(255,255,255,0.18);
-  color: #c0c0c0;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.4);
-}
-.map-filter-pill:hover { background: #2e2e50; color: #fff; border-color: rgba(255,255,255,0.28); }
-.map-filter-pill.active { background: #0066ff; border-color: #0066ff; color: #fff; }
-.map-search-icon { color: #6a6a6a; }
-.map-search-input { color: #f0f0f0; }
-.map-search-input::placeholder { color: #555; }
-.map-search-clear { background: rgba(255,255,255,0.08); color: #888; }
-.map-search-clear:hover { background: rgba(255,255,255,0.14); color: #ccc; }
+.map-search-btn { background: #0066ff; color: #fff; }
+.map-search-btn:hover { background: #0052cc; }
 
 .map-search-results {
-  background: #1a1a2e;
-  border-color: rgba(255,255,255,0.1);
-  box-shadow: 0 12px 32px rgba(0,0,0,0.5);
+  background: #0c0c10;
+  border-color: #3a3a3a;
 }
-.msr-section-label { color: #555; }
-.msr-item { border-color: rgba(255,255,255,0.06); }
-.msr-item:hover { background: rgba(0,102,255,0.1); }
-.msr-type-icon { background: rgba(255,255,255,0.07); color: #888; }
-.msr-type-icon.verified { background: rgba(5,150,105,0.2); color: #34d399; }
-.msr-type-icon.gas { background: rgba(29,78,216,0.2); color: #60a5fa; }
-.msr-type-icon.convenience { background: rgba(5,150,105,0.15); color: #6ee7b7; }
-.msr-type-icon.place { background: rgba(124,58,237,0.2); color: #a78bfa; }
-.msr-name { color: #f0f0f0; }
-.msr-addr { color: #888; }
-.msr-empty { color: #555; }
+.msr-item { border-color: #1a1a24; color: #c0c0c0; }
+.msr-item:hover { background: rgba(0,102,255,0.09); }
+.msr-name { color: #fff; }
+.msr-addr { color: #a0a0a0; }
 
 /* Map filter panel */
 .map-filter-panel {
-  background: #1e1e1e;
+  background: #0c0c10;
   border-color: #3a3a3a;
 }
 .mfp-title         { color: #707070; }
 .mfp-section-label { color: #6a6a6a; }
 
-.filter-toggle-btn {
-  background: #2a2a2a;
+.map-filter-btn, .filter-toggle-btn {
+  background: #1a1a24;
   border-color: #3a3a3a;
   color: #a0a0a0;
 }
-.filter-toggle-btn:hover { background: #333; color: #fff; }
-.filter-toggle-btn.active {
+.map-filter-btn:hover, .filter-toggle-btn:hover { background: #333; color: #fff; }
+.map-filter-btn.active, .filter-toggle-btn.active {
   background: #0066ff;
   border-color: #0066ff;
   color: #fff;
@@ -4390,10 +4332,10 @@ html, body, #root {
 .toggle-switch-track { background: #3a3a3a; }
 .toggle-switch input:checked + .toggle-switch-track { background: #0066ff; }
 
-/* Ã¢ÂÂÃ¢ÂÂ 11. Nearby / StoreList (card grid) Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
-.store-card-grid { background: #1e1e1e; }
+/* ── 11. Nearby / StoreList (card grid) ──────────────────────── */
+.store-card-grid { background: #0c0c10; }
 .sc-card {
-  background: #2a2a2a;
+  background: #1a1a24;
   border-color: #3a3a3a;
 }
 .sc-card:hover {
@@ -4411,22 +4353,22 @@ html, body, #root {
 
 /* List / Grid view toggle */
 .view-btn {
-  background: #2a2a2a;
+  background: #1a1a24;
   border-color: #3a3a3a;
   color: #a0a0a0;
 }
 .view-btn.active { background: #0066ff; border-color: #0066ff; color: #fff; }
 
 .sort-select, .type-select {
-  background: #2a2a2a;
+  background: #1a1a24;
   border-color: #3a3a3a;
   color: #c0c0c0;
 }
-.filter-row, .sort-row, .list-stats-bar { background: #1e1e1e; border-color: #2a2a2a; }
+.filter-row, .sort-row, .list-stats-bar { background: #0c0c10; border-color: #1a1a24; }
 .list-stats-bar { color: #a0a0a0; }
 
-/* Ã¢ÂÂÃ¢ÂÂ 12. Market / Prices page Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ
-   (Already dark; remap greenÃ¢ÂÂblue, keep #0f0f1a-style darks)    */
+/* ── 12. Market / Prices page ─────────────────────────────────
+   (Already dark; remap green→blue, keep #0f0f1a-style darks)    */
 .prices-page    { background: #0f0f1a; }
 .prices-header  { background: #0f0f1a; }
 
@@ -4521,33 +4463,33 @@ html, body, #root {
 /* Prices empty state */
 .prices-empty { color: rgba(255,255,255,0.28); }
 
-/* Ã¢ÂÂÃ¢ÂÂ 13. Leaderboard Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
-.leaderboard-page   { background: #141414; }
-.leaderboard-header { background: linear-gradient(135deg, #0a0a0a 0%, #141414 100%); }
+/* ── 13. Leaderboard ─────────────────────────────────────────── */
+.leaderboard-page   { background: #0f0f14; }
+.leaderboard-header { background: linear-gradient(135deg, #0a0a0a 0%, #0f0f14 100%); }
 .leaderboard-title  { color: #fff; }
 .leaderboard-sub    { color: rgba(255,255,255,0.45); }
 .lb-stat-pill { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.09); }
 
-.lb-tabs  { background: #141414; border-color: #2a2a2a; }
-.lb-tab   { background: #2a2a2a; border-color: #3a3a3a; color: #a0a0a0; }
+.lb-tabs  { background: #0f0f14; border-color: #1a1a24; }
+.lb-tab   { background: #1a1a24; border-color: #3a3a3a; color: #a0a0a0; }
 .lb-tab:hover { border-color: #444; color: #fff; }
 .lb-tab.active { background: #0066ff; border-color: #0066ff; color: #fff; }
 
 /* Podium */
-.podium { background: linear-gradient(180deg, #111 0%, #141414 100%); }
+.podium { background: linear-gradient(180deg, #111 0%, #0f0f14 100%); }
 .podium-name   { color: #fff; }
 .podium-val    { color: #d8d8d8; }
 .podium-sub    { color: rgba(255,255,255,0.35); }
-.podium-avatar { background: #2a2a2a; color: #a0a0a0; }
+.podium-avatar { background: #1a1a24; color: #a0a0a0; }
 .podium-avatar.gold-ring   { background: rgba(245,158,11,0.15); color: #f59e0b; border-color: #f59e0b; }
 .podium-avatar.bronze-ring { background: rgba(205,124,71,0.15); color: #cd7c47; border-color: #cd7c47; }
 
-/* Rank badges Ã¢ÂÂ keep gold/silver/bronze semantic */
-.rank-badge.plain { background: #2a2a2a; color: #a0a0a0; }
+/* Rank badges — keep gold/silver/bronze semantic */
+.rank-badge.plain { background: #1a1a24; color: #a0a0a0; }
 
 /* Table */
-.lb-table-wrap   { background: #141414; }
-.lb-table-header { border-color: #2a2a2a; color: #6a6a6a; }
+.lb-table-wrap   { background: #0f0f14; }
+.lb-table-header { border-color: #1a1a24; color: #6a6a6a; }
 .lb-table-row    { color: #c0c0c0; }
 .lb-table-row:hover { background: rgba(0,102,255,0.06); }
 .lb-table-row.me {
@@ -4557,7 +4499,7 @@ html, body, #root {
 .lb-username    { color: #fff; }
 .lb-rank-num    { color: #6a6a6a; }
 .lb-you-badge   { background: rgba(0,102,255,0.15); color: #4d8fff; }
-.score-bar      { background: #2a2a2a; }
+.score-bar      { background: #1a1a24; }
 
 /* Your rank bar */
 .lb-your-rank-bar {
@@ -4568,22 +4510,22 @@ html, body, #root {
 .lb-your-rank { color: #a0a0a0; }
 .lb-loading   { color: #a0a0a0; }
 
-/* Ã¢ÂÂÃ¢ÂÂ 14. Feedback page Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
-.feedback-page   { background: #1e1e1e; }
-.fb-page-header  { background: linear-gradient(135deg, #0a0a0a 0%, #141414 100%); }
+/* ── 14. Feedback page ───────────────────────────────────────── */
+.feedback-page   { background: #0c0c10; }
+.fb-page-header  { background: linear-gradient(135deg, #0a0a0a 0%, #0f0f14 100%); }
 .fb-title        { color: #fff; }
 .fb-subtitle     { color: rgba(255,255,255,0.45); }
 
-.fb-tabs { background: #1e1e1e; border-color: #2a2a2a; }
+.fb-tabs { background: #0c0c10; border-color: #1a1a24; }
 .fb-tab  {
-  background: #2a2a2a;
+  background: #1a1a24;
   border-color: #3a3a3a;
   color: #a0a0a0;
 }
 .fb-tab:hover { border-color: #444; }
 .fb-tab.active { background: #0066ff; border-color: #0066ff; color: #fff; }
 
-.fb-content     { background: #1e1e1e; }
+.fb-content     { background: #0c0c10; }
 .fb-panel-title { color: #fff; }
 .fb-panel-sub   { color: #a0a0a0; }
 .fb-label       { color: #c0c0c0; }
@@ -4593,7 +4535,7 @@ html, body, #root {
 /* Category buttons */
 .fb-cat-grid { }
 .fb-cat-btn {
-  background: #2a2a2a;
+  background: #1a1a24;
   border-color: #3a3a3a;
   color: #a0a0a0;
 }
@@ -4606,14 +4548,14 @@ html, body, #root {
 
 /* Textarea / input */
 .fb-textarea, .fb-input {
-  background: #1e1e1e;
+  background: #0c0c10;
   border-color: #3a3a3a;
   color: #fff;
 }
 .fb-textarea::placeholder, .fb-input::placeholder { color: #6a6a6a; }
 .fb-textarea:focus, .fb-input:focus {
   border-color: #0066ff;
-  background: #222;
+  background: #10101a;
 }
 
 /* Submit */
@@ -4626,14 +4568,14 @@ html, body, #root {
 
 /* Feedback items */
 .fb-empty { color: #6a6a6a; }
-.fb-item  { background: #2a2a2a; border-color: #3a3a3a; }
+.fb-item  { background: #1a1a24; border-color: #3a3a3a; }
 .fb-item-date { color: #6a6a6a; }
 .fb-item-msg  { color: #c0c0c0; }
 .fb-status.resolved { background: rgba(0,102,255,0.12); color: #4d8fff; }
 .fb-status.reviewed { background: rgba(0,255,255,0.08); color: #00cccc; }
 
 /* Review items */
-.review-item        { background: #2a2a2a; }
+.review-item        { background: #1a1a24; }
 .review-store-name  { color: #fff; }
 .review-store-addr  { color: #a0a0a0; }
 .review-rating-label { color: #a0a0a0; }
@@ -4641,8 +4583,8 @@ html, body, #root {
 .star-label         { color: #a0a0a0; }
 
 /* Store search dropdown */
-.store-search-dropdown { background: #1e1e1e; border-color: #3a3a3a; }
-.ssd-item       { border-color: #2a2a2a; }
+.store-search-dropdown { background: #0c0c10; border-color: #3a3a3a; }
+.ssd-item       { border-color: #1a1a24; }
 .ssd-item:hover { background: rgba(0,102,255,0.09); }
 .ssd-name       { color: #fff; }
 .ssd-addr       { color: #a0a0a0; }
@@ -4653,13 +4595,13 @@ html, body, #root {
 }
 .selected-store-badge button { color: #6a6a6a; }
 
-/* Ã¢ÂÂÃ¢ÂÂ 15. Auth modal Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+/* ── 15. Auth modal ──────────────────────────────────────────── */
 .modal-overlay { background: rgba(0, 0, 0, 0.72); }
-.modal-card    { background: #1e1e1e; border: 1px solid #2a2a2a; }
-.modal-close   { background: #2a2a2a; color: #a0a0a0; }
+.modal-card    { background: #0c0c10; border: 1px solid #1a1a24; }
+.modal-close   { background: #1a1a24; color: #a0a0a0; }
 .modal-close:hover { background: #333; color: #fff; }
 
-.modal-tabs { border-color: #2a2a2a; }
+.modal-tabs { border-color: #1a1a24; }
 .modal-tab  { color: #a0a0a0; }
 .modal-tab.active { color: #0066ff; border-bottom-color: #0066ff; }
 
@@ -4672,7 +4614,7 @@ html, body, #root {
 .modal-switch-link { color: #0066ff; }
 
 .modal-guest-btn { border-color: #3a3a3a; color: #a0a0a0; background: transparent; }
-.modal-guest-btn:hover { background: #2a2a2a; border-color: #444; color: #fff; }
+.modal-guest-btn:hover { background: #1a1a24; border-color: #444; color: #fff; }
 
 .modal-error {
   background: rgba(239,68,68,0.1);
@@ -4680,13 +4622,13 @@ html, body, #root {
   color: #f87171;
 }
 
-/* Ã¢ÂÂÃ¢ÂÂ 16. Profile page Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+/* ── 16. Profile page ────────────────────────────────────────── */
 .profile-avatar { background: linear-gradient(135deg, #0066ff, #00ccff); }
 .profile-username { color: #fff; }
 .profile-email    { color: #a0a0a0; }
 .profile-joined   { color: #6a6a6a; }
 
-.badge-item.locked { background: #2a2a2a; border-color: #333; }
+.badge-item.locked { background: #1a1a24; border-color: #333; }
 .badge-label       { color: #d8d8d8; }
 .badge-item.locked .badge-label { color: #6a6a6a; }
 .badge-desc        { color: #a0a0a0; }
@@ -4699,981 +4641,174 @@ html, body, #root {
 }
 .signout-btn:hover { background: #ef4444; color: #fff; border-color: #ef4444; }
 
-/* Search clear button — used across all search bars */
-.search-clear {
-  position: absolute;
-  right: 8px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: var(--gray-400);
-  font-size: 14px;
-  padding: 4px;
-  display: flex;
-  align-items: center;
-  border-radius: 4px;
-  transition: color 0.15s;
-}
-.search-clear:hover { color: var(--gray-600); }
-
-/* Prevent input text from sliding under the clear button */
-.search-input.search-has-clear { padding-right: 32px; }
-
-/* Keyboard-active state for suggestion dropdown items */
-.ssd-item.active { background: var(--green-50); }
-
-/* Store search in FeedbackPage — add icon spacing */
-.store-search-wrap .search-icon {
-  position: absolute;
-  left: 11px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--gray-400);
-  font-size: 15px;
-  pointer-events: none;
-}
-.store-search-wrap .fb-input { padding-left: 34px; }
-
-/* Ã¢ÂÂÃ¢ÂÂ 17. Toast notification Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
-.toast { background: #1a1a1a; border: 1px solid #2a2a2a; color: #fff; }
+/* ── 17. Toast notification ──────────────────────────────────── */
+.toast { background: #1a1a1a; border: 1px solid #1a1a24; color: #fff; }
 .toast i { color: #0066ff; }
 
-/* Ã¢ÂÂÃ¢ÂÂ 18. Scrollbar styling (webkit) Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+/* ── 18. Scrollbar styling (webkit) ──────────────────────────── */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: #141414; }
+::-webkit-scrollbar-track { background: #0f0f14; }
 ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: #444; }
 
-/* Ã¢ÂÂÃ¢ÂÂ 19. Marketplace page Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
-/* ── 19. Marketplace (mkt-page) dark overrides ──────────────────────── */
-.mkt-page            { background: #0f0f1a; }
-.mkt-brand-bar       { background: #1a1a2e; border-bottom-color: #222239; }
-.mkt-toolbar         { background: #1a1a2e; border-bottom-color: #222239; }
-.mkt-card            { background: #1a1a2e; border-color: #2a2a45; }
-.mkt-card:hover      { box-shadow: 0 6px 20px rgba(0,0,0,0.45); border-color: #3a3a60; }
-.mkt-card-img        { background: linear-gradient(135deg, #141428, #1e1e3a); }
-.mkt-strength-badge  { background: #252545; color: #94a3b8; }
-.mkt-card-name       { color: #e2e8f0; }
-.mkt-card-price      { color: #f1f5f9; }
-.mkt-tag             { background: #252545; color: #94a3b8; }
-.mkt-empty           { color: #94a3b8; }
-.mkt-empty p         { color: #64748b; }
-.mkt-create-modal    { background: #1a1a2e; }
-.mkt-contact-modal   { background: #1a1a2e; }
-.modal-header        { border-bottom-color: #2a2a45; }
-.modal-title         { color: #f1f5f9; }
-.mkt-total-preview   { background: rgba(16,185,129,0.1); color: #34d399; }
-.mkt-listing-preview { background: #141428; }
-.mkt-contact-info    { background: rgba(59,130,246,0.1); color: #60a5fa; }
-.sort-chip           { background: #1e1e3a; border-color: #2a2a45; color: #94a3b8; }
-.sort-chip.active    { background: #0066ff; border-color: #0066ff; color: #fff; }
-.sort-chip:hover:not(.active) { border-color: #0066ff; color: #c0d0ff; }
+/* ── 19. Marketplace page ────────────────────────────────────── */
+.marketplace-page   { background: #0c0c10; color: #fff; }
+.marketplace-header { background: linear-gradient(135deg, #0a0a0a 0%, #0f0f14 100%); }
 
-/* Ã¢ÂÂÃ¢ÂÂ 20. Leaflet map overrides Ã¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂÃ¢ÂÂ */
+/* Generic white surfaces → dark */
+.marketplace-page .form-card,
+.marketplace-page [class*="-card"],
+.marketplace-page [class*="-panel"] {
+  background: #1a1a24;
+  border-color: #3a3a3a;
+}
+
+/* ── 20. Leaflet map overrides ───────────────────────────────── */
 .leaflet-popup-content-wrapper {
-  background: #1e1e1e !important;
-  border: 1px solid #2a2a2a !important;
+  background: #0c0c10 !important;
+  border: 1px solid #1a1a24 !important;
   color: #fff !important;
   border-radius: 10px !important;
 }
-.leaflet-popup-tip { background: #1e1e1e !important; }
-/* Nudge zoom control above the FAB */
-.leaflet-bottom.leaflet-right { margin-bottom: 96px !important; margin-right: 6px !important; }
-.leaflet-control-zoom {
-  border: none !important;
-  border-radius: 14px !important;
-  overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.45) !important;
-}
+.leaflet-popup-tip { background: #0c0c10 !important; }
 .leaflet-control-zoom a {
-  width: 40px !important;
-  height: 40px !important;
-  line-height: 40px !important;
-  font-size: 18px !important;
-  background: #1a1a2e !important;
-  border-color: rgba(255,255,255,0.08) !important;
-  color: #ccc !important;
-  transition: background 0.15s !important;
+  background: #0c0c10 !important;
+  border-color: #1a1a24 !important;
+  color: #fff !important;
 }
-.leaflet-control-zoom a:hover { background: #0066ff !important; color: #fff !important; }
+.leaflet-control-zoom a:hover {
+  background: #0066ff !important;
+}
 .leaflet-control-attribution {
   background: rgba(14,14,14,0.75) !important;
   color: #707070 !important;
 }
 .leaflet-control-attribution a { color: #4d8fff !important; }
 
-/* ── 21. Map filter panel chips (dark mode) ───────────────────────── */
-.mfp-chip {
-  background: #2a2a2a;
-  border-color: #3a3a3a;
-  color: #c0c0c0;
+/* ── 21. Typography — Space Grotesk ──────────────────────────── */
+html, body, #root {
+  font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
 }
-.mfp-chip:hover:not(.active) { border-color: #0066ff; color: #fff; }
-.mfp-chip.active { background: #0066ff; color: #fff; border-color: #0066ff; }
-.mfp-toggle { color: #c0c0c0; }
-.mfp-toggle-track { background: #3a3a3a; }
-.mfp-toggle input:checked + .mfp-toggle-track { background: #0066ff; }
-.mfp-toggle-label { color: #c0c0c0; }
-.mfp-label { color: #888; }
-.mfp-clear { border-color: rgba(239,68,68,0.4); color: #f87171; }
-.mfp-clear:hover { background: rgba(239,68,68,0.1); }
-
-/* ── 22. Report-price button (dark mode) ─────────────────────────── */
-.report-price-btn {
-  border-color: #3a3a3a;
-  color: #a0a0a0;
-  background: transparent;
-}
-.report-price-btn:hover { border-color: #0066ff; color: #4d8fff; background: rgba(0,102,255,0.08); }
-
-/* ── 23. VerifyQueue empty state ──────────────────────────────────── */
-.list-empty-heading { font-weight: 600; color: #fff; }
-.list-empty p { color: #a0a0a0; }
-
-/* ── 24. LocationDetail dark-mode inline polish ───────────────────── */
-.detail-type-icon { filter: brightness(0.88) saturate(1.1); }
-.detail-section p { color: #c0c0c0; }
-.detail-notes-text { font-size: 14px; color: #c0c0c0; line-height: 1.6; }
-.add-photo-label {
-  cursor: pointer;
-  font-size: 12px;
-  color: #4d8fff;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  transition: color 0.15s;
-}
-.add-photo-label:hover { color: #7aadff; }
-.add-photo-label i { font-size: 13px; }
-.detail-photo-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 6px;
-  margin-top: 8px;
-}
-.detail-photo-img {
-  width: 100%;
-  aspect-ratio: 1/1;
-  object-fit: cover;
-  border-radius: 8px;
-  border: 1px solid #3a3a3a;
+.header, .tab-bar, .tab-btn,
+.brand-name, .brand-sub,
+.section-title, .form-title,
+.leaderboard-title, .lb-username,
+.pc-name, .sc-name, .store-name,
+.detail-name, .prices-header h1,
+.modal-card h2 {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
 }
 
-/* ── 25. Improved map legend ──────────────────────────────────────── */
-.map-legend {
-  background: rgba(20, 20, 36, 0.94) !important;
-  border: 1px solid rgba(255,255,255,0.08) !important;
-  backdrop-filter: blur(8px);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
-}
-.legend-title { color: #888 !important; }
-.legend-row   { color: #c0c0c0 !important; }
-
-/* ── 25b. Price cancel button ─────────────────────────────────────── */
-.price-cancel-btn {
-  padding: 9px 14px;
-  border: 1.5px solid #3a3a3a;
-  border-radius: 10px;
-  background: transparent;
-  cursor: pointer;
-  font-size: 13px;
-  color: #a0a0a0;
-  font-family: inherit;
-  transition: all 0.15s;
-}
-.price-cancel-btn:hover { background: #2a2a2a; color: #fff; border-color: #444; }
-
-/* ── 26. Hover popup polish ───────────────────────────────────────── */
-.map-hover-popup {
-  background: #1a1a2e;
-  border: 1px solid rgba(255,255,255,0.1);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+/* ── 22. Entrance animations ─────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ── 27. Leaderboard v2 (lb2-*) ──────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  /* Store grid cards */
+  .sc-card {
+    animation: fadeUp 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .sc-card:nth-child(1)  { animation-delay: 0.04s; }
+  .sc-card:nth-child(2)  { animation-delay: 0.08s; }
+  .sc-card:nth-child(3)  { animation-delay: 0.12s; }
+  .sc-card:nth-child(4)  { animation-delay: 0.16s; }
+  .sc-card:nth-child(5)  { animation-delay: 0.20s; }
+  .sc-card:nth-child(6)  { animation-delay: 0.24s; }
+  .sc-card:nth-child(7)  { animation-delay: 0.28s; }
+  .sc-card:nth-child(8)  { animation-delay: 0.32s; }
+  .sc-card:nth-child(n+9) { animation-delay: 0.36s; }
 
-/* Page wrapper */
-.lb2-page {
-  height: 100%;
-  overflow-y: auto;
-  padding: 0 0 100px;
-  width: 100%;
-  box-sizing: border-box;
-}
+  /* Store list items */
+  .store-item {
+    animation: fadeUp 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .store-item:nth-child(1) { animation-delay: 0.03s; }
+  .store-item:nth-child(2) { animation-delay: 0.06s; }
+  .store-item:nth-child(3) { animation-delay: 0.09s; }
+  .store-item:nth-child(4) { animation-delay: 0.12s; }
+  .store-item:nth-child(5) { animation-delay: 0.15s; }
+  .store-item:nth-child(n+6) { animation-delay: 0.18s; }
 
-/* Hero header */
-.lb2-hero {
-  padding: 24px 20px 20px;
-  text-align: center;
-  background: linear-gradient(160deg, #1a1a2e 0%, #0f0f1a 100%);
-  border-bottom: 1px solid rgba(255,255,255,0.07);
-}
-.lb2-hero-title {
-  font-size: 22px;
-  font-weight: 700;
-  color: #f1f1f1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin-bottom: 4px;
-}
-.lb2-hero-title .ti { font-size: 22px; }
-.lb2-hero-sub {
-  font-size: 13px;
-  color: #888;
-  margin-bottom: 18px;
-}
-.lb2-hero-stats {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 14px;
-  padding: 12px 0;
-}
-.lb2-stat {
-  flex: 1;
-  text-align: center;
-}
-.lb2-stat-num {
-  font-size: 20px;
-  font-weight: 700;
-  color: #f1f1f1;
-  line-height: 1.1;
-}
-.lb2-stat-lbl {
-  font-size: 11px;
-  color: #888;
-  margin-top: 2px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-.lb2-stat-divider {
-  width: 1px;
-  height: 32px;
-  background: rgba(255,255,255,0.1);
+  /* Price cards */
+  .price-card {
+    animation: fadeUp 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .price-card:nth-child(1) { animation-delay: 0.04s; }
+  .price-card:nth-child(2) { animation-delay: 0.08s; }
+  .price-card:nth-child(3) { animation-delay: 0.12s; }
+  .price-card:nth-child(4) { animation-delay: 0.16s; }
+  .price-card:nth-child(5) { animation-delay: 0.20s; }
+  .price-card:nth-child(n+6) { animation-delay: 0.24s; }
+
+  /* Mover cards */
+  .mover-card {
+    animation: fadeUp 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .mover-card:nth-child(1) { animation-delay: 0.06s; }
+  .mover-card:nth-child(2) { animation-delay: 0.10s; }
+  .mover-card:nth-child(3) { animation-delay: 0.14s; }
+  .mover-card:nth-child(4) { animation-delay: 0.18s; }
+  .mover-card:nth-child(n+5) { animation-delay: 0.22s; }
 }
 
-/* Tabs */
-.lb2-tabs {
-  display: flex;
-  gap: 8px;
-  padding: 14px 16px 0;
-}
-.lb2-tab {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  padding: 8px 0;
-  border: 1.5px solid rgba(255,255,255,0.1);
-  border-radius: 10px;
-  background: transparent;
-  color: #888;
-  font-size: 12px;
-  font-weight: 600;
-  font-family: inherit;
-  cursor: pointer;
-  transition: all 0.18s;
-}
-.lb2-tab:hover { color: #ccc; border-color: rgba(255,255,255,0.2); }
-.lb2-tab .ti { font-size: 14px; }
-
-/* Loading */
-.lb2-loading {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 48px 0;
-  color: #888;
-  font-size: 14px;
-}
-
-/* Top 3 section */
-.lb2-top3 {
-  padding: 16px 16px 0;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-/* #1 hero card */
-.lb2-first-card {
-  background: linear-gradient(135deg, #1e1e38 0%, #181830 100%);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 18px;
-  padding: 20px 16px 16px;
-  text-align: center;
+/* ── 23. Store card glassmorphism overlay ────────────────────── */
+.sc-card {
   position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
-.lb2-first-medal {
+.sc-card::before {
+  content: '';
   position: absolute;
-  top: -2px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #f59e0b;
-  color: #fff;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 13px;
-  box-shadow: 0 2px 8px rgba(245,158,11,0.5);
-}
-.lb2-first-avatar {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 26px;
-  font-weight: 700;
-  margin: 12px auto 8px;
-  border: 2px solid currentColor;
-}
-.lb2-first-name {
-  font-size: 16px;
-  font-weight: 700;
-  color: #f1f1f1;
-  margin-bottom: 4px;
-}
-.lb2-first-score {
-  font-size: 22px;
-  font-weight: 800;
-  margin-bottom: 4px;
-}
-.lb2-score-label {
-  font-size: 13px;
-  font-weight: 500;
-  opacity: 0.7;
-}
-.lb2-first-sub {
-  font-size: 12px;
-  color: #888;
-}
-
-/* #2 and #3 row */
-.lb2-silver-bronze-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-.lb2-sb-card {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 14px;
-  padding: 14px 10px;
-  text-align: center;
-}
-.lb2-sb-rank {
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 8px;
-}
-.lb2-sb-avatar {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  font-weight: 700;
-  margin: 0 auto 6px;
-  border: 1.5px solid currentColor;
-}
-.lb2-sb-name {
-  font-size: 13px;
-  font-weight: 600;
-  color: #e0e0e0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  margin-bottom: 3px;
-}
-.lb2-sb-score {
-  font-size: 14px;
-  font-weight: 700;
-}
-.lb2-sb-score span {
-  font-size: 11px;
-  font-weight: 400;
-  opacity: 0.7;
-}
-
-/* Rest of list */
-.lb2-list {
-  margin: 14px 16px 0;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 16px;
-  overflow: hidden;
-}
-.lb2-list-header {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 14px;
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: #666;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-}
-.lb2-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 14px;
-  border-bottom: 1px solid rgba(255,255,255,0.04);
-  transition: background 0.15s;
-}
-.lb2-row:last-child { border-bottom: none; }
-.lb2-row:hover { background: rgba(255,255,255,0.03); }
-.lb2-row-me {
-  background: rgba(0,102,255,0.08);
-  border-left: 2px solid #0066ff;
-}
-.lb2-row-rank {
-  width: 28px;
-  font-size: 12px;
-  font-weight: 700;
-  color: #666;
-  text-align: right;
-  flex-shrink: 0;
-}
-.lb2-row-avatar {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.08);
-  color: #c0c0c0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  font-weight: 700;
-  flex-shrink: 0;
-}
-.lb2-row-mid {
-  flex: 1;
-  min-width: 0;
-}
-.lb2-row-name {
-  font-size: 13px;
-  font-weight: 600;
-  color: #e0e0e0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 4px;
-}
-.lb2-row-bar {
-  height: 4px;
-  background: rgba(255,255,255,0.07);
-  border-radius: 2px;
-  overflow: hidden;
-}
-.lb2-row-fill {
-  height: 100%;
-  border-radius: 2px;
-  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.lb2-row-val {
-  font-size: 14px;
-  font-weight: 700;
-  flex-shrink: 0;
-  min-width: 36px;
-  text-align: right;
-}
-
-/* "You" badge */
-.lb2-you {
-  font-size: 10px;
-  font-weight: 700;
-  padding: 1px 6px;
-  border-radius: 4px;
-  background: rgba(0,102,255,0.2);
-  color: #4d94ff;
-  text-transform: uppercase;
-  letter-spacing: 0.3px;
-}
-
-/* CTA banner */
-.lb2-cta {
-  margin: 14px 16px 0;
-  background: rgba(0,102,255,0.1);
-  border: 1px solid rgba(0,102,255,0.25);
-  border-radius: 14px;
-  padding: 14px 16px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 13px;
-  color: #7ab3ff;
-}
-.lb2-cta .ti { font-size: 16px; }
-
-/* Your rank banner */
-.lb2-your-rank {
-  margin: 14px 16px 0;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 14px;
-  padding: 12px 16px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-.lb2-yr-label {
-  font-size: 11px;
-  font-weight: 700;
-  color: #888;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-.lb2-yr-rank {
-  font-size: 16px;
-  font-weight: 800;
-  color: #f1f1f1;
-}
-.lb2-yr-stats {
-  font-size: 12px;
-  color: #888;
-  margin-left: auto;
-}
-
-
-/* ── 28. Auth Modal (dark, icon-prefix inputs) ───────────────────── */
-
-.auth-card {
-  background: #13131f;
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 20px;
-  width: 100%;
-  max-width: 390px;
-  padding: 28px 24px 22px;
-  box-shadow: 0 24px 80px rgba(0,0,0,0.6);
-  position: relative;
-  animation: slideUp 0.2s ease;
-}
-
-.auth-close {
-  position: absolute; top: 14px; right: 14px;
-  width: 30px; height: 30px;
-  border: none; background: rgba(255,255,255,0.07);
-  border-radius: 8px; cursor: pointer;
-  color: #888; font-size: 14px;
-  display: flex; align-items: center; justify-content: center;
-  transition: all 0.15s;
-}
-.auth-close:hover { background: rgba(255,255,255,0.12); color: #fff; }
-
-.auth-brand {
-  display: flex; align-items: center; gap: 10px;
-  margin-bottom: 22px;
-}
-.auth-brand-logo {
-  width: 40px; height: 40px;
-  background: rgba(255,255,255,0.08);
-  border-radius: 12px;
-  display: flex; align-items: center; justify-content: center;
-  border: 1px solid rgba(255,255,255,0.1);
-}
-.auth-brand-name { font-size: 16px; font-weight: 700; color: #f1f1f1; line-height: 1.2; }
-.auth-brand-sub  { font-size: 11px; color: #666; letter-spacing: 0.3px; }
-
-.auth-tabs {
-  display: flex;
-  background: rgba(255,255,255,0.04);
-  border-radius: 12px;
-  padding: 3px;
-  margin-bottom: 22px;
-  gap: 2px;
-}
-.auth-tab {
-  flex: 1; padding: 8px 0;
-  border: none; background: transparent;
-  font-size: 13px; font-weight: 600;
-  color: #666; cursor: pointer;
-  border-radius: 10px;
-  font-family: inherit;
-  transition: all 0.18s;
-}
-.auth-tab.active {
-  background: #0066ff;
-  color: #fff;
-  box-shadow: 0 2px 8px rgba(0,102,255,0.4);
-}
-
-.auth-form { display: flex; flex-direction: column; gap: 14px; }
-
-.auth-field { display: flex; flex-direction: column; gap: 6px; }
-
-.auth-label {
-  font-size: 12px; font-weight: 600;
-  color: #888; text-transform: uppercase; letter-spacing: 0.4px;
-}
-
-.auth-input-wrap {
-  position: relative;
-  display: flex; align-items: center;
-}
-.auth-input-icon {
-  position: absolute; left: 14px;
-  font-size: 16px; color: #555;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 102, 255, 0.06) 0%,
+    transparent 55%
+  );
   pointer-events: none;
-  z-index: 1;
+  border-radius: inherit;
+  z-index: 0;
 }
-.auth-input {
-  width: 100%;
-  padding: 12px 14px 12px 42px;
-  background: rgba(255,255,255,0.05);
-  border: 1.5px solid rgba(255,255,255,0.1);
-  border-radius: 12px;
-  color: #f1f1f1;
-  font-size: 14px;
-  font-family: inherit;
-  transition: border-color 0.15s, background 0.15s;
-  box-sizing: border-box;
-}
-.auth-input::placeholder { color: #444; }
-.auth-input:focus {
-  outline: none;
-  border-color: #0066ff;
-  background: rgba(0,102,255,0.06);
-}
-.auth-pw-toggle {
-  position: absolute; right: 12px;
-  background: none; border: none;
-  color: #555; cursor: pointer;
-  font-size: 16px; padding: 4px;
-  display: flex; align-items: center;
-  transition: color 0.15s;
-}
-.auth-pw-toggle:hover { color: #aaa; }
+.sc-card > * { position: relative; z-index: 1; }
 
-.auth-error {
-  display: flex; align-items: center; gap: 7px;
-  padding: 10px 13px;
-  background: rgba(220,38,38,0.12);
-  color: #f87171;
-  border: 1px solid rgba(220,38,38,0.25);
-  border-radius: 10px; font-size: 13px;
+/* ── 24. Filter chip refinements ─────────────────────────────── */
+.filter-chip {
+  transition: all 0.15s ease;
 }
-
-.auth-submit {
-  display: flex; align-items: center; justify-content: center; gap: 8px;
-  width: 100%; padding: 13px;
-  background: linear-gradient(135deg, #0066ff, #0044cc);
+.filter-chip.active {
+  background: rgba(0, 102, 255, 0.18);
+  border-color: rgba(0, 102, 255, 0.65);
   color: #fff;
-  border: none; border-radius: 12px;
-  font-size: 14px; font-weight: 700;
-  cursor: pointer; font-family: inherit;
-  transition: opacity 0.15s, transform 0.1s;
-  margin-top: 2px;
-  box-shadow: 0 4px 14px rgba(0,102,255,0.4);
+  box-shadow: 0 0 10px rgba(0, 102, 255, 0.22);
 }
-.auth-submit:hover:not(:disabled) { opacity: 0.9; transform: translateY(-1px); }
-.auth-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-
-.auth-footer {
-  text-align: center; font-size: 13px;
-  color: #555; margin-top: 16px;
-}
-.auth-switch {
-  border: none; background: none;
-  color: #4d94ff; font-weight: 600;
-  cursor: pointer; font-size: 13px;
-  font-family: inherit; padding: 0;
-}
-.auth-switch:hover { text-decoration: underline; }
-
-.auth-guest {
-  display: block; width: 100%;
-  padding: 10px; margin-top: 8px;
-  border: 1.5px solid rgba(255,255,255,0.08);
-  border-radius: 12px; background: transparent;
-  color: #555; font-size: 13px;
-  font-weight: 500; cursor: pointer;
-  font-family: inherit; transition: all 0.15s;
-}
-.auth-guest:hover { background: rgba(255,255,255,0.04); color: #888; }
-
-/* ── 29. Profile Page (prf-*) ─────────────────────────────────────── */
-
-.prf-page {
-  height: 100%;
-  overflow-y: auto;
-  background: #0f0f1a;
-}
-.prf-inner {
-  max-width: 520px;
-  margin: 0 auto;
-  padding: 0 0 100px;
+.filter-chip:hover:not(.active) {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(0, 102, 255, 0.38);
+  color: rgba(255, 255, 255, 0.85);
 }
 
-/* Hero */
-.prf-hero {
-  padding: 20px 20px 24px;
-  text-align: center;
-  background: linear-gradient(160deg, #1a1a2e 0%, #0f0f1a 100%);
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+/* ── 25. Tab bar active glow ─────────────────────────────────── */
+.tab-btn {
+  transition: color 0.15s ease, background 0.15s ease;
+}
+.tab-btn.active {
+  color: #fff;
+  border-bottom: 2px solid #0066ff;
+  background: rgba(0, 102, 255, 0.1);
+  text-shadow: 0 0 12px rgba(0, 102, 255, 0.4);
 }
 
-.prf-avatar-wrap {
-  position: relative;
-  display: inline-block;
-  margin-bottom: 14px;
-}
-.prf-avatar {
-  width: 88px; height: 88px;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  border: 3px solid rgba(255,255,255,0.12);
-  overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-}
-.prf-avatar-img { width: 100%; height: 100%; object-fit: cover; }
-.prf-avatar-initial { font-size: 36px; font-weight: 800; color: #fff; }
-.prf-avatar-edit-btn {
-  position: absolute; bottom: 2px; right: 2px;
-  width: 26px; height: 26px;
-  background: #0066ff; border: 2px solid #0f0f1a;
-  border-radius: 50%; cursor: pointer;
-  color: #fff; font-size: 11px;
-  display: flex; align-items: center; justify-content: center;
-  transition: background 0.15s;
-}
-.prf-avatar-edit-btn:hover { background: #0044cc; }
-
-.prf-color-row {
-  display: flex; align-items: center; justify-content: center;
-  gap: 8px; margin-bottom: 16px;
-}
-.prf-color-dot {
-  width: 22px; height: 22px;
-  border-radius: 50%; cursor: pointer;
-  border: 2.5px solid transparent;
-  transition: transform 0.15s, border-color 0.15s;
-}
-.prf-color-dot.active { border-color: #fff; transform: scale(1.2); }
-.prf-color-dot:hover { transform: scale(1.15); }
-
-.prf-username-row {
-  display: flex; align-items: center; justify-content: center;
-  gap: 8px; margin-bottom: 4px;
-}
-.prf-username { font-size: 20px; font-weight: 700; color: #f1f1f1; }
-.prf-username-input {
-  font-size: 18px; font-weight: 700;
-  background: rgba(255,255,255,0.06);
-  border: 1.5px solid #0066ff;
-  border-radius: 8px; color: #f1f1f1;
-  padding: 4px 10px; font-family: inherit;
-  text-align: center; max-width: 200px;
-}
-.prf-username-input:focus { outline: none; }
-.prf-edit-btn {
-  background: none; border: none; cursor: pointer;
-  color: #555; font-size: 14px; padding: 2px 4px;
-  transition: color 0.15s;
-}
-.prf-edit-btn:hover { color: #aaa; }
-.prf-save-btn {
-  background: #0066ff; border: none; border-radius: 8px;
-  color: #fff; cursor: pointer; font-size: 13px;
-  padding: 4px 10px; display: flex; align-items: center; gap: 4px;
-  font-family: inherit; transition: background 0.15s;
-}
-.prf-save-btn:hover { background: #0044cc; }
-.prf-cancel-btn {
-  background: rgba(255,255,255,0.07); border: none; border-radius: 8px;
-  color: #888; cursor: pointer; font-size: 13px;
-  padding: 4px 8px; font-family: inherit;
-}
-.prf-email  { font-size: 12px; color: #555; margin-bottom: 2px; }
-.prf-joined { font-size: 11px; color: #444; margin-bottom: 12px; }
-
-.prf-bio-wrap { margin-top: 8px; }
-.prf-bio {
-  display: block; width: 100%;
-  background: rgba(255,255,255,0.04);
-  border: 1.5px dashed rgba(255,255,255,0.1);
-  border-radius: 12px;
-  padding: 10px 14px;
-  color: #c0c0c0; font-size: 13px; line-height: 1.5;
-  text-align: left; cursor: pointer; font-family: inherit;
-  transition: border-color 0.15s;
-}
-.prf-bio:hover { border-color: rgba(255,255,255,0.2); }
-.prf-bio-placeholder { color: #444; display: flex; align-items: center; gap: 6px; }
-.prf-bio-input {
-  width: 100%; box-sizing: border-box;
-  background: rgba(255,255,255,0.05);
-  border: 1.5px solid #0066ff;
-  border-radius: 12px; color: #f1f1f1;
-  padding: 10px 14px; font-size: 13px;
-  line-height: 1.5; font-family: inherit; resize: none;
-}
-.prf-bio-input:focus { outline: none; }
-.prf-bio-actions {
-  display: flex; align-items: center; gap: 8px;
-  margin-top: 8px;
-}
-.prf-bio-count { font-size: 11px; color: #555; margin-right: auto; }
-.prf-save-msg {
-  margin-top: 10px;
-  font-size: 12px; color: #34d399;
-  display: flex; align-items: center; justify-content: center; gap: 5px;
+/* ── 26. Header depth ────────────────────────────────────────── */
+.header {
+  background: linear-gradient(135deg, #06060e 0%, #0a0a16 60%, #0e0e1a 100%);
+  box-shadow: 0 2px 16px rgba(0, 102, 255, 0.2), 0 1px 0 rgba(0, 102, 255, 0.12);
 }
 
-/* Stats bar */
-.prf-stats {
-  display: flex; align-items: center;
-  margin: 0 16px;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.07);
-  border-radius: 16px;
-  padding: 16px 0;
-  margin-top: 16px;
-}
-.prf-stat { flex: 1; text-align: center; }
-.prf-stat-val { font-size: 22px; font-weight: 800; line-height: 1.1; }
-.prf-stat-lbl { font-size: 11px; color: #666; margin-top: 2px; text-transform: uppercase; letter-spacing: 0.4px; }
-.prf-stat-div { width: 1px; height: 36px; background: rgba(255,255,255,0.08); }
+/* ── 27. Scrollbar ───────────────────────────────────────────── */
+::-webkit-scrollbar-track { background: #06060c; }
+::-webkit-scrollbar-thumb { background: #1e1e2e; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #2e2e42; }
 
-/* Sections */
-.prf-section {
-  margin: 14px 16px 0;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.07);
-  border-radius: 16px;
-  overflow: hidden;
-}
-.prf-section-title {
-  font-size: 11px; font-weight: 700;
-  color: #555; text-transform: uppercase; letter-spacing: 0.5px;
-  padding: 12px 16px 8px;
-  display: flex; align-items: center; gap: 8px;
-}
-.prf-badge-count {
-  background: rgba(255,255,255,0.07);
-  color: #888; border-radius: 99px;
-  padding: 1px 7px; font-size: 11px;
-}
-
-/* Settings rows */
-.prf-setting-row {
-  display: flex; align-items: center;
-  padding: 13px 16px;
-  border-top: 1px solid rgba(255,255,255,0.05);
-  gap: 12px;
-}
-.prf-setting-row:first-of-type { border-top: none; }
-.prf-setting-info { flex: 1; min-width: 0; }
-.prf-setting-label {
-  font-size: 14px; font-weight: 500; color: #e0e0e0;
-  display: flex; align-items: center; gap: 7px;
-}
-.prf-setting-label .ti { color: #666; font-size: 15px; }
-.prf-setting-sub { font-size: 12px; color: #555; margin-top: 2px; }
-
-/* Toggle */
-.prf-toggle {
-  width: 44px; height: 26px;
-  border-radius: 13px;
-  border: none; cursor: pointer;
-  background: #2a2a2a;
-  position: relative;
-  transition: background 0.2s;
-  flex-shrink: 0;
-}
-.prf-toggle.on { background: #0066ff; }
-.prf-toggle-knob {
-  position: absolute; top: 3px; left: 3px;
-  width: 20px; height: 20px;
-  border-radius: 50%; background: #fff;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.3);
-  transition: transform 0.2s;
-}
-.prf-toggle.on .prf-toggle-knob { transform: translateX(18px); }
-
-/* Unit toggle */
-.prf-unit-toggle {
-  display: flex; border-radius: 8px;
-  overflow: hidden; border: 1px solid rgba(255,255,255,0.1);
-  flex-shrink: 0;
-}
-.prf-unit-toggle button {
-  padding: 5px 12px; border: none; background: transparent;
-  color: #666; font-size: 12px; font-weight: 600;
-  cursor: pointer; font-family: inherit; transition: all 0.15s;
-}
-.prf-unit-toggle button.active { background: #0066ff; color: #fff; }
-
-/* Badges grid */
-.prf-badges-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-  gap: 8px;
-  padding: 8px 12px 12px;
-}
-.prf-badge {
-  padding: 12px 10px;
-  border-radius: 12px;
-  border: 1.5px solid transparent;
-  display: flex; flex-direction: column; align-items: center;
-  gap: 5px; text-align: center;
-}
-.prf-badge.earned {
-  background: var(--bb, #1a1a2e);
-  border-color: color-mix(in srgb, var(--bc, #059669) 30%, transparent);
-}
-.prf-badge.locked {
-  background: rgba(255,255,255,0.02);
-  border-color: rgba(255,255,255,0.06);
-}
-.prf-badge-icon {
-  width: 38px; height: 38px; border-radius: 12px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 18px;
-  background: color-mix(in srgb, var(--bc, #059669) 15%, transparent);
-  color: var(--bc, #059669);
-}
-.prf-badge-icon.locked { background: rgba(255,255,255,0.04); color: #444; }
-.prf-badge-label { font-size: 11px; font-weight: 700; color: #c0c0c0; }
-.prf-badge.locked .prf-badge-label { color: #444; }
-.prf-badge-desc { font-size: 10px; color: #555; line-height: 1.3; }
-
-/* Danger zone */
-.prf-danger {
-  border-color: rgba(220,38,38,0.15) !important;
-  background: rgba(220,38,38,0.04) !important;
-}
-.prf-signout-btn {
-  display: flex; align-items: center; gap: 8px;
-  width: 100%; padding: 14px 16px;
-  border: none; background: transparent;
-  color: #ef4444; font-size: 14px; font-weight: 600;
-  cursor: pointer; font-family: inherit;
-  transition: color 0.15s;
-}
-.prf-signout-btn:hover { color: #ff6b6b; }
