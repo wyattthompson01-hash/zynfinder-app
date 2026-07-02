@@ -2,7 +2,10 @@ import { useState, useEffect } from "react";
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
-const headers = { "apikey": SUPABASE_KEY, "Authorization": `Bearer ${SUPABASE_KEY}` };
+const headers = {
+  "apikey": SUPABASE_KEY,
+  "Authorization": `Bearer ${SUPABASE_KEY}`,
+};
 
 const MOCK_LEADERS = [
   { id: "1", username: "snus_scout_global",  points: 840, reports_count: 62, verifications_count: 84 },
@@ -16,9 +19,9 @@ const MOCK_LEADERS = [
 ];
 
 const TABS = [
-  { id: "points",        label: "Points",  icon: "ti-star",         color: "#f59e0b" },
-  { id: "reports",       label: "Reports", icon: "ti-map-pin",      color: "#10b981" },
-  { id: "verifications", label: "Verifs",  icon: "ti-shield-check", color: "#818cf8" },
+  { id: "points", label: "Points", icon: "ti-star" },
+  { id: "reports", label: "Reports", icon: "ti-map-pin" },
+  { id: "verifications", label: "Verifications", icon: "ti-shield-check" },
 ];
 
 function getPts(entry, tab) {
@@ -27,8 +30,33 @@ function getPts(entry, tab) {
   return entry.verifications_count ?? 0;
 }
 
-function initial(name) {
-  return (name || "?")[0].toUpperCase();
+function RankBadge({ rank }) {
+  if (rank === 1) return (
+    <span className="rank-badge gold">
+      <i className="ti ti-crown" /> 1st
+    </span>
+  );
+  if (rank === 2) return (
+    <span className="rank-badge silver">
+      <i className="ti ti-award" /> 2nd
+    </span>
+  );
+  if (rank === 3) return (
+    <span className="rank-badge bronze">
+      <i className="ti ti-award" /> 3rd
+    </span>
+  );
+  return <span className="rank-badge plain">#{rank}</span>;
+}
+
+// Mini bar for progress relative to leader
+function ScoreBar({ value, max, color }) {
+  const pct = max > 0 ? Math.min(100, (value / max) * 100) : 0;
+  return (
+    <div className="score-bar">
+      <div className="score-bar-fill" style={{ width: `${pct}%`, background: color }} />
+    </div>
+  );
 }
 
 export default function Leaderboard({ currentUserId }) {
@@ -57,161 +85,170 @@ export default function Leaderboard({ currentUserId }) {
     }
   };
 
-  const activeTab  = TABS.find(t => t.id === tab);
-  const color      = activeTab?.color ?? "#f59e0b";
-  const label      = tab === "points" ? "pts" : tab === "reports" ? "reports" : "verifs";
-  const top3       = leaders.slice(0, 3);
-  const rest       = leaders.slice(3);
-  const maxVal     = leaders.length ? getPts(leaders[0], tab) : 1;
-
-  const totalReports = leaders.reduce((a, l) => a + (l.reports_count ?? 0), 0);
-  const totalVerifs  = leaders.reduce((a, l) => a + (l.verifications_count ?? 0), 0);
-
-  const currentUserRank  = currentUserId ? leaders.findIndex(l => l.id === currentUserId) + 1 : 0;
+  const currentUserRank = currentUserId ? leaders.findIndex(l => l.id === currentUserId) + 1 : null;
   const currentUserEntry = currentUserId ? leaders.find(l => l.id === currentUserId) : null;
+  const top3 = leaders.slice(0, 3);
+  const rest = leaders.slice(3);
+  const sortedLabel = tab === "points" ? "pts" : tab === "reports" ? "reports" : "verifications";
+  const maxVal = leaders.length ? getPts(leaders[0], tab) : 1;
+
+  const tabColors = { points: "#f59e0b", reports: "#10b981", verifications: "#6366f1" };
+  const tabColor = tabColors[tab];
 
   return (
-    <div className="lb2-page">
-
-      {/* ── Hero header ── */}
-      <div className="lb2-hero">
-        <div className="lb2-hero-title">
-          <i className="ti ti-trophy" style={{ color: "#f59e0b" }} /> Leaderboard
+    <div className="leaderboard-page">
+      {/* ── Header ── */}
+      <div className="leaderboard-header">
+        <div className="lb-header-left">
+          <div className="leaderboard-title">
+            <i className="ti ti-trophy" style={{ color: "#f59e0b" }} />
+            Leaderboard
+          </div>
+          <div className="leaderboard-sub">Top SnusWorld contributors worldwide</div>
         </div>
-        <div className="lb2-hero-sub">Top SnusWorld contributors worldwide</div>
-        <div className="lb2-hero-stats">
-          <div className="lb2-stat">
-            <div className="lb2-stat-num">{leaders.length}</div>
-            <div className="lb2-stat-lbl">Contributors</div>
+        <div className="lb-header-stats">
+          <div className="lb-stat-pill">
+            <i className="ti ti-users" /> {leaders.length} contributors
           </div>
-          <div className="lb2-stat-divider" />
-          <div className="lb2-stat">
-            <div className="lb2-stat-num">{totalReports}</div>
-            <div className="lb2-stat-lbl">Reports</div>
+          <div className="lb-stat-pill">
+            <i className="ti ti-map-pin" /> {leaders.reduce((a, l) => a + (l.reports_count ?? 0), 0)} reports
           </div>
-          <div className="lb2-stat-divider" />
-          <div className="lb2-stat">
-            <div className="lb2-stat-num">{totalVerifs}</div>
-            <div className="lb2-stat-lbl">Verifications</div>
+          <div className="lb-stat-pill">
+            <i className="ti ti-shield-check" /> {leaders.reduce((a, l) => a + (l.verifications_count ?? 0), 0)} verifications
           </div>
         </div>
       </div>
 
-      {/* ── Tabs ── */}
-      <div className="lb2-tabs">
+      {/* ── Category tabs ── */}
+      <div className="lb-tabs">
         {TABS.map(t => (
-          <button
-            key={t.id}
-            className={`lb2-tab ${tab === t.id ? "active" : ""}`}
-            style={tab === t.id ? { color: t.color, borderColor: t.color, background: t.color + "18" } : {}}
+          <button key={t.id} className={`lb-tab ${tab === t.id ? "active" : ""}`}
             onClick={() => setTab(t.id)}
-          >
-            <i className={`ti ${t.icon}`} />
-            {t.label}
+            style={tab === t.id ? { borderColor: tabColors[t.id], color: tabColors[t.id] } : {}}>
+            <i className={`ti ${t.icon}`} /> {t.label}
           </button>
         ))}
       </div>
 
       {loading ? (
-        <div className="lb2-loading">
-          <div className="spinner" />
-          <span>Loading…</span>
-        </div>
+        <div className="lb-loading"><div className="spinner" /><span>Loading leaderboard…</span></div>
       ) : (
         <>
-          {/* ── Top 3 ── */}
+          {/* ── Podium ── */}
           {top3.length >= 3 && (
-            <div className="lb2-top3">
-              {/* #1 — full-width hero card */}
-              <div className="lb2-first-card">
-                <div className="lb2-first-medal">
-                  <i className="ti ti-crown" />
+            <div className="podium">
+              <div className="podium-slot second">
+                <div className="podium-avatar">
+                  <i className="ti ti-user" />
                 </div>
-                <div className="lb2-first-avatar" style={{ background: color + "22", color }}>
-                  {initial(top3[0]?.username)}
+                <div className="podium-rank silver"><i className="ti ti-award" /></div>
+                <div className="podium-name">{top3[1]?.username || "—"}</div>
+                <div className="podium-scores">
+                  <div className="podium-val">{getPts(top3[1], tab)} <span>{sortedLabel}</span></div>
+                  <div className="podium-sub">{top3[1]?.reports_count ?? 0}r · {top3[1]?.verifications_count ?? 0}v</div>
                 </div>
-                <div className="lb2-first-name">{top3[0]?.username || "—"}</div>
-                <div className="lb2-first-score" style={{ color }}>
-                  {getPts(top3[0], tab)}<span className="lb2-score-label"> {label}</span>
-                </div>
-                <div className="lb2-first-sub">
-                  {top3[0]?.reports_count ?? 0} reports · {top3[0]?.verifications_count ?? 0} verifs
-                </div>
+                <div className="podium-base second-base" />
               </div>
-
-              {/* #2 and #3 side by side */}
-              <div className="lb2-silver-bronze-row">
-                {[
-                  { entry: top3[1], rank: 2, accent: "#9ca3af", label: "2nd" },
-                  { entry: top3[2], rank: 3, accent: "#c47d3a", label: "3rd" },
-                ].map(({ entry, rank, accent, label: rl }) => (
-                  <div key={rank} className="lb2-sb-card">
-                    <div className="lb2-sb-rank" style={{ color: accent }}>
-                      {rl}
-                    </div>
-                    <div className="lb2-sb-avatar" style={{ background: accent + "22", color: accent }}>
-                      {initial(entry?.username)}
-                    </div>
-                    <div className="lb2-sb-name">{entry?.username || "—"}</div>
-                    <div className="lb2-sb-score" style={{ color: accent }}>
-                      {getPts(entry, tab)}<span> {label}</span>
-                    </div>
-                  </div>
-                ))}
+              <div className="podium-slot first">
+                <div className="podium-avatar gold-ring">
+                  <i className="ti ti-user" />
+                </div>
+                <div className="podium-rank gold"><i className="ti ti-crown" /></div>
+                <div className="podium-name" style={{ fontWeight: 700 }}>{top3[0]?.username || "—"}</div>
+                <div className="podium-scores">
+                  <div className="podium-val" style={{ color: "#d97706" }}>{getPts(top3[0], tab)} <span>{sortedLabel}</span></div>
+                  <div className="podium-sub">{top3[0]?.reports_count ?? 0}r · {top3[0]?.verifications_count ?? 0}v</div>
+                </div>
+                <div className="podium-base first-base" />
+              </div>
+              <div className="podium-slot third">
+                <div className="podium-avatar bronze-ring">
+                  <i className="ti ti-user" />
+                </div>
+                <div className="podium-rank bronze"><i className="ti ti-award" /></div>
+                <div className="podium-name">{top3[2]?.username || "—"}</div>
+                <div className="podium-scores">
+                  <div className="podium-val">{getPts(top3[2], tab)} <span>{sortedLabel}</span></div>
+                  <div className="podium-sub">{top3[2]?.reports_count ?? 0}r · {top3[2]?.verifications_count ?? 0}v</div>
+                </div>
+                <div className="podium-base third-base" />
               </div>
             </div>
           )}
 
-          {/* ── Rest of list ── */}
+          {/* ── Full table ── */}
           {rest.length > 0 && (
-            <div className="lb2-list">
-              <div className="lb2-list-header">
-                <span>Contributor</span>
-                <span style={{ color }}>{activeTab?.label}</span>
+            <div className="lb-table-wrap">
+              {/* Table header */}
+              <div className="lb-table-header">
+                <div className="lbt-rank">Rank</div>
+                <div className="lbt-user">Contributor</div>
+                <div className="lbt-bar" />
+                <div className="lbt-col" style={{ color: tabColors.points }}>
+                  <i className="ti ti-star" /> Points
+                </div>
+                <div className="lbt-col" style={{ color: tabColors.reports }}>
+                  <i className="ti ti-map-pin" /> Reports
+                </div>
+                <div className="lbt-col" style={{ color: tabColors.verifications }}>
+                  <i className="ti ti-shield-check" /> Verifs
+                </div>
               </div>
+
               {rest.map((entry, i) => {
                 const rank = i + 4;
                 const isMe = entry.id === currentUserId;
-                const val  = getPts(entry, tab);
-                const pct  = maxVal > 0 ? Math.min(100, (val / maxVal) * 100) : 0;
+                const val = getPts(entry, tab);
                 return (
-                  <div key={entry.id} className={`lb2-row ${isMe ? "lb2-row-me" : ""}`}>
-                    <div className="lb2-row-rank">#{rank}</div>
-                    <div className="lb2-row-avatar">
-                      {initial(entry.username)}
+                  <div key={entry.id} className={`lb-table-row ${isMe ? "me" : ""}`}>
+                    <div className="lbt-rank">
+                      <span className="lb-rank-num">#{rank}</span>
                     </div>
-                    <div className="lb2-row-mid">
-                      <div className="lb2-row-name">
-                        {entry.username || "Anonymous"}
-                        {isMe && <span className="lb2-you">You</span>}
+                    <div className="lbt-user">
+                      <div className="lb-avatar">
+                        <i className="ti ti-user" />
                       </div>
-                      <div className="lb2-row-bar">
-                        <div className="lb2-row-fill" style={{ width: `${pct}%`, background: color }} />
+                      <div className="lb-user-info">
+                        <div className="lb-username">
+                          {entry.username || "Anonymous"}
+                          {isMe && <span className="lb-you-badge">You</span>}
+                        </div>
                       </div>
                     </div>
-                    <div className="lb2-row-val" style={{ color }}>{val}</div>
+                    <div className="lbt-bar">
+                      <ScoreBar value={val} max={maxVal} color={tabColor} />
+                    </div>
+                    <div className="lbt-col">
+                      <strong style={{ color: tabColors.points }}>{entry.points ?? 0}</strong>
+                    </div>
+                    <div className="lbt-col">
+                      <strong style={{ color: tabColors.reports }}>{entry.reports_count ?? 0}</strong>
+                    </div>
+                    <div className="lbt-col">
+                      <strong style={{ color: tabColors.verifications }}>{entry.verifications_count ?? 0}</strong>
+                    </div>
                   </div>
                 );
               })}
             </div>
           )}
 
-          {/* ── Your rank banner ── */}
+          {/* ── Your rank (if outside top 50) ── */}
           {currentUserId && !currentUserEntry && (
-            <div className="lb2-cta">
-              <i className="ti ti-map-pin" />
-              <span>Report a location to join the leaderboard!</span>
+            <div className="lb-your-rank">
+              <i className="ti ti-user-circle" />
+              <span>You're not ranked yet — report a location to join the leaderboard!</span>
             </div>
           )}
           {currentUserEntry && (
-            <div className="lb2-your-rank">
-              <span className="lb2-yr-label">Your rank</span>
-              <span className="lb2-yr-rank">#{currentUserRank}</span>
-              <span className="lb2-yr-stats">
-                {currentUserEntry.points ?? 0} pts
-                · {currentUserEntry.reports_count ?? 0} reports
-                · {currentUserEntry.verifications_count ?? 0} verifs
-              </span>
+            <div className="lb-your-rank-bar">
+              <span>Your rank:</span>
+              <strong>#{currentUserRank}</strong>
+              <div style={{ display: "flex", gap: 16, marginLeft: "auto" }}>
+                <span style={{ color: tabColors.points }}>{currentUserEntry.points ?? 0} pts</span>
+                <span style={{ color: tabColors.reports }}>{currentUserEntry.reports_count ?? 0} reports</span>
+                <span style={{ color: tabColors.verifications }}>{currentUserEntry.verifications_count ?? 0} verifs</span>
+              </div>
             </div>
           )}
         </>
